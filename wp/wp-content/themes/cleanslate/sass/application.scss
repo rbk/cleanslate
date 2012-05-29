@@ -10,12 +10,12 @@ body{
 h1, h2, h3, h4, h5, h6{
 }
 
-h1{ @include adjust-font-size-to( 18px ); }
-h2{ @include adjust-font-size-to( 16px ); }
-h3{ @include adjust-font-size-to( 14px ); }
-h4{ @include adjust-font-size-to( 12px ); }
-h5{ @include adjust-font-size-to( 10px ); }
-h6{ @include adjust-font-size-to( 8px ); }
+h1{ @include adjust-font-size-to( 24px ); }
+h2{ @include adjust-font-size-to( 22px ); }
+h3{ @include adjust-font-size-to( 20px ); }
+h4{ @include adjust-font-size-to( 18px ); }
+h5{ @include adjust-font-size-to( 16px ); }
+h6{ @include adjust-font-size-to( 14px ); }
 
 
 a{
@@ -110,7 +110,7 @@ $mobile-menu-color: #E7E9EF;
 }
 
 @media screen and (min-width: 550px) {
-	header h1, nav#access {
+	header h1, header h2, nav#access {
 		text-align:left;
 	}
 	.wrap{
