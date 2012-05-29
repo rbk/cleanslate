@@ -24,7 +24,6 @@ article.hentry{
 	.entry-content{
 		
 		.pic{
-			//display:inline;
 			@include float-right;
 			@include margin-leader(0.5);
 			margin-left: 1em;
@@ -34,8 +33,6 @@ article.hentry{
 				display:block;
 				@include pie;
 				@include border-radius(2px);
-				//padding: 3px;
-				//background: $box-bg;
 				@include single-box-shadow( darken( $box-bg, 50% ), 0, 8px,6px, -5px );
 			}
 		}
