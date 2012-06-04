@@ -1,38 +1,45 @@
 
-nav#access{
-	display:block;
-	cursor: default;
+html.flexbox nav#access {
 	
-	& .menu{
-		
-		& li{
-			@include single-transition( all, $base-transition-time, ease-in-out );
-										
-			&.menu-item-last{
-
+	& ul {
+		display: -moz-box;
+	    display: -webkit-box;
+	    display: box;
+		width:100%;
+		& li {
+			& a {
 			}
+			float:none;			
+			-moz-box-flex: 1;
+		    -webkit-box-flex: 1;
+		    box-flex: 1;
+/*			border-left:1px solid #f0f0f0;*/
+			text-align:center;
 			
-			&:hover{
-				
+			&:first-child {
+				border-left:none;
 			}
-			
-			& a{
-				text-decoration:none;
-
-				
-				&:hover{
-				}
-			}
-			
-			&.current_page_item{
-				
-				& a{
-					
-				}
-			}
-
 		}
 	}
 	
+}
+nav#access {
+	width:$base-width;
+	
+	& ul {
+		width:100%;
+		& li {
+			& a {
+			}
+			float:left;
+			display:block;
 
+/*			border-left:1px solid #f0f0f0;*/
+			text-align:center;
+			
+			&:first-child {
+				border-left:none;
+			}
+		}
+	}
 }

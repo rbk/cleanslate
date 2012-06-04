@@ -495,6 +495,7 @@ function boilerplate_posted_in() {
 endif;
 
 /*	Begin Boilerplate */
+	require_once(TEMPLATEPATH . '/boilerplate-admin/admin-menu.php');
 
 	// remove version info from head and feeds (http://digwp.com/2009/07/remove-wordpress-version-number/)
 		function boilerplate_complete_version_removal() {
@@ -750,6 +751,161 @@ function guru_post_nav(){
   }
 
 
+		//BANNER MAKER
+	global $banner;
+	$banner = false;
+	
+	function make_slide( $attachment_post_id, $args ){
+	  
+	  $block = '';
+	
+	  $defaults = array(
+	    'show_description'  => false,
+	    'title'             => false,
+	    'body'               => false,
+	    'header'            => false,
+	    'class'				=> 'slide',
+	    'image_size'		=> 'banner',
+	    'h1'                => false,
+	    'gid'				=> false,
+	    'reviewer'			=> false
+	  );
+
+	  $args = array_merge( $defaults, $args );
+	    
+	  //make the html
+	  $block .= '<div class="'.$args['class'].'" gid="'.$args['gid'].'">';
+	    
+	    if( $args['title'])
+	  		$block .= '<h3 id="slidetitle">'.$args['title'].'</h3>';
+	  	if( $args['reviewer'] ) {
+	    	$block .= '<blockquote>'.$args['body'].'</blockquote>
+	    	<div class="reviewer">&mdash;&nbsp;'.$args['reviewer'].'</div>
+	    	<a class="readmore" href="'.get_permalink( $args['gid'] ).'">Read More</a>';
+	  	} elseif( $args['body'] && $args['title'] ) {
+	    	$block .= '<blockquote>'.$args['body'].'</blockquote>';	  		
+	  	}
+
+	  $block .= '</div>';
+	  
+	  return $block;
+	}
+	
+	function make_banner_images( $menu_name = false ){
+		global $banner;
+
+		$block = '';
+
+		if( !$menu_name ){
+			global $post;
+
+			$banner = true;
+			$block .= '<section id="rotator" class="single">';
+			$block .= '<div class="slides">';
+
+			$block .= make_slide( $thumbID, array( 'header' => $post->post_title, 'image_size' => 'page-thumb' ) );
+
+			$block .= '</div>'; //end .slides
+			$block .= '</section>'; //end #rotator
+
+		} else {
+			//conditions for safety    
+
+			//guru_get_menu_objects defined after this function
+			if ( $menu_items = guru_get_menu_objects( $menu_name ) ) {
+
+				$banner = true;
+
+				global $prefix;
+
+				$menu_items = array_reverse( $menu_items );
+
+				if( get_post_type( $menu_items[0]->object_id ) == $prefix.'review' ) {
+					$block .= '<section id="reviewrotator" class="multiple">';
+				} else {
+					$block .= '<section id="rotator" class="multiple">';
+				}
+
+				$block .= '<div class="slides">';
+
+				foreach( $menu_items as $item ){
+					$pageID = $item->object_id;
+					$post_type = get_post_type( $pageID );
+					$post = get_post($pageID, ARRAY_A);
+					$limit = 120;
+
+					$title;
+					$body;
+
+					if ( $post_type == $prefix.'slide' ) {
+						$title = get_post_meta( $pageID, $prefix.'title', true);
+					} else {
+						$title = get_the_title( $pageID );      			
+					}
+
+					if ( $post_type == $prefix.'review' )
+						$reviewer = get_post_meta( $pageID, $prefix.'reviewer', true);
+
+
+					$content = explode(' ', $post['post_content'], $limit);
+					if (count($content)>=$limit) {	
+						array_pop($content);
+						$content = implode(" ",$content).'...';
+					} else {
+						$content = implode(" ",$content);
+					}	
+					$content = preg_replace('/\[.+\]/','', $content);
+					$content = apply_filters('the_content', $content); 
+					$content = str_replace(']]>', ']]&gt;', $content);
+
+					$body = $content;
+
+					//$body = apply_filters('the_content', $post['post_content']);
+
+					//make_slide( $attachment_post_id, $args )
+					if ($reviewer) {
+						$block .= make_slide( $thumbID, array(
+							'show_description' => true,
+							'title' => $title,
+							'body' => $body,
+							'gid' => $pageID,
+							'reviewer' => $reviewer
+							));
+					} else {
+						$block .= make_slide( $thumbID, array(
+							'show_description' => true,
+							'title' => $title,
+							'body' => $body,
+							'gid' => $pageID
+							));
+					}
+
+
+				}//end foreach menu_items
+
+				$block .= '</div>'; //end .slides
+				$block .= '</section>'; //end #rotator	
+			}
+
+
+
+		}
+
+		return $block;
+	}
+
+	//used to return a menu by menu name
+	function guru_get_menu_objects( $menu_name ){		
+		if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
+
+			$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+			$menu = wp_get_nav_menu_items( $menu->term_id );
+
+			return ( !empty( $menu ) ? $menu : false );
+
+		}
+		return false;
+	}
 
 
 /** END GuRu Theme Specific Functions **/
