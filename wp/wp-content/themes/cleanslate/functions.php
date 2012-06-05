@@ -495,7 +495,6 @@ function boilerplate_posted_in() {
 endif;
 
 /*	Begin Boilerplate */
-	require_once(TEMPLATEPATH . '/boilerplate-admin/admin-menu.php');
 
 	// remove version info from head and feeds (http://digwp.com/2009/07/remove-wordpress-version-number/)
 		function boilerplate_complete_version_removal() {
