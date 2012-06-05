@@ -17,7 +17,9 @@ h4{ @include adjust-font-size-to( 18px ); }
 h5{ @include adjust-font-size-to( 16px ); }
 h6{ @include adjust-font-size-to( 14px ); }
 
-
+.xoxo {
+	list-style:none;
+}
 a{
 	text-decoration:none;
 	color: $base-color;
