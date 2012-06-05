@@ -589,7 +589,7 @@ add_image_size( 'banner', 707, 371, true );
 
 
 //add page excerpts if necessary
-//add_post_type_support( 'page', 'excerpt' );
+add_post_type_support( 'page', 'excerpt' );
 
 //to fix wp-nav-menu seperators
 function nav_menu_first_last( $items ) {
