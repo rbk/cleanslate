@@ -6,13 +6,13 @@
 
 .htaccess
 wp-config.php
-wp-content/backup-db/*
-wp-content/cache/*
-wp-content/cache/supercache/*
-wp-content/upgrade/*
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
-wp-content/uploads/
+wp/wp-content/backup-db/*
+wp/wp-content/cache/*
+wp/wp-content/cache/supercache/*
+wp/wp-content/upgrade/*
+wp/wp-content/advanced-cache.php
+wp/wp-content/wp-cache-config.php
+wp/wp-content/uploads/
 sitemap.xml
 sitemap.xml.gz
 
