@@ -13,7 +13,6 @@ html.flexbox nav#access {
 			-moz-box-flex: 1;
 		    -webkit-box-flex: 1;
 		    box-flex: 1;
-/*			border-left:1px solid #f0f0f0;*/
 			text-align:center;
 			
 			&:first-child {
@@ -30,6 +29,10 @@ nav#access {
 		width:100%;
 		& li {
 			& a {
+				display:block;
+				height:100%;
+				width:100%;
+				margin:0;
 			}
 			float:left;
 			display:block;

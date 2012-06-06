@@ -11,6 +11,8 @@
 		$('html.lte8').length ? Guru.lte8 = true : Guru.lte8 = false;
 		typeof WebKitPoint !== 'undefined' ? Guru.webkit = true : Guru.webkit = false;
 
+		// Browsers that support flexible box menu get the correct horizontal-nav width automatically.
+		// But with IE, we have to calculate the item padding in Javascript.
 		if ( $('html').hasClass('no-flexbox')) 
 			autoMenu();
 		
@@ -36,11 +38,11 @@
 					});
 					
 					//now calculate the right margin for the lis
-					var margin = Math.floor( ( nav.width() - lisW ) / (lis.length - 1) - 3 );
-					
-					lis.not(':last').css({ marginRight: margin });
-					
-					//console.log('fit those nav items', nav, nav.width(), lisW, margin);
+					var padding = Math.floor( ( nav.width() - lisW ) / (lis.length) - 3 );
+
+					lis.css({ paddingRight: (padding/2), paddingLeft: (padding/2) });
+
+					//console.log('fit those nav items', nav, nav.width(), lisW, padding);
 				}
 			};
 
