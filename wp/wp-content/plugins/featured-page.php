@@ -43,7 +43,7 @@ class Featured_Pages_Widget extends WP_Widget {
 		<?php MultiPostThumbnails::the_post_thumbnail('page', 'featured-page-widget', $page->ID); ?>
 		<div class="excerpt"><p class="excerpt"><?php echo $page->post_excerpt; ?></p></div>
 		<?php // read more ?>
-		</div></a><div class="bottom"></div>
+		</div></a>
 
 
 		<?php
