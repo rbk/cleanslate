@@ -23,7 +23,7 @@ get_header(); ?>
 			 //get_template_part( 'loop', 'index' );
 			?>
 
-<?php /* Sidebar before rotator on owasso */ ?>
+<?php get_template_part('front-page','rotator'); ?>
 
 
 <article id="front-page-entry" <?php post_class(); ?>>
