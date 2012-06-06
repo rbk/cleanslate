@@ -16,7 +16,11 @@
 		if ( $('html').hasClass('no-flexbox')) 
 			autoMenu();
 		
-		
+		if ($("#rotator").length)
+	        new GuruRotator({
+	             showControls: true
+	         });
+	
 	});	
 	
 	
