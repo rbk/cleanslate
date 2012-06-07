@@ -14,8 +14,24 @@ try{
     }
 }
 
-
-
+(function($) {
+	$("#newsletter-signup").live("submit",function(event) {
+		event.preventDefault();
+		if (!/\S+@\S+\.\S+/.test($(this).find("[name=email]").val())) {
+			alert("Please enter your email address");
+			return;
+		}
+		 $.ajax({
+			type:'POST',
+			url: Guru.Url + "/wp/wp-admin/admin-ajax.php", 
+			data: $(this).serialize(),
+			cookie: encodeURIComponent(document.cookie),
+			success:  function(str){
+			      alert(str);
+			}
+		});		
+	});
+})(jQuery);
 
 
 
