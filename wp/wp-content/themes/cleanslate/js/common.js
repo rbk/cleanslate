@@ -20,6 +20,7 @@
 	        new GuruRotator({
 	             showControls: true
 	         });
+	
         if( $('#gMap').length ){
                 new Guru.Map({
                         streetViewControl: false,
@@ -38,12 +39,12 @@
                         scrollToMapOnClick: true,
                         scrollSpeed: 450,
                         directionsLink: true,
-                        globalInitId: 'gMapInit',
-						zoomPosition: "RIGHT_BOTTOM"
+                        globalInitId: 'gMapInit'
                 });
+			}
 
 	});	
-	
+
 	
 	function autoMenu(){
 

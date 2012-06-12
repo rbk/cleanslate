@@ -870,28 +870,28 @@ function guru_make_location_list( $in_menu = false, $include_icon = false, $addr
 
                                 if( $include_icon )
                                         $block .= '<div class="icon"></div>'.
-                                                                '<div class="loc">';
+                                                                '<div class="loc guruAddy">';
 
 
-                                                $block .= '<a class="locationLink longname">'.apply_filters('the_title', $loc->post_title).'</a>';
+                                                $block .= '<h2><a class="locationLink longname">'.apply_filters('the_title', $loc->post_title).'</a></h2>';
 
                                         if($address_before_phone && !empty($meta['address']))
-                                                $block .= '<a href="'.$contactLink.'"  class="locationAddress">'.apply_filters( 'the_content', $meta['address'] ).'</a>';       
+                                                $block .= '<div class="address"><a href="'.$contactLink.'"  class="locationAddress">'.apply_filters( 'the_content', $meta['address'] ).'</a></div>';       
 
                                         if(!empty($meta['phone']))
-                                                $block .= '<a href="tel:'.$meta['phone'].'" class="locationPhone">'.apply_filters( 'the_title', $meta['phone']).'</a>';
+                                                $block .= '<div class="phone"><a href="tel:'.$meta['phone'].'" class="locationPhone">'.apply_filters( 'the_title', $meta['phone']).'</a></div>';
 
                                         if(!empty($meta['secondary_phone']))
-                                                $block .= '<a href="tel:'.$meta['secondary_phone'].'" class="locationPhone secondary">'.apply_filters( 'the_title', $meta['secondary_phone']).'</a>';
+                                                $block .= '<div class="phone"><a href="tel:'.$meta['secondary_phone'].'" class="locationPhone secondary">'.apply_filters( 'the_title', $meta['secondary_phone']).'</a></div>';
 
                                         if(!empty($meta['fax']))
-                                                $block .= '<span class="locationFax">'.$meta['fax'].'&nbsp;&nbsp;(fax)</span>';
+                                                $block .= '<span class="locationFax phone">'.$meta['fax'].'&nbsp;&nbsp;(fax)</span>';
 
                                         if(!empty($meta['email']))
-                                                $block .= '<a href="mailto:'.$meta['email'].'" class="locationEmail">'.apply_filters( 'the_title', $meta['email']).'</a>';
+                                                $block .= '<div class="email"><a href="mailto:'.$meta['email'].'" class="locationEmail">'.apply_filters( 'the_title', $meta['email']).'</a></div>';
 
                                         if(!$address_before_phone && !empty($meta['address']))
-                                                $block .= '<a href="'.$contactLink.'"  class="locationAddress">'.apply_filters( 'the_content', $meta['address'] ).'</a>';       
+                                                $block .= '<div class="address"><a href="'.$contactLink.'"  class="locationAddress">'.apply_filters( 'the_content', $meta['address'] ).'</a></div>';       
 
 
                                 if( $include_icon )
