@@ -24,13 +24,13 @@
         if( $('#gMap').length ){
                 new Guru.Map({
                         streetViewControl: false,
-                        fitMarkers: true,
+                        fitMarkers: false,
                         zoom: 15,
-                        centerLat: 36.14808,
-                        centerLng: -95.90731,
+                        centerLat: 36.1503681,
+                        centerLng: -95.9897992,
                         mapHeight: 284,
                         contId: 'gMap',
-                        dataCont: '.contact-left .locationList', //specify the container id so it doesn't pick up all the location lists around the page
+                        dataCont: '.locationList', //specify the container id so it doesn't pick up all the location lists around the page
                         locationKey: 'address',
                         markerScale: 0.4,
                         markerOverridesCenter: true,
