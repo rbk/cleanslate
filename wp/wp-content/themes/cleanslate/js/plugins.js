@@ -34,6 +34,29 @@ try{
 })(jQuery);
 
 
+(function($) {
+	/**
+		elem:     the UL you want to rotate
+		property: which CSS property to animate. ie, to make a horizontal list rotate to the left, use margin-left;
+		amount:   how much to animate. in the same example, you need to pass in the width of the lis.
+		interval: how many milliseconds to delay
+	**/
+	window.list_rotate = function(elem, property, amount, interval) {
+		if (elem.length) {
+			var props = {};
+			props[property] = 0 - amount;
+			setInterval( function() {
+				if (elem.length) {
+					elem.find("li:first-child").stop().animate(props,1000, function() {
+						$(this).detach();
+						$(this).css(property,0);
+                        elem.append(this);
+					});
+				}				
+			},interval);				
+		}
+	}
+})(jQuery);
 
 
 
