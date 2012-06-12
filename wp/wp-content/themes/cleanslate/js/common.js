@@ -20,7 +20,28 @@
 	        new GuruRotator({
 	             showControls: true
 	         });
-	
+        if( $('#gMap').length ){
+                new Guru.Map({
+                        streetViewControl: false,
+                        fitMarkers: true,
+                        zoom: 15,
+                        centerLat: 36.14808,
+                        centerLng: -95.90731,
+                        mapHeight: 284,
+                        contId: 'gMap',
+                        dataCont: '.contact-left .locationList', //specify the container id so it doesn't pick up all the location lists around the page
+                        locationKey: 'address',
+                        markerScale: 0.4,
+                        markerOverridesCenter: true,
+                        //markerImageKey: 'featured_custom_marker',
+                        blocksAreClickable: true,
+                        scrollToMapOnClick: true,
+                        scrollSpeed: 450,
+                        directionsLink: true,
+                        globalInitId: 'gMapInit',
+						zoomPosition: "RIGHT_BOTTOM"
+                });
+
 	});	
 	
 	
