@@ -535,7 +535,7 @@ if ( function_exists( 'add_theme_support' ) ) {
 /** BEGIN GuRu Theme Specific Functions **/
 
 global $prefix;
-$prefix = 'dolphin_';
+$prefix = 'guru_';
 
 /** WE LOAD IN OUR MODERNIZR AND JQUERY SCRIPTS OURSELVES
  *		Modernizr.load in header.php controls all the asynchronous loading
@@ -663,33 +663,100 @@ function guru_post_nav(){
   <?php 
 }
 
+
+
+
 // only install post type if class present
-//if( class_exists( 'NewPostType' )){
-//
-//	$prefix = 'guru_';
-//
-//	NewPostType::instance()->add(array(
-//		'post_type' => $prefix.'quotes',
-//		'post_type_name' => 'Quotes',
-//		'args' => array(
-//			'rewrite' => array( 'slug' => 'quotes' ),
-//			'supports' => array( 'title', 'editor', 'thumbnail' )
-//		)
-//	))->add_meta_box(array(
-//		'id' => 'quote_link',
-//		'title' => 'Quote Links To:',
-//		'context' => 'side',
-//		'priority' => 'default',
-//		'fields' => array(
-//			array(
-//				'name' => 'Link: ',
-//				'id' => $prefix . 'quote_link',
-//				'type' => 'text',
-//				'std' => ''
-//			)
-//		)	
-//	));
-//}
+if( class_exists( 'NewPostType' )){
+
+	$prefix = 'guru_';
+	NewPostType::instance()->add(array(
+	            'post_type' => $prefix.'location',
+	            'post_type_name' => 'Locations',
+	            'args' => array(
+	                'rewrite' => array( 'slug' => 'locations' ),
+	                'public' => false,
+	                'has_archive' => true,
+	                'supports' => array( 'title', 'thumbnail', 'page-attributes' )
+	            )
+	))->add_meta_box(array(
+	            'id' => 'location_details',
+	            'title' => 'Location Information:',
+	            'context' => 'normal',
+	            'priority' => 'default',
+	            'fields' => array(
+	                array(
+	                    'name' => 'Address: ',
+	                    'id' => $prefix . 'location_address',
+	                    'type' => 'textarea',
+	                    'std' => ''
+	                ),
+	                array(
+	                     'name' => 'Email: ',
+	                     'id' => $prefix . 'location_email',
+	                     'type' => 'text',
+	                     'std' => ''
+	                ),
+	                array(
+	                    'name' => 'Phone: ',
+	                    'id' => $prefix . 'location_phone',
+	                    'type' => 'text',
+	                    'std' => ''
+	                ),
+	                array(
+	                    'name' => 'Secondary Phone: ',
+	                    'id' => $prefix . 'location_secondary_phone',
+	                    'type' => 'text',
+	                    'std' => ''
+	                ),
+	                array(
+	                    'name' => 'Fax: ',
+	                    'id' => $prefix . 'location_fax',
+	                    'type' => 'text',
+	                    'std' => ''
+	                ),
+	                array(
+	                    'name' => 'Override Center Lat: ',
+	                    'id' => $prefix . 'override_lat',
+	                    'type' => 'text',
+	                    'std' => ''
+	                ),
+	                array(
+	                    'name' => 'Override Center Lng: ',
+	                    'id' => $prefix . 'override_lng',
+	                    'type' => 'text',
+	                    'std' => ''
+	                ),
+	                array(
+	                    'name' => 'In Browse Menu: ',
+	                    'id' => $prefix . 'location_in_browse_menu',
+	                    'type' => 'checkbox',
+	                    'std' => ''
+	                )
+	            )
+	));
+	// NewPostType::instance()->add(array(
+	// 	'post_type' => $prefix.'quotes',
+	// 	'post_type_name' => 'Quotes',
+	// 	'args' => array(
+	// 		'rewrite' => array( 'slug' => 'quotes' ),
+	// 		'supports' => array( 'title', 'editor', 'thumbnail' )
+	// 	)
+	// ))->add_meta_box(array(
+	// 	'id' => 'quote_link',
+	// 	'title' => 'Quote Links To:',
+	// 	'context' => 'side',
+	// 	'priority' => 'default',
+	// 	'fields' => array(
+	// 		array(
+	// 			'name' => 'Link: ',
+	// 			'id' => $prefix . 'quote_link',
+	// 			'type' => 'text',
+	// 			'std' => ''
+	// 		)
+	// 	)	
+	// ));
+}
 
 
 
@@ -749,6 +816,99 @@ function guru_post_nav(){
     //always clearfix
     echo '<div class="clearfix"></div>';
   }
+
+function guru_get_locations(){
+        global $guru_locations;
+        global $prefix;
+
+        if( !$guru_locations ){
+                $guru_locations = get_posts(array(
+                        'post_type' => $prefix.'location',
+                        'numberposts' => -1,
+                        'order' => 'ASC',
+                        'orderby' => 'menu_order title'
+                ));
+
+                foreach( $guru_locations as $loc ){                                                             
+                        $loc->meta = array(
+                                'address'                       => get_post_meta( $loc->ID, $prefix .'location_address', true ),
+                                'email'                         => get_post_meta( $loc->ID, $prefix .'location_email', true ),
+                                'phone'                         => get_post_meta( $loc->ID, $prefix .'location_phone', true ),
+                                'secondary_phone'       => get_post_meta( $loc->ID, $prefix .'location_secondary_phone', true ),
+                                'fax'                           => get_post_meta( $loc->ID, $prefix .'location_fax', true ),
+                                'center_lat'            => get_post_meta( $loc->ID, $prefix .'override_lat', true ),
+                                'center_lng'            => get_post_meta( $loc->ID, $prefix .'override_lng', true ),
+                                'in_menu'                       => get_post_meta( $loc->ID, $prefix .'location_in_browse_menu', true ),
+                        );
+                }
+        }
+
+        return ( !empty($guru_locations) ? $guru_locations : false );
+}
+
+function guru_make_location_list( $in_menu = false, $include_icon = false, $address_before_phone = false ){
+
+        $block = '';
+
+        if( $locations = guru_get_locations() ){
+
+                $block .= '<div class="locationList">';
+
+
+                $contactPage = 34; //id for contact-us page
+                $contactLink = ( $contactPage ? get_permalink( $contactPage ) : '' );
+
+
+                foreach( $locations as $loc ){
+                        if( !$in_menu || ( $in_menu && $loc->meta['in_menu'] ) ){
+                                //print_r( $loc );
+                                //echo '<br /><br />';
+
+                                $meta = $loc->meta;
+
+                                $block .= '<div class="locationItem" location-data=\''.json_encode( $loc->meta ).'\'>';
+
+                                if( $include_icon )
+                                        $block .= '<div class="icon"></div>'.
+                                                                '<div class="loc">';
+
+
+                                                $block .= '<a class="locationLink longname">'.apply_filters('the_title', $loc->post_title).'</a>';
+
+                                        if($address_before_phone && !empty($meta['address']))
+                                                $block .= '<a href="'.$contactLink.'"  class="locationAddress">'.apply_filters( 'the_content', $meta['address'] ).'</a>';       
+
+                                        if(!empty($meta['phone']))
+                                                $block .= '<a href="tel:'.$meta['phone'].'" class="locationPhone">'.apply_filters( 'the_title', $meta['phone']).'</a>';
+
+                                        if(!empty($meta['secondary_phone']))
+                                                $block .= '<a href="tel:'.$meta['secondary_phone'].'" class="locationPhone secondary">'.apply_filters( 'the_title', $meta['secondary_phone']).'</a>';
+
+                                        if(!empty($meta['fax']))
+                                                $block .= '<span class="locationFax">'.$meta['fax'].'&nbsp;&nbsp;(fax)</span>';
+
+                                        if(!empty($meta['email']))
+                                                $block .= '<a href="mailto:'.$meta['email'].'" class="locationEmail">'.apply_filters( 'the_title', $meta['email']).'</a>';
+
+                                        if(!$address_before_phone && !empty($meta['address']))
+                                                $block .= '<a href="'.$contactLink.'"  class="locationAddress">'.apply_filters( 'the_content', $meta['address'] ).'</a>';       
+
+
+                                if( $include_icon )
+                                        $block .= '</div>';
+
+                                $block .= '</div>';
+
+                        }
+                }
+
+                $block .=       '<div class="clearfix"></div>'; 
+
+                $block .= '</div>';
+        }
+
+        return $block;
+}
 
 
 
