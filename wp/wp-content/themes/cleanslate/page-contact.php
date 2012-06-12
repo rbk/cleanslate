@@ -54,7 +54,7 @@ get_header(); ?>
 					echo guru_make_location_list();
 				?>
 
-				<div class="guruForm"><?php if (function_exists('serveCustomContactForm')) { serveCustomContactForm(1); } ?></div>
+				<?php the_content(); ?>
 			
 			<div class="clearfix"></div>
 		</div><!-- .entry-content -->
