@@ -4,7 +4,7 @@
 
 /** Rotator **/
 
-@mixin description-grad{
+/*@mixin description-grad{
 	background: rgba(0,0,0,0.4);
 
 	@include background(
@@ -18,7 +18,7 @@
 	@include pie;
 	-pie-background: rgba(0,0,0,0.4); 
 }
-
+*/
 
 #rotator{
 	display:block;
@@ -29,7 +29,7 @@
 	
 	@include float-left;
 		
-	& #slides{
+	& .slides{
 		display:inline-block;
 		width:707px;
 		height:371px;
@@ -54,7 +54,7 @@
 			}
 			
 			& .description{
-				@include description-grad;
+/*				@include description-grad;*/
 				color: lighten( $base-color, 70% );
 				display:block;
 				position:absolute;
