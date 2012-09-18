@@ -15,6 +15,7 @@ wp/wp-content/wp-cache-config.php
 wp/wp-content/uploads
 sitemap.xml
 sitemap.xml.gz
+application.css
 
 #
 # Max OSX
