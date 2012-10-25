@@ -20,3 +20,4 @@ Basic instructions for use:
 * cd mynewproject
 * sh setup.sh
 
+Then you can run the wordpress install, log in as admin, and select your new theme.
