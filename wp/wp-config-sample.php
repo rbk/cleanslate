@@ -16,7 +16,7 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'database_name_here');
+define('DB_NAME', 'your_project_name');
 
 /** MySQL database username */
 define('DB_USER', 'username_here');
@@ -86,9 +86,9 @@ define('WP_DEBUG', false);
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
 
-define('GRS_DEV_USR', ''); // your user name
+define('GRS_DEV_USR', 'your_user_name'); // your user name
 define('GRS_DEV_ENV', 'usr'); // usr, project, review
-define('GRS_DEV_SITE', ''); // folder name of
+define('GRS_DEV_SITE', 'your_project_name'); // folder name of
 define('DS', DIRECTORY_SEPARATOR); //short dir sep
  
 define('AUTOSAVE_INTERVAL', 300 );
