@@ -4,6 +4,7 @@ git remote rm origin
 projectname=`pwd | awk 'BEGIN {FS="/"} {print $NF}'`
 username=`whoami`
 git remote add origin git@localhost:$projectname.git
+git remote add upstream git@localhost:cleanslate.git
 
 
 
