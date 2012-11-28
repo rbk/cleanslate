@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: GuRuStu Featured Page Widget
-Description: Allows the easy creation of posttypes and taxonomies.
+Description: Provides a widget to show featured pages.
 Version: 1
 Author: The GuRuStu Group
 Author URI: http://gurustugroup.com
@@ -37,14 +37,21 @@ class Featured_Pages_Widget extends WP_Widget {
 		extract( $args );
 
 		echo $before_widget;
+
 		?>
 		<?php $page = get_post($instance['page']); ?>
-		<a href="<?php echo get_permalink($instance['page']); ?>"><div><h2><?php echo $page->post_title; ?><div class="flourish"></div></h2>
+		<?php		
+		if ($instance['title'])
+			$title = $instance['title'];
+		else
+			$title = $page->post_title;
+
+		?>
+		<a href="<?php echo get_permalink($instance['page']); ?>"><div><h2><?php echo $title; ?></h2></a>
 		<?php MultiPostThumbnails::the_post_thumbnail('page', 'featured-page-widget', $page->ID); ?>
 		<div class="excerpt"><p class="excerpt"><?php echo $page->post_excerpt; ?></p></div>
-		<?php // read more ?>
-		</div></a>
-
+		<span class="read_more"><a id="button" href="<?php echo get_permalink($instance['page']); ?>">Learn More</a></span>		
+		
 
 		<?php
 
@@ -65,6 +72,7 @@ class Featured_Pages_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['page'] = strip_tags( $new_instance['page'] );
+		$instance['title'] = strip_tags( $new_instance['title'] );
 
 		return $instance;
 	}
@@ -86,6 +94,10 @@ class Featured_Pages_Widget extends WP_Widget {
 			<?php endwhile; 
 			wp_reset_query();  // Restore global post data		?>
 		</select>
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Custom title (optional):' ); ?></label> 
+		<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>">	
 		</p>
 		<?php 
 	}
