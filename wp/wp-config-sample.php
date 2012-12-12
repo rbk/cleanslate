@@ -16,7 +16,7 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'your_project_name');
+define('DB_NAME', 'database_name_here');
 
 /** MySQL database username */
 define('DB_USER', 'username_here');
@@ -85,45 +85,6 @@ define('WP_DEBUG', false);
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
-
-define('GRS_DEV_USR', 'your_user_name'); // your user name
-define('GRS_DEV_ENV', 'usr'); // usr, project, review
-define('GRS_DEV_SITE', 'your_project_name'); // folder name of
-define('DS', DIRECTORY_SEPARATOR); //short dir sep
- 
-define('AUTOSAVE_INTERVAL', 300 );
-switch( GRS_DEV_ENV ){
-        case 'usr':
-                define('WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] . DS.'~'.GRS_DEV_USR.DS.GRS_DEV_SITE);
-                define('WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] . DS.'~'.GRS_DEV_USR.DS.GRS_DEV_SITE.DS.'wp');
- 
-                ini_set('display_errors',0);               
-                error_reporting( E_ALL ^ E_NOTICE ^ E_DEPRECATED );
- 
-                break;
- 
-        case 'project':   
-                define('WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] . DS.'project'.DS.GRS_DEV_SITE);
-                define('WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] . DS.'project'.DS.GRS_DEV_SITE.DS.'wp');
- 
-                ini_set('display_errors',0);
- 
-                break;
- 
-        case 'review':
-                define('WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] . DS.'review'.DS.GRS_DEV_SITE);
-                define('WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] . DS.'review'.DS.GRS_DEV_SITE.DS.'wp');
- 
-                ini_set('display_errors',0);
- 
-                break;
- 
-        default:
-                wp_die('GuRuStu Development Environment in config not set.');
- 
-                break;
-}
-
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
