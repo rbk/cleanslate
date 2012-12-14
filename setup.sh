@@ -1,3 +1,5 @@
+touch .htaccess && chmod 777 .htaccess
+
 # Create Wordpress Uploads Folder symlink
 # New Project
 git remote rm origin
