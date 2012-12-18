@@ -1,3 +1,5 @@
+#!/bin/sh
+
 touch .htaccess && chmod 777 .htaccess
 
 # Create Wordpress Uploads Folder symlink
