@@ -85,6 +85,14 @@ jQuery().ready( function($){
 		    	    	<td><input type="text" name="guru_contact_email" value="<?php echo get_option('guru_contact_email'); ?>" /></td>
 		    	    </tr>
 		    	    <tr valign="top">
+		    	    	<th scope="row">Phone Number</th>
+		    	    	<td><input type="text" name="guru_phone" value="<?php echo get_option('guru_phone'); ?>" /></td>
+		    	    </tr>		    	    
+		    	    <tr valign="top">
+		    	    	<th scope="row">Fax Number</th>
+		    	    	<td><input type="text" name="guru_fax" value="<?php echo get_option('guru_fax'); ?>" /></td>
+		    	    </tr>		    	    
+		    	    <tr valign="top">
 		    	    	<th scope="row">Primary Address</th>
 		    	    	<td><input type="text" name="guru_address" value="<?php echo get_option('guru_address'); ?>" /></td>
 		    	    </tr>
