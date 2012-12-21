@@ -8,8 +8,6 @@ git remote rm origin
 projectname=`pwd | awk 'BEGIN {FS="/"} {print $NF}'`
 username=`whoami`
 
-echo $username
-
 
 cp wp/wp-config-sample.php wp/wp-config.php
 sed -i "s/database_name_here/$projectname/" wp/wp-config.php
