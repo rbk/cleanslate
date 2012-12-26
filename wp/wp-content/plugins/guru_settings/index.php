@@ -30,6 +30,8 @@ function register_mysettings() {
 	register_setting( 'guru-settings-group', 'guru_twitter' );
 	register_setting( 'guru-settings-group', 'guru_contact_email' );
 	register_setting( 'guru-settings-group', 'guru_hours' );
+	register_setting( 'guru-settings-group', 'guru_phone' );
+	register_setting( 'guru-settings-group', 'guru_fax' );
 	register_setting( 'guru-settings-group', 'guru_address' );
 	register_setting( 'guru-settings-group', 'guru_vimeo');
 }
