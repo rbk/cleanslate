@@ -22,8 +22,8 @@ sed -i "s/password_here/GuRuStu1881/" wp/wp-config.php
 [ ! -d /var/www/wp-uploads/$projectname ] && ln -s /var/www/wp-uploads/$projectname wp/wp-content/uploads
 
 
-git remote add origin git@localhost:$projectname.git
-git remote add upstream git@localhost:cleanslate.git
+git remote add origin git@gurustudev.com:webprojects/$projectname.git
+git remote add upstream git@gurustudev.com:gurustu/cleanslate.git
 
 [ ! -d wp/wp-content/themes/$projectname ] && git mv wp/wp-content/themes/cleanslate wp/wp-content/themes/$projectname
 sed -i "s/Theme Name: Cleanslate/Theme Name: $projectname/" wp/wp-content/themes/$projectname/style.css
