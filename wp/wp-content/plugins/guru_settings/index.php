@@ -32,7 +32,7 @@ function register_mysettings() {
 	register_setting( 'guru-settings-group', 'guru_hours' );
 	register_setting( 'guru-settings-group', 'guru_phone' );
 	register_setting( 'guru-settings-group', 'guru_fax' );
-	register_setting( 'guru-settings-group', 'guru_address' );
+	register_setting( 'guru-settings-group', 'guru_contact_address' );
 	register_setting( 'guru-settings-group', 'guru_vimeo');
 }
 
@@ -96,7 +96,7 @@ jQuery().ready( function($){
 		    	    </tr>		    	    
 		    	    <tr valign="top">
 		    	    	<th scope="row">Primary Address</th>
-		    	    	<td><input type="text" name="guru_address" value="<?php echo get_option('guru_address'); ?>" /></td>
+		    	    	<td><input type="text" name="guru_contact_address" value="<?php echo get_option('guru_contact_address'); ?>" /></td>
 		    	    </tr>
 		    	    <tr valign="top">
 		    	    	<th scope="row">Hours</th>

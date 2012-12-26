@@ -40,7 +40,7 @@ function setup_guru_js() {
 	<?php
 }
 add_action('wp_head', 'setup_guru_js',1);
-add_action('admin_head', 'setup_guru_js',1);
+add_action('admin_print_scripts', 'setup_guru_js',1);
 
 
 
