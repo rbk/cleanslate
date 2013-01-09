@@ -50,7 +50,7 @@ class GRS_Mailchimp_Widget extends WP_Widget {
 				<input type="hidden" name="action" value="grs_mailchimp">				
 				<input type="hidden" name="widget_id" value="<?php echo $widgetIdComponents[1]; ?>">
 				<input type="text" placeholder="Email" name="email"/>
-				<button class="button" type="submit">Submit</button>
+				<button class="button" type="submit">Subscribe</button>
 				<div class="clearfix"></div>
 			</form>
 		</li>
