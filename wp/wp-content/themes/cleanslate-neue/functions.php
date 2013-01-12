@@ -58,4 +58,23 @@ function guru_comments_open( $open, $post_id ) {
 	return false;
 }
 add_filter( 'comments_open', 'guru_comments_open', 10, 2 );
+
+
+if( class_exists( 'NewPostType' )){
+
+	$prefix = 'guru_';
+
+	NewPostType::instance()->add(array(
+		'post_type' => $prefix.'slides',
+		'post_type_name' => 'Slides',
+		'args' => array(
+			'rewrite' => array( 'slug' => 'slides' ),
+	        'public' => true,
+			'supports' => array( 'title', 'editor', 'thumbnail', 'page-attributes' )
+		)	
+	));
+}
+
+
+
 ?>
