@@ -34,7 +34,8 @@ function register_mysettings() {
 	register_setting( 'guru-settings-group', 'guru_fax' );
 	register_setting( 'guru-settings-group', 'guru_contact_address' );
 	register_setting( 'guru-settings-group', 'guru_vimeo');
-}
+	register_setting( 'guru-settings-group', 'guru_instagram');
+	register_setting( 'guru-settings-group', 'guru_pinterest');}
 
 function guru_settings_page() {
 ?>
@@ -118,6 +119,14 @@ jQuery().ready( function($){
 		    	    <tr valign="top">
 		    	    	<th scope="row">Vimeo</th>
 		    	    	<td><input type="text" name="guru_vimeo" value="<?php echo get_option('guru_vimeo'); ?>" /></td>
+		    	    </tr>
+		    	    <tr valign="top">
+		    	    	<th scope="row">Instagram</th>
+		    	    	<td><input type="text" name="guru_instagram" value="<?php echo get_option('guru_instagram'); ?>" /></td>
+		    	    </tr>
+		    	    <tr valign="top">
+		    	    	<th scope="row">Pinterest</th>
+		    	    	<td><input type="text" name="guru_pinterest" value="<?php echo get_option('guru_pinterest'); ?>" /></td>
 		    	    </tr>
 		    	</table>
 		    </fieldset>
