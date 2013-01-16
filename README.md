@@ -11,11 +11,10 @@ mobile device, and then has a media query for device width > 550px, which is whe
 styles would go. Since this approach has evolved over time, these stylesheets are not necessarily 
 set up perfectly, so please keep the spirit in mind but build your stylesheets as you see fit. If 
 you improve upon what's there, please consider incorporating those improvements back into this git 
-repo.
+repo. After you run setup.sh, cleanslate will be renamed to your project name.
 * Cleanslate-Neue theme, a child of TwentyTwelve. It is meant to be a replacement for Cleanslate, 
-removing most of the cruft and being based on a more modern codebase. It's a work in progress, so 
-surrently it will not be set up automatically the way the Cleanslate theme is, but that can be 
-fixed in setup.sh when it's deemed ready. It's not too far off.
+removing most of the cruft and being based on a more modern codebase. After you run setup.sh, 
+cleanslate-neue will be renamed to your project name-neue (ie, "foo-neue").
 * a **wp-config-sample.php** that includes our block of custom code that makes our sites work 
 correctly on the dev server.
 * **setup.sh**, which automatically sets up a lot of junk we have to do every time we set up a site.
