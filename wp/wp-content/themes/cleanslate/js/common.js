@@ -45,6 +45,30 @@
 
 	});	
 
+	function offSiteLinks() {
+
+			// Add target blank to all pdfs
+	var all_links = $('a');
+
+	all_links.each(function(){
+
+		var link = $(this).attr('href');
+
+		if( link != null ){
+
+			if( link.match( /\.pdf{1}$/ ) || ! link.match( '/' + location.host + '/' ) ){
+
+				$(this).attr('target', '_blank');
+
+			}
+
+		}
+		
+	}); // end pdfs
+
+	}
+	offSiteLinks();
+
 	
 	function autoMenu(){
 
