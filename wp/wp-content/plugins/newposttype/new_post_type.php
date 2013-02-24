@@ -28,8 +28,17 @@ function isVector($arr){
 // Base for creating new post types, logs new post types for icon support.
 //
 
+  
+if( is_admin() ){
+	// $plugin_dir_path = dirname(__FILE__);
+	wp_enqueue_script( 'npt-uploader' , plugins_url( 'newposttype/media-upload.js', 'media-upload' ), array('jquery') );
+
+
+
+}
 class NewPostType{
 	
+
 	private static $_instance;
 	
 	public static $_registered_types = array();
@@ -155,7 +164,7 @@ class NewPostType{
 		//print_r($taxonomies);
 		
 		// find out if its a taxonomy
-		if( array_key_exists( $column, $taxonomies ) ){
+		if($taxonomies && array_key_exists( $column, $taxonomies ) ){
 			//echo 'column is tax!';
 			$tax_slug = $column;
 			$column = 'taxonomy';
@@ -254,7 +263,7 @@ class MetaBoxTemplate{
 		}
 		
 		//echo '<table class="form-table">';
-		echo '<div style="display:block;margin:6px 0;border-bottom:1px solid #ccc;padding:1%;width:97%;" class="form-table">';
+		echo '<div style="display:block;margin:6px 0;border-bottom:0px solid #ccc;padding:1%;width:97%;" class="form-table">';
 		
 		//foreach ($meta_box['fields'] as $field) {
 		foreach ($this->fields as $field) {
@@ -269,10 +278,10 @@ class MetaBoxTemplate{
 			
 			switch ($field['type']) {
 				case 'text':
-					echo '<input type="text" name="', $field['id'], '" class="', $field['id'], '" value="', $meta ? $meta : $field['std'], '" size="30" style="width:75%" />', '<div style="display:block;margin-left:20%;">', $field['desc'], '</div>';
+					echo '<input type="text" name="', $field['id'], '" class="', $field['id'], '" value="', $meta ? $meta : $field['std'], '" size="30" style="width:75%" />', '<div style="display:block;margin-left:20%;">', '', '</div>';
 					break;
 				case 'textarea':
-					echo '<textarea name="', $field['id'], '" class="', $field['id'], '" cols="60" rows="4" style="width:75%">', $meta ? $meta : $field['std'], '</textarea>', '<div style="display:block;margin-left:20%;">', $field['desc'], '</div>';
+					echo '<textarea name="', $field['id'], '" class="', $field['id'], '" cols="60" rows="4" style="width:75%">', $meta ? $meta : $field['std'], '</textarea>', '<div style="display:block;margin-left:20%;">', '', '</div>';
 					break;
 				case 'select':					
 					//echo '<select name="', $field['id'], '" class="', $field['id'], ' selectBox"', $field['multiple'] ? 'multiple style="height:7em;vertical-align:top;"':'' , '>';
@@ -295,6 +304,10 @@ class MetaBoxTemplate{
 					break;
 				case 'checkbox':
 					echo '<input type="checkbox" name="', $field['id'], '" class="', $field['id'], '"', $meta ? ' checked="checked"' : '', ' />';
+					break;
+				case 'upload':
+					echo '<input type="button" class="button button-primary button-large upload_image_button" value="Choose A File"/>&nbsp;&nbsp;&nbsp;';
+					echo '<input " class="', $field['id'], ' upload" style="height:30px;width:70%;" type="text" name="', $field['id'], '" value="', $meta ? $meta : $field['std'], '" />';
 					break;
 				case 'multiple':
 					echo '<select name="', $field['id'], '[]" class="', $field['id'], ' selectBoxMultiple" multiple style="height:7em;vertical-align:top;">';
@@ -678,7 +691,8 @@ class PostTypeTemplate{
 	}
 	
 	public function update_messages( $messages ){
-		
+		global $post_ID;
+		global $post;
 		$this->messages[ $this->post_type ] = wp_parse_args( $this->messages, array(
 			0 => '', // Unused. Messages start at index 1.
 			1 => sprintf( __('%s updated. <a href="%s">View %s</a>'), $this->post_type_name, esc_url( get_permalink($post_ID) ), strtolower( $this->post_type_name ) ),
@@ -771,3 +785,4 @@ class PostTypeUtil{
 		return $string;
   }
 }
+?>
