@@ -35,7 +35,12 @@ function register_mysettings() {
 	register_setting( 'guru-settings-group', 'guru_contact_address' );
 	register_setting( 'guru-settings-group', 'guru_vimeo');
 	register_setting( 'guru-settings-group', 'guru_instagram');
-	register_setting( 'guru-settings-group', 'guru_pinterest');}
+	register_setting( 'guru-settings-group', 'guru_pinterest');
+
+	register_setting( 'guru-settings-group', 'guru_response_iframe');
+	register_setting( 'guru-settings-group', 'guru_iframe_checker');
+
+}
 
 function guru_settings_page() {
 ?>
@@ -61,6 +66,14 @@ jQuery().ready( function($){
 		$("form#guru_settings fieldset" + currentSection).fadeIn();
 		
 	});
+	$('input[type=checkbox]').click(function(){
+		if( $(this).attr('value') != 'checked' ){
+			$(this).attr('value', 'checked');
+		} else {
+			$(this).attr('value', '');
+		}
+	});
+
 });
 </script>
 <div class="wrap guru-container">
@@ -72,6 +85,7 @@ jQuery().ready( function($){
 			<li><a href="#section-general">General</a></li>
 			<li><a href="#section-social">Social</a></li>
 			<li><a href="#section-locations">Locations</a></li>
+			<li><a href="#section-developer">Development</a></li>
 		</ul>
 	</aside>
 	<section class="guru-content">
@@ -155,6 +169,15 @@ jQuery().ready( function($){
 		    	    </tr>
 		    	</table>
 		    </fieldset>
+		    <fieldset id="section-developer">
+		    	<legend>Development</legend>
+		    	<table class="form-table">
+		    	    <tr valign="top">
+		    	    	<th scope="row">Enable mobile testing</th>
+		    	    	<td><input type="checkbox" name="guru_response_iframe" value="" <?php echo get_option('guru_response_iframe'); ?> /></td>
+		    	    </tr>
+		    	</table>
+		    </fieldset>
 		    <p class="submit">
 		    <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 		    </p>
@@ -166,3 +189,20 @@ jQuery().ready( function($){
 
 </div>
 <?php } ?>
+
+<?php
+	$iframe = get_option('guru_response_iframe');
+	require_once('responsiveTest/page-iframe.php');
+
+	if( ! is_admin() && ! empty( $iframe ) ) {
+		add_action('wp_head', guru_iframe_links );
+
+		if( $_GET['url'] != 'dev' )
+		add_action('template_redirect', 'guru_use_iframe', 1 ,1);
+
+	} 
+
+
+	
+
+?>
