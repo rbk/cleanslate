@@ -2,7 +2,6 @@
 
  include "empty-header.php"; ?>
  
-
 	<script type="text/javascript">
 
 		jQuery(document).ready(function($){
@@ -57,6 +56,7 @@
 			<!-- <li><a href="#" title="desktop" iframe-data="960">960px</a></li> -->
 			<li><a href="#" title="Small Tablet" iframe-data="768">720px</a></li>
 			<li><a href="#" title="Mobile Phone" iframe-data="480">480px</a></li>
+			<li><a href="#" title="IPHONE" iframe-data="320">320px</a></li>
 			<li><a href="#" class="rsp-hide">Hide</a></li>
 		</ul>
 		<a href="#" style="display:none;" class="rsp-show active">show</a>
@@ -90,6 +90,3 @@ function guru_iframe_links(){ ?>
 		</script>
 
 <?php } ?>
-
-
-

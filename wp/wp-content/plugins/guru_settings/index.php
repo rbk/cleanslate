@@ -194,7 +194,6 @@ jQuery().ready( function($){
 
 </div>
 <?php } ?>
-
 <?php
 	$iframe = get_option('guru_response_iframe');
 	require_once('responsiveTest/page-iframe.php');
@@ -221,11 +220,4 @@ jQuery().ready( function($){
 				})
 			})
 			</script>
-		
-		<?php
-	}
-
-
-	
-
-?>
+<?php } ?>

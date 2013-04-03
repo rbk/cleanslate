@@ -1,0 +1,30 @@
+//
+// CSS for the newsletter subscription… this one is for mailchimp
+//
+
+$mc-error-color: #f44;
+$mc-success-color: #39924E;
+
+/** Newsletter subscription alerts **/
+
+.mcError{
+	display: block;
+	@include adjust-font-size-to( 12px, 1.5 );
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	@include margin-trailer( 0.25 );
+	color: $mc-error-color;
+	border: 1px solid $mc-error-color;
+	background: lighten( $mc-error-color, 30% );
+	
+	text-align: center;
+	
+	&.success{
+		color: $mc-success-color;
+		border: 1px solid $mc-success-color;
+		background: lighten( $mc-success-color, 30% );
+	}
+}
+
+
+/** End Newsletter subscription alerts **/
