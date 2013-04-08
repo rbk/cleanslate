@@ -9,7 +9,10 @@ Author URI: http://www.gurustugroup.com/
 License: A "Slug" license name e.g. GPL2
 */
 
-wp_enqueue_style('guru-styles', plugin_dir_url( __FILE__ ).'css/guru-settings.css');
+if( is_admin() ){
+	wp_enqueue_style('guru-styles', plugin_dir_url( __FILE__ ).'css/guru-settings.css');
+	
+}
 
 // create custom plugin settings menu
 add_action('admin_menu', 'guru_create_menu');
