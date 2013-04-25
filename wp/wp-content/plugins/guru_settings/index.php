@@ -9,7 +9,10 @@ Author URI: http://www.gurustugroup.com/
 License: A "Slug" license name e.g. GPL2
 */
 
-wp_enqueue_style('guru-styles', plugin_dir_url( __FILE__ ).'css/guru-settings.css');
+if( is_admin() ){
+	wp_enqueue_style('guru-styles', plugin_dir_url( __FILE__ ).'css/guru-settings.css');
+	
+}
 
 // create custom plugin settings menu
 add_action('admin_menu', 'guru_create_menu');
@@ -39,6 +42,7 @@ function register_mysettings() {
 
 	register_setting( 'guru-settings-group', 'guru_response_iframe');
 	register_setting( 'guru-settings-group', 'guru_iframe_checker');
+	register_setting( 'guru-settings-group', 'guru_screen_width');
 
 }
 
@@ -175,6 +179,10 @@ jQuery().ready( function($){
 		    	    <tr valign="top">
 		    	    	<th scope="row">Enable mobile testing</th>
 		    	    	<td><input type="checkbox" name="guru_response_iframe" value="" <?php echo get_option('guru_response_iframe'); ?> /></td>
+		    	    </tr>		    	    
+		    	    <tr valign="top">
+		    	    	<th scope="row">Enable Media Query Helper</th>
+		    	    	<td><input type="checkbox" name="guru_screen_width" value="" <?php echo get_option('guru_screen_width'); ?> /></td>
 		    	    </tr>
 		    	</table>
 		    </fieldset>
@@ -189,7 +197,6 @@ jQuery().ready( function($){
 
 </div>
 <?php } ?>
-
 <?php
 	$iframe = get_option('guru_response_iframe');
 	require_once('responsiveTest/page-iframe.php');
@@ -200,9 +207,20 @@ jQuery().ready( function($){
 		if( $_GET['url'] != 'dev' )
 		add_action('template_redirect', 'guru_use_iframe', 1 ,1);
 
-	} 
+	}
+		$width = get_option('guru_screen_width');
+	if( ! is_admin() && ! empty($width) ){
 
-
-	
-
-?>
+		add_action( 'wp_footer', 'inject_js' );
+	}
+	function inject_js() {
+		?>	
+			<script>
+			jQuery(document).ready(function($){
+				$('body').append('<div id="the-width" style="position: fixed;bottom: 0; right:0; background-color: black;color: white; padding: 5px 10px; z-index:99999999">Media Query: ' + $(window).width() + ' PX</div>');
+					$(window).resize(function(){
+					$('#the-width').html( 'Media Query: ' + $(window).width() + ' PX');
+				})
+			})
+			</script>
+<?php } ?>

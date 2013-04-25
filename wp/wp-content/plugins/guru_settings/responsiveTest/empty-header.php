@@ -19,4 +19,3 @@
 <link type="text/css" rel="stylesheet" href="<?php echo plugins_url('responsiveTest/css/main.css', dirname(__FILE__) )?>">
 </head>
 <body>
-
