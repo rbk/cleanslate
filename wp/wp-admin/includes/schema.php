@@ -358,7 +358,7 @@ function populate_options() {
 	'siteurl' => $guessurl,
 	'blogname' => __('My Site'),
 	/* translators: blog tagline */
-	'blogdescription' => __(''),
+	'blogdescription' => __('Just another WordPress site'),
 	'users_can_register' => 0,
 	'admin_email' => 'you@example.com',
 	/* translators: default start of the week. 0 = Sunday, 1 = Monday */
@@ -487,7 +487,7 @@ function populate_options() {
 	// 3.0 multisite
 	if ( is_multisite() ) {
 		/* translators: blog tagline */
-		$options[ 'blogdescription' ] = sprintf(__(''), $current_site->site_name );
+		$options[ 'blogdescription' ] = sprintf(__('Just another %s site'), $current_site->site_name );
 		$options[ 'permalink_structure' ] = '/%year%/%monthnum%/%day%/%postname%/';
 	}
 
