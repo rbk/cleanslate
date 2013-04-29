@@ -29,13 +29,14 @@ function guru_create_menu() {
 
 function register_mysettings() {
 	//register our settings
-	register_setting( 'guru-settings-group', 'guru_facebook' );
-	register_setting( 'guru-settings-group', 'guru_twitter' );
 	register_setting( 'guru-settings-group', 'guru_contact_email' );
 	register_setting( 'guru-settings-group', 'guru_hours' );
 	register_setting( 'guru-settings-group', 'guru_phone' );
 	register_setting( 'guru-settings-group', 'guru_fax' );
 	register_setting( 'guru-settings-group', 'guru_contact_address' );
+	
+	register_setting( 'guru-settings-group', 'guru_facebook' );
+	register_setting( 'guru-settings-group', 'guru_twitter' );
 	register_setting( 'guru-settings-group', 'guru_vimeo');
 	register_setting( 'guru-settings-group', 'guru_instagram');
 	register_setting( 'guru-settings-group', 'guru_pinterest');
@@ -43,6 +44,8 @@ function register_mysettings() {
 	register_setting( 'guru-settings-group', 'guru_response_iframe');
 	register_setting( 'guru-settings-group', 'guru_iframe_checker');
 	register_setting( 'guru-settings-group', 'guru_screen_width');
+
+	register_setting( 'guru-settings-group', 'google_analytics' );
 
 }
 
@@ -198,6 +201,25 @@ jQuery().ready( function($){
 </div>
 <?php } ?>
 <?php
+	/* 
+	* 
+	* Add google analyics if set
+	*
+	*/
+	$google_analytics = get_option('google_analytics');
+	if( ! empty($google_analytics) && ! is_admin() ){
+		add_action( 'wp_footer', 'gurustu_add_google_analytics' );
+	}
+	function gurustu_add_google_analytics() {
+		echo '<script>';
+		echo get_option('google_analytics');
+		echo '</script>';
+	}
+	/* 
+	* 
+	* Display page in iframe to test mobile
+	*
+	*/
 	$iframe = get_option('guru_response_iframe');
 	require_once('responsiveTest/page-iframe.php');
 
@@ -208,7 +230,12 @@ jQuery().ready( function($){
 		add_action('template_redirect', 'guru_use_iframe', 1 ,1);
 
 	}
-		$width = get_option('guru_screen_width');
+	/* 
+	* 
+	* Get custom admin icon and screen width
+	*
+	*/
+	$width = get_option('guru_screen_width');
 	if( ! is_admin() && ! empty($width) ){
 
 		add_action( 'wp_footer', 'inject_js' );
@@ -224,3 +251,38 @@ jQuery().ready( function($){
 			})
 			</script>
 <?php } ?>
+<?php
+	
+	function get_social_icons( ){
+	    $vimeo = get_option('guru_vimeo');
+	    $twitter = get_option('guru_twitter');
+	    $facebook = get_option('guru_facebook');
+	    $contact = get_option('guru_contact_email');
+	    $instagram = get_option('guru_instagram');
+	    $pinterest = get_option('guru_pinterest');
+	    $output = "";
+	    $output .= "<ul class='social'>";
+	    if( !empty($vimeo) ){
+	        $output .= '<li class="vimeo"><a target="_blank" href="' . $vimeo . '">Follow us on Vimeo</a></li>';
+	    }
+	    if( !empty($twitter) ){
+	        $output .= '<li class="twitter"><a target="_blank" href="' . $twitter . '">Follow us on Twitter</a></li>';
+	    }
+	    if( !empty($facebook) ){ 
+	        $output .= "<li class='facebook'><a target='_blank' href='" . $facebook . "'>Follow us on Facebook</a></li>";
+		}
+	    if( !empty($contact) ){
+	        $output .= "<li class='message'><a href='mailto:" . $contact . "'>Send us a message</a></li>";
+	    }
+	    if( !empty($instagram) ){
+	        $output .= "<li class='instagram'><a target='_blank' href='" . $instagram . "'>Instagram</a></li>";
+	    }
+	    if( !empty($pinterest) ){
+	        $output .= "<li class='pinterest'><a target='_blank' href='" . $pinterest . "'>Pinterest</a></li>";
+	    }
+	    $output .= "</ul>";
+		return $output;       
+	}
+
+
+?>
