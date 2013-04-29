@@ -1,0 +1,85 @@
+@import "compass";
+
+nav#locations-nav {
+
+	overflow: hidden;
+	clear: both;
+	display: block;
+	width: 100%;
+	border-bottom: 1px solid #EEE;
+	margin-bottom: 20px;
+
+	a.tab {
+
+		@include border-top-radius( 5px );
+		margin: 10px 10px 0px 0px;
+		padding: 20px 30px;
+		padding: 15px 20px;
+		display: block;
+		text-decoration: none;
+		font-size: 22px;
+		font-weight: bold;
+		border: 1px solid #DDD;
+		max-width: 200px;
+		text-align: center;
+		float: left;
+		background-color: #FFF;
+		border-bottom: 0px;
+		color: #444;
+
+		&:hover {
+			background-color: lighten( #00ADEF, 50% );
+			color: lighten( #444, 10% );
+		}
+
+
+		&.current {
+			@include box-shadow(3px 3px 10px -3px #000);
+			background-color: #00ADEF;
+			color: #FFF;
+		}
+	}
+}
+div#locations_list tbody {
+
+	tr:hover {
+		background-color: #fff;
+		cursor: pointer;
+	}
+	td {
+		vertical-align: middle;
+	}
+}
+.col-1, .col-2 {
+	position: relative;
+	@include box-shadow( 0px 0px 8px -4px #666 );
+	@include border-radius( 5px );
+	float: left;
+	width: 35%;
+	border: 1px solid #EEE;
+	padding: 25px;
+
+	input[type=submit], #map_preview_button{
+		margin-top: 20px;
+	}
+
+
+}
+
+.col-2 {
+
+	margin-left: 10px;
+	padding: 0px;
+	display: table;
+
+
+	#map_preview {
+		display: table-cell;
+		height: 220px;
+		vertical-align: middle;
+		text-align: center;
+		color: #DDD;
+	}
+
+}
+
