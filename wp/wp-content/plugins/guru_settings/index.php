@@ -271,14 +271,14 @@ jQuery().ready( function($){
 	    if( !empty($facebook) ){ 
 	        $output .= "<li class='facebook'><a target='_blank' href='" . $facebook . "'>Follow us on Facebook</a></li>";
 		}
-	    if( !empty($contact) ){
-	        $output .= "<li class='message'><a href='mailto:" . $contact . "'>Send us a message</a></li>";
-	    }
 	    if( !empty($instagram) ){
 	        $output .= "<li class='instagram'><a target='_blank' href='" . $instagram . "'>Instagram</a></li>";
 	    }
 	    if( !empty($pinterest) ){
 	        $output .= "<li class='pinterest'><a target='_blank' href='" . $pinterest . "'>Pinterest</a></li>";
+	    }
+	    if( !empty($contact) ){
+	        $output .= "<li class='message'><a href='mailto:" . $contact . "'>Send us a message</a></li>";
 	    }
 	    $output .= "</ul>";
 		return $output;       
