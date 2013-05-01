@@ -95,7 +95,7 @@ function boilerplate_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => __( 'Primary Navigation', 'boilerplate' ),
-		'rotator' => __( 'Front Page Rotator', 'boilerplate')
+		'footer' => __( 'Footer Navigation', 'boilerplate')
 	) );
 
 	// This theme allows users to set a custom background
@@ -663,102 +663,35 @@ function guru_post_nav(){
   <?php 
 }
 
-
-
-
 // only install post type if class present
 if( class_exists( 'NewPostType' )){
 
 	$prefix = 'guru_';
+
 	NewPostType::instance()->add(array(
-	            'post_type' => $prefix.'location',
-	            'post_type_name' => 'Locations',
+	            'post_type' => $prefix.'slides',
+	            'post_type_name' => 'slides',
 	            'args' => array(
-	                'rewrite' => array( 'slug' => 'locations' ),
+	                'rewrite' => array( 'slug' => 'slides' ),
 	                'public' => false,
 	                'has_archive' => true,
-	                'supports' => array( 'title', 'thumbnail', 'page-attributes' )
+	                'supports' => array( 'title', 'thumbnail', 'page-attributes', 'editor' )
 	            )
 	))->add_meta_box(array(
-	            'id' => 'location_details',
-	            'title' => 'Location Information:',
+	            'id' => 'slide_details',
+	            'title' => 'Slide Information:',
 	            'context' => 'normal',
 	            'priority' => 'default',
 	            'fields' => array(
 	                array(
-	                    'name' => 'Address: ',
-	                    'id' => $prefix . 'location_address',
-	                    'type' => 'textarea',
-	                    'std' => ''
-	                ),
-	                array(
-	                     'name' => 'Email: ',
-	                     'id' => $prefix . 'location_email',
-	                     'type' => 'text',
-	                     'std' => ''
-	                ),
-	                array(
-	                    'name' => 'Phone: ',
-	                    'id' => $prefix . 'location_phone',
+	                    'name' => 'Link: ',
+	                    'id' => $prefix . 'slide_link',
 	                    'type' => 'text',
-	                    'std' => ''
-	                ),
-	                array(
-	                    'name' => 'Secondary Phone: ',
-	                    'id' => $prefix . 'location_secondary_phone',
-	                    'type' => 'text',
-	                    'std' => ''
-	                ),
-	                array(
-	                    'name' => 'Fax: ',
-	                    'id' => $prefix . 'location_fax',
-	                    'type' => 'text',
-	                    'std' => ''
-	                ),
-	                array(
-	                    'name' => 'Override Center Lat: ',
-	                    'id' => $prefix . 'override_lat',
-	                    'type' => 'text',
-	                    'std' => ''
-	                ),
-	                array(
-	                    'name' => 'Override Center Lng: ',
-	                    'id' => $prefix . 'override_lng',
-	                    'type' => 'text',
-	                    'std' => ''
-	                ),
-	                array(
-	                    'name' => 'In Browse Menu: ',
-	                    'id' => $prefix . 'location_in_browse_menu',
-	                    'type' => 'checkbox',
 	                    'std' => ''
 	                )
 	            )
 	));
-	// NewPostType::instance()->add(array(
-	// 	'post_type' => $prefix.'quotes',
-	// 	'post_type_name' => 'Quotes',
-	// 	'args' => array(
-	// 		'rewrite' => array( 'slug' => 'quotes' ),
-	// 		'supports' => array( 'title', 'editor', 'thumbnail' )
-	// 	)
-	// ))->add_meta_box(array(
-	// 	'id' => 'quote_link',
-	// 	'title' => 'Quote Links To:',
-	// 	'context' => 'side',
-	// 	'priority' => 'default',
-	// 	'fields' => array(
-	// 		array(
-	// 			'name' => 'Link: ',
-	// 			'id' => $prefix . 'quote_link',
-	// 			'type' => 'text',
-	// 			'std' => ''
-	// 		)
-	// 	)	
-	// ));
 }
-
-
 
 /*
 	//THIS ENABLES PAGINATION ON THE CUSTOM TAXONOMY TEMPLATES
@@ -817,100 +750,94 @@ if( class_exists( 'NewPostType' )){
     echo '<div class="clearfix"></div>';
   }
 
-function guru_get_locations(){
-        global $guru_locations;
-        global $prefix;
+function guru_get_slides(){
+		
+        global $guru_slides, $prefix;
 
-        if( !$guru_locations ){
-                $guru_locations = get_posts(array(
-                        'post_type' => $prefix.'location',
+        if( !$guru_slides ){
+        
+                $guru_slides = get_posts(array(
+                        'post_type' => $prefix.'slides',
                         'numberposts' => -1,
                         'order' => 'ASC',
                         'orderby' => 'menu_order title'
                 ));
+                
 
-                foreach( $guru_locations as $loc ){                                                             
-                        $loc->meta = array(
-                                'address'                       => get_post_meta( $loc->ID, $prefix .'location_address', true ),
-                                'email'                         => get_post_meta( $loc->ID, $prefix .'location_email', true ),
-                                'phone'                         => get_post_meta( $loc->ID, $prefix .'location_phone', true ),
-                                'secondary_phone'       => get_post_meta( $loc->ID, $prefix .'location_secondary_phone', true ),
-                                'fax'                           => get_post_meta( $loc->ID, $prefix .'location_fax', true ),
-                                'center_lat'            => get_post_meta( $loc->ID, $prefix .'override_lat', true ),
-                                'center_lng'            => get_post_meta( $loc->ID, $prefix .'override_lng', true ),
-                                'in_menu'                       => get_post_meta( $loc->ID, $prefix .'location_in_browse_menu', true ),
-                        );
+
+                foreach( $guru_slides as $slide ){  
+	                
+                	$strLink = get_post_meta( $slide->ID, $prefix .'slide_link', true );
+                	
+                	$strLink = str_replace('[guruurl]', get_bloginfo('url'), $strLink);
+                
+	                if (has_post_thumbnail( $slide->ID ) ):
+	                  	
+	                  	$image = wp_get_attachment_image_src( get_post_thumbnail_id( $slide->ID ), 'single-post-thumbnail' );
+	                  
+	                endif;
+	                                                                           
+                	$slide->meta = array(
+                		'link' => $strLink,
+                		'featured_image' => $image[0]
+                	);
                 }
         }
 
-        return ( !empty($guru_locations) ? $guru_locations : false );
+        return ( !empty($guru_slides) ? $guru_slides : false );
 }
 
-function guru_make_location_list( $in_menu = false, $include_icon = false, $address_before_phone = false ){
-
-        $block = '';
-
-        if( $locations = guru_get_locations() ){
-
-                $block .= '<div class="locationList">';
-
-
-                $contactPage = 34; //id for contact-us page
-                $contactLink = ( $contactPage ? get_permalink( $contactPage ) : '' );
-
-
-                foreach( $locations as $loc ){
-                        if( !$in_menu || ( $in_menu && $loc->meta['in_menu'] ) ){
-                                //print_r( $loc );
-                                //echo '<br /><br />';
-
-                                $meta = $loc->meta;
-
-                                $block .= '<div class="locationItem" location-data=\''.json_encode( $loc->meta ).'\'>';
-
-                                if( $include_icon )
-                                        $block .= '<div class="icon"></div>'.
-                                                                '<div class="loc guruAddy">';
-
-
-                                                $block .= '<h2><a class="locationLink longname">'.apply_filters('the_title', $loc->post_title).'</a></h2>';
-
-                                        if($address_before_phone && !empty($meta['address']))
-                                                $block .= '<div class="address"><a href="'.$contactLink.'"  class="locationAddress">'.apply_filters( 'the_content', $meta['address'] ).'</a></div>';       
-
-                                        if(!empty($meta['phone']))
-                                                $block .= '<div class="phone"><a href="tel:'.$meta['phone'].'" class="locationPhone">'.apply_filters( 'the_title', $meta['phone']).'</a></div>';
-
-                                        if(!empty($meta['secondary_phone']))
-                                                $block .= '<div class="phone"><a href="tel:'.$meta['secondary_phone'].'" class="locationPhone secondary">'.apply_filters( 'the_title', $meta['secondary_phone']).'</a></div>';
-
-                                        if(!empty($meta['fax']))
-                                                $block .= '<span class="locationFax phone">'.$meta['fax'].'&nbsp;&nbsp;(fax)</span>';
-
-                                        if(!empty($meta['email']))
-                                                $block .= '<div class="email"><a href="mailto:'.$meta['email'].'" class="locationEmail">'.apply_filters( 'the_title', $meta['email']).'</a></div>';
-
-                                        if(!$address_before_phone && !empty($meta['address']))
-                                                $block .= '<div class="address"><a href="'.$contactLink.'"  class="locationAddress">'.apply_filters( 'the_content', $meta['address'] ).'</a></div>';       
-
-
-                                if( $include_icon )
-                                        $block .= '</div>';
-
-                                $block .= '</div>';
-
-                        }
-                }
-
-                $block .=       '<div class="clearfix"></div>'; 
-
-                $block .= '</div>';
-        }
-
-        return $block;
+function guru_display_slides(){
+	
+	$disp = null;
+	$arSlides = guru_get_slides();
+	
+	foreach($arSlides as $key => $val){
+		
+		$disp .= '
+		<section class="slide" style="background: url('.$val->meta['featured_image'].') 50% 0;">
+		    <div class="container">
+		    	<div class="description">
+		    		
+		    		<h3>'.$val->post_title.'</h3>
+		    		
+		    		'.wpautop($val->post_content).'
+		    		
+		    		<a href="'.get_permalink($val->ID).'" class="read-more">Learn More</a>
+		    	</div>
+		    </div>
+		</section>';		
+	}
+	
+	return $disp;
 }
 
-
+function guru_get_social_nav(){
+	
+	$prefix = 'guru_';
+	
+	$arFields = array(
+		'linkedin' => 'Add us on Linkedin', 
+		'flickr' => 'View Our Flickr Stream', 
+		'pinterest' => 'Follow our Pins', 
+		'twitter' => 'Follow us on Twitter', 
+		'facebook' => 'Friend us on Facebook', 
+		'email' => 'Send us a message'
+	);
+	?>
+	<ul class="guru-social">
+		<?php
+		foreach($arFields as $key => $val){
+			
+			if(!empty(get_option($prefix.$key))){
+				
+				echo '<li class="'.$key.'"><a href="'.get_option($prefix.$key).'">'.$val.'</a></li>';
+			}
+		}
+		?>	
+	</ul>
+	<?php
+}
 
 /** END GuRu Theme Specific Functions **/
 

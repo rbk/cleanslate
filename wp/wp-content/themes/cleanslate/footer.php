@@ -10,10 +10,11 @@
  * @since Boilerplate 1.0
  */
 ?>
+			</div>
 		</section><!-- #main -->
 						
 		<footer id="footer" role="contentinfo">
-				<div class="wrap">
+				<div class="container">
 					<?php
 						$fDate = '&copy; 2012';
 						if ( date('Y') != '2012' ) $fDate = $fDate.' - '.date('Y');

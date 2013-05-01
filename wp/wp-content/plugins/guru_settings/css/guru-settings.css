@@ -1,65 +1,18 @@
-
-@font-face {
-    font-family: 'GandhiSansRegular';
-    src: url('../fonts/GandhiSans-Regular-webfont.eot');
-    src: url('../fonts/GandhiSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/GandhiSans-Regular-webfont.woff') format('woff'),
-         url('../fonts/GandhiSans-Regular-webfont.ttf') format('truetype'),
-         url('../fonts/GandhiSans-Regular-webfont.svg#GandhiSansRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'GandhiSansItalic';
-    src: url('../fonts/GandhiSans-Italic-webfont.eot');
-    src: url('../fonts/GandhiSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/GandhiSans-Italic-webfont.woff') format('woff'),
-         url('../fonts/GandhiSans-Italic-webfont.ttf') format('truetype'),
-         url('../fonts/GandhiSans-Italic-webfont.svg#GandhiSansItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'GandhiSansBold';
-    src: url('../fonts/GandhiSans-Bold-webfont.eot');
-    src: url('../fonts/GandhiSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/GandhiSans-Bold-webfont.woff') format('woff'),
-         url('../fonts/GandhiSans-Bold-webfont.ttf') format('truetype'),
-         url('../fonts/GandhiSans-Bold-webfont.svg#GandhiSansBold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-@font-face {
-    font-family: 'GandhiSansBoldItalic';
-    src: url('../fonts/GandhiSans-BoldItalic-webfont.eot');
-    src: url('../fonts/GandhiSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/GandhiSans-BoldItalic-webfont.woff') format('woff'),
-         url('../fonts/GandhiSans-BoldItalic-webfont.ttf') format('truetype'),
-         url('../fonts/GandhiSans-BoldItalic-webfont.svg#GandhiSansBoldItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
 .guru-container{
-	width:640px;
+
+	width:760px;
 	margin-top:25px;
 }
 
 aside.side-menu{
-	width:160px;
+
+	width:240px;
 	float:left;
-	background: #e9e9e9;
 }
 
 .top-side{
-	width:160px;
+
+	width:240px;
 	float:left;
 	height:70px;
 	background: #0072fd;
@@ -67,16 +20,19 @@ aside.side-menu{
 }
 
 .top-side .guru-wrap{
+
 	margin:25px;
 	text-align: center;
 }
 
 .top-side .switch-container, .top-side span{
+
 	float:left;
 	text-transform: uppercase;
 }
 
 .top-side span{
+
 	font-size:12px;
 }
 
@@ -92,6 +48,7 @@ aside.side-menu{
 }
 
 .top-side .switch-container .switch{
+
 	background: #ddd;
 	border-radius: 100%;
 	width:10px;
@@ -109,39 +66,61 @@ aside.side-menu{
 }
 
 aside.side-menu ul{
+
 	padding:0;
 }
 
-aside.side-menu ul li a{
-	font-family: "GandhiSansRegular";
-	color:#888;
-	text-decoration: none;
-	font-size:16px;
-	line-height: 30px;
-	display: block;
-	border-bottom: 1px solid #ddd;
-	padding:0 10px;
-	text-shadow: -1px 1px 1px #fff;
+aside.side-menu ul li{
+	
+	margin:0;
+	padding: 10px;
+	min-height: 40px;
+	background: #282727; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#413f3f', endColorstr='#282727'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#413f3f), to(#282727)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #413f3f,  #282727); /* for firefox 3.6+ */
 }
 
+aside.side-menu ul li a{
+	
+	text-transform: uppercase;
+	font-family: "helvetica";
+	color:#bae5fe;
+	text-decoration: none;
+	font-size:16px;
+	display: block;
+	padding-bottom: 5px;
+}
+
+aside.side-menu ul li span{
+
+	color: #d8a175;
+}
+
+
 aside.side-menu ul li a:hover, aside.side-menu ul li a.current{
-	color:#3a3630;
-	text-decoration: underline;
+
+	color:#fff;
 }
 
 aside.side-menu ul li:last-child a{
+
 	border-bottom-width: 0;
 }
 
 section.guru-content{
-	width:460px;
-	float:left;
+	
+	margin-top:27px;
+	width:500px;
+	float:right;
 	padding:0 10px 10px 10px;
+	background: #e3f0ff;
 }
 
 .guru-container header{
-	font-family: "GandhiSansBold";
-	width:620px;
+
+	font-family: "helvetica";
+	width:760px;
 	float:left;
 	margin:0;
 	padding:0;
@@ -150,7 +129,8 @@ section.guru-content{
 	color:#0072fd !important;
 }
 
-.guru-container header h2{
+.guru-container section h2{
+	
 	background: url(../images/guru-logo.png) no-repeat;
 	display: block;
 	width:224px;
@@ -160,21 +140,49 @@ section.guru-content{
 }
 
 .guru-container p.submit{
+
 	text-align: right;
 }
 
 form#guru_settings fieldset{
+
 	display: none;
 }
 
 form#guru_settings fieldset legend{
-	font-family: "GandhiSansBold";
+
+	font-family: "helvetica";
 	font-size:25px;
-	margin: 10px 0 15px 0;
+	margin: 10px 0;
 	line-height: 50px;
-	border-bottom: 1px solid #ddd;
-	width: 100%;
-	padding: 0 10px;
+	border-bottom: 1px solid #98bae1;
+	width:100%;
 }
 
+.form-table tbody tr{
+	
+}
+
+.form-table tbody tr th, .form-table tbody tr td{
+	
+	padding-top: 15px;
+}
+
+.form-table tbody tr th{
+	
+	background: #f3f8ff;
+	color: #253f5e;
+	font-weight: bold;
+	font-size: 22px;
+	text-align: right;
+	padding-top:25px;
+}
+
+.form-table tbody tr td input{
+	
+	line-height: 25px;
+	border:1px solid #98bae1;
+	border-radius: 3px;
+	width: 100%;
+}
 

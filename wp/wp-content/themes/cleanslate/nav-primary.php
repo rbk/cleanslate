@@ -1,4 +1,6 @@
-		<nav id="access" class="wrap clearfix" role="navigation">			
-			<?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
+		<nav class="access clearfix primary-nav" role="navigation">			
+			
+			<a href="" class="mobile-menu">Menu</a>
+			
 			<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
 		</nav><!-- #access -->

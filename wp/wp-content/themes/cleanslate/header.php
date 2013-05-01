@@ -15,7 +15,6 @@
 <!--[if IE 9 ]><html <?php language_attributes(); ?> class="no-js ie ie9 lte9"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"><!--<![endif]-->
 	<head>
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,300,700' rel='stylesheet' type='text/css'>
 		<meta charset="<?php bloginfo( 'charset' ); ?>" />
 		<title><?php
 			/*
@@ -48,6 +47,7 @@
 				    complete: function () { if ( !window.jQuery ){ Modernizr.load(Guru.TemplateUrl+'/js/jquery.js'); } }
 				},
 				{ test: window.JSON, nope: Guru.TemplateUrl+'/js/json2.js' },
+				{ load: 'http://code.jquery.com/ui/1.10.1/jquery-ui.js' },
 				/* plugins.js & common.js fordevelopment */
 				{ load : Guru.TemplateUrl+'/js/plugins.js' },
 				{ load : Guru.TemplateUrl+'/js/common.js' }
@@ -72,12 +72,19 @@
 ?>
 	</head>
 	<body <?php body_class(); ?>>
-		<header id="header" class="wrap" role="banner">
-			<?php if (is_front_page()) { echo '<h1>'; } else { echo '<h2>'; } ?>
-			<a id="logo" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
-			<?php if (is_front_page()) { echo '</h1>'; } else { echo '</h2>'; } ?>
+		<header id="header" role="banner">
+			
+			<div class="container">
+				
+				<?php if (is_front_page()) { echo '<h1>'; } else { echo '<h2>'; } ?>
+				<a id="logo" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+				<?php if (is_front_page()) { echo '</h1>'; } else { echo '</h2>'; } ?>
+				
+				<?php echo guru_get_social_nav(); ?>
+			</div>
 		</header>
 		
 		<?php get_template_part('nav','primary'); ?>
 		
-		<section id="content" class="wrap" role="main">
+		<section id="content" role="main">
+			<div class="container">
