@@ -829,9 +829,11 @@ function guru_get_social_nav(){
 		<?php
 		foreach($arFields as $key => $val){
 			
-			if(!empty(get_option($prefix.$key))){
+			$link = get_option($prefix.$key);
+
+			if(!empty($link) ){
 				
-				echo '<li class="'.$key.'"><a href="'.get_option($prefix.$key).'">'.$val.'</a></li>';
+				echo '<li class="'.$key.'"><a href="'.$link.'">'.$val.'</a></li>';
 			}
 		}
 		?>	
