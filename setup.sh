@@ -24,7 +24,7 @@ sed -i "s/password_here/GuRuStu1881/" wp/wp-config.php
 
 # Create Wordpress Uploads Folder symlink if they don't already exist.
 [ ! -d /var/www/wp-uploads/$projectname ] && mkdir /var/www/wp-uploads/$projectname
-[ ! -d /var/www/wp-uploads/$projectname ] && ln -s /var/www/wp-uploads/$projectname wp/wp-content/uploads
+[ ! -d /var/www/wp-uploads/$projectname ] && ln -s /var/www/wp-uploads/$projectname ./wp/wp-content/uploads
 chmod 777 /var/www/wp-uploads/$projectname
 
 # set up the new git remotes. "origin" will be the current project's repo
