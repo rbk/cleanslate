@@ -98,9 +98,6 @@ function boilerplate_setup() {
 		'footer' => __( 'Footer Navigation', 'boilerplate')
 	) );
 
-	// This theme allows users to set a custom background
-	add_custom_background();
-
 	// Your changeable header business starts here
 	define( 'HEADER_TEXTCOLOR', '' );
 	// No CSS, just IMG call. The %s is a placeholder for the theme template directory URI.
@@ -118,10 +115,6 @@ function boilerplate_setup() {
 
 	// Don't support text inside the header image.
 	define( 'NO_HEADER_TEXT', true );
-
-	// Add a way for the custom header to be styled in the admin panel that controls
-	// custom headers. See boilerplate_admin_header_style(), below.
-	add_custom_image_header( '', 'boilerplate_admin_header_style' );
 
 	// ... and thus ends the changeable header business.
 
@@ -505,14 +498,14 @@ endif;
 /*	End Boilerplate */
 
 // add category nicenames in body and post class
-	function boilerplate_category_id_class($classes) {
-	    global $post;
-	    foreach((get_the_category($post->ID)) as $category)
-	        $classes[] = $category->category_nicename;
-	        return $classes;
-	}
-	add_filter('post_class', 'boilerplate_category_id_class');
-	add_filter('body_class', 'boilerplate_category_id_class');
+	// function boilerplate_category_id_class($classes) {
+	//     global $post;
+	//     foreach((get_the_category($post->ID)) as $category)
+	//         $classes[] = $category->category_nicename;
+	//         return $classes;
+	// }
+	// add_filter('post_class', 'boilerplate_category_id_class');
+	// add_filter('body_class', 'boilerplate_category_id_class');
 
 // change Search Form input type from "text" to "search" and add placeholder text
 	function boilerplate_search_form ( $form ) {
@@ -557,6 +550,8 @@ function guru_deregister_scripts(){
 	}
 }
 add_action('init', 'guru_deregister_scripts');
+
+
 
 remove_action( 'wp_head', 'feed_links', 2 );
 add_action('wp_head', 'addBackPostFeed');

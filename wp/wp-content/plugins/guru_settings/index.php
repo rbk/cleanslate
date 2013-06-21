@@ -70,10 +70,12 @@ $arFields = array(
 	)
 );
 
-if(is_admin()){
+
+function guru_settings_style(){
 
 	wp_enqueue_style('guru-styles', plugin_dir_url( __FILE__ ).'css/guru-settings.css');
 }
+add_action( 'admin_enqueue_scripts', 'guru_settings_style' );
 
 // create custom plugin settings menu
 add_action('admin_menu', 'guru_create_menu');

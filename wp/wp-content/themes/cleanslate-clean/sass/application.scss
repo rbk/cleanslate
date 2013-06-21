@@ -1,0 +1,203 @@
+// Our foundation
+@import "normalizev2";
+@import "mixins";
+@import "compass/css3";
+@import "compass/utilities/general/float";
+
+// Define common variables
+$base-color: red;
+$secondary-color: red;
+$layout-width: 1220px;
+$font-color: #FFF;
+$font-size: 16px;
+$link-color: red;
+
+// Specific theme imports, might move to bottom.
+@import "top_nav";
+@import "webonly";
+@import "mobileonly";
+
+// Must have
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+body {
+
+	font-size: 100%;
+	overflow-y: scroll; /* keeps page from shifting on shorter pages */
+
+}
+
+h1,h2,h3,h4,h5,h6 {
+	line-height: 1;
+}
+
+a {
+	color: $link-color;
+	text-decoration: none;
+	@include single-transition( all, .3s, ease-in-out );
+
+	&:hover {
+		color: lighten( $link-color, 10% );
+	}
+
+}
+h1.site-title a, h2.site-title a {
+	// Logo, use sprite mixin
+	display: block;
+}
+
+.wrap {
+	max-width: $layout-width;
+	margin: 0 auto;
+	padding: 5px;
+}
+
+
+
+/*
+ *
+ *  articles, sidebars
+ *  move to layout files
+ *
+*
+*/
+article, #sidebar {
+	margin-top: 1%;
+}
+article {
+
+	border: 1px solid #000;
+
+	padding: 3rem 5rem;
+	padding: 6% 7%;
+
+	width:71%;
+	float:left;
+	display:inline-block;
+
+}
+
+#sidebar {
+	border: 1px solid #000;
+	width:28%;
+	display:inline-block;
+	margin-left: 1%;
+}
+
+#footer {
+
+	clear: both;
+	padding: 1em;
+	.foot-right {
+		float: right;
+	}
+}
+
+
+/**
+ *
+ *
+ * Sidebar
+ *
+*/
+#sidebar {
+
+ul.sidenav {
+	margin:0;
+	padding:0;
+}
+ul.children {
+	padding: 0;
+}
+
+
+
+div.sidebar-subpages {
+	
+
+	a, h3 {
+
+		background-color: #D9D9D9;
+		display: block;
+		padding: 14px 20px;
+		font-size: 20px;
+
+		border-bottom: 1px solid #FFF;
+		border-right: 1px solid #FFF;
+
+		&:hover {
+			background-color: $base-color;
+			color: #FFF;
+		}
+
+	}
+	/* set margin to show hierarchy */
+	ul.sidenav > ul.children { 
+		margin-left: 1.8em; 
+	}
+
+	div.widget {
+		margin-bottom: 20px;
+	}
+	h3 {
+		margin-bottom:0px !important;
+	}
+
+	ul.sidenav > li { display: none;}
+
+	ul.sidenav >  li.current_page_ancestor { display: block;  }
+	ul.sidenav >  li.current_page_item { display: block;  }
+
+	ul.sidenav >  li.current_page_parent ul.children li { display: block; }
+	ul.sidenav >  li.current_page_item ul.children li { display: block; }
+
+	ul.sidenav >  li.current_page_item ul.children li ul.children li { display: none; }
+
+	ul.sidenav > li.current_page_ancestor ul.children li.page_item ul { display: none; }
+	ul.sidenav > li.current_page_parent ul.children li.current_page_item ul { display:block; }
+
+	ul.sidenav > li.current_page_ancestor ul.children li.current_page_ancestor ul { display:block; }
+
+	/* Style everthing as needed */
+	ul.sidenav li.current_page_item > a { background-color: $base-color; color: #FFF; }
+
+
+	ul.sidenav > li.current_page_ancestor > a,
+	ul.sidenav > li.current_page_parent > a, 
+	ul.sidenav > li.current_page_item > a,
+	ul.sidenav h3
+	 {	
+	 	font-weight: normal;
+		 background-color: #372946;
+		 color: #FFF;
+
+		 &:hover {
+		 	background-color: lighten( #372946, 10% ) !important;
+		 }
+	}
+
+
+	ul.sidenav {
+
+		ul.children ul.children a {
+			background-color: #DDD;
+			padding-left: 30px !important;
+
+			&:before {
+				content: "- ";
+			}
+
+			&:hover {
+				background-color: #CCC;
+				color: #222;
+			}
+		}
+		ul.children ul.children li.current_page_item a {
+			// background-color: lighten( $base-color, 50%);
+			background-color: $base-color;
+		}
+	}
+}
+
+}
+
