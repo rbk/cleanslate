@@ -421,7 +421,7 @@ if( class_exists( 'NewPostType' )){
 
   NewPostType::instance()->add(array(
     'post_type' => $prefix.'slides',
-    'post_type_name' => 'Slides',
+    'post_type_name' => 'Slide',
     'args' => array(
 		'rewrite' => array( 'slug' => 'slides' ),
 		'public' => true,

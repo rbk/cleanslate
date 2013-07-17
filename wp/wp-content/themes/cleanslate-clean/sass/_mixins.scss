@@ -53,10 +53,7 @@
     animation-fill-mode: forwards; /* this prevents the animation from restarting! */
 }
 
-  @include keyframes( bodyfade ){
-    0% { @include opacity(0); }
-    100% { @include opacity(1);}
-  }
+
 
 
   @mixin rem($property, $px-values) {
