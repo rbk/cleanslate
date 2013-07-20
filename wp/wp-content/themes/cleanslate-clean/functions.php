@@ -514,5 +514,43 @@ function posts_custom_columns($column_name, $id){
 
     }
 }
+
+function guru_get_slides(){ 
+// this function is used with jQuery Cycle 2
+?>
+<?php $slides = new WP_Query(array('post_type'=>'guru_slides')); ?>
+	<?php if( $slides->found_posts > 0 ) : ?>
+		<div class="main-slider">
+		    
+			<div class="cycle-slideshow"
+				data-cycle-fx="fade"
+				data-cycle-pause-on-hover="false"
+				data-cycle-speed="2000"
+				data-cycle-swipe="true"
+				data-cycle-timeout="<?php echo get_option('guru_slide_speed'); ?>"
+				data-cycle-slides=".cycle-slide"
+			>
+			<?php while( $slides->have_posts() ) : $slides->the_post(); ?>
+					<div class="cycle-slide">
+					<?php if( ! wpmd_is_phone() ) : ?>
+						<?php the_post_thumbnail('full'); ?>
+					<?php endif; ?>
+						<div class="slide-content">
+							<h3><?php the_title();?></h3>
+							<?php the_excerpt();?>
+							<a href="<?php the_permalink();?>" class="read-more">Read More</a>
+						</div>
+					</div>
+			<?php endwhile; wp_reset_postdata(); ?>
+
+			<a href="#" class="cycle-prev">&lsaquo;</a>
+			<a href="#" class="cycle-next">&rsaquo;</a>
+
+			</div>
+		</div>
+	<?php endif; ?>
+<?php } // End guru_get_slides
+
+
 /* Remember, no extra spaces at the end of functions.php! You will spend many hours wondering why something doesn't work... */
 ?>
