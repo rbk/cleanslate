@@ -210,4 +210,37 @@ function guru_get_pages($arFields = null, $arPages = null){
 	
 	return $disp;
 }
+// Modifiy this as needed
+function guru_get_social(){
+	
+	$prefix = 'guru_';
+	
+	$arFields = array(
+		'linkedin' => 'Add us on Linkedin', 
+		'flickr' => 'View Our Flickr Stream', 
+		'pinterest' => 'Follow our Pins', 
+		'twitter' => 'Follow us on Twitter', 
+		'facebook' => 'Friend us on Facebook', 
+		'email' => 'Send us a message',
+		'google' => 'Plus 1'
+	);
+	?>
+	<ul class="guru-social">
+		<?php
+		foreach($arFields as $key => $val){
+			
+			$link = get_option($prefix.$key);
+
+			if(!empty($link) && $key != 'email' ){
+				echo '<li class="'.$key.'"><a target="_blank" href="'.$link.'">'.$val.'</a></li>';
+			} elseif( !empty($link) ) {
+				echo '<li class="'.$key.'"><a target="_blank" href="mailto:'.$link.'">'.$val.'</a></li>';
+			} else {
+				
+			}
+		}
+		?>	
+	</ul>
+	<?php
+}
 ?>
