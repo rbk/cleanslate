@@ -1,12 +1,16 @@
 /*
-Syntax error: Undefined mixin 'clearfix'.
-        on line 11 of /home/richard/public_html/cleanslate/wp/wp-content/themes/cleanslate-clean/sass/webonly.scss, in `clearfix'
-        from line 11 of /home/richard/public_html/cleanslate/wp/wp-content/themes/cleanslate-clean/sass/webonly.scss
+Syntax error: Undefined variable: "$base-color".
+        on line 11 of /home/richard/public_html/cleanslate/wp/wp-content/themes/cleanslate-clean/sass/slider.scss
 
 Backtrace:
-/home/richard/public_html/cleanslate/wp/wp-content/themes/cleanslate-clean/sass/webonly.scss:11:in `clearfix'
-/home/richard/public_html/cleanslate/wp/wp-content/themes/cleanslate-clean/sass/webonly.scss:11
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
+/home/richard/public_html/cleanslate/wp/wp-content/themes/cleanslate-clean/sass/slider.scss:11
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/script/variable.rb:49:in `_perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/script/node.rb:40:in `perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/script/list.rb:70:in `block in _perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/script/list.rb:70:in `map'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/script/list.rb:70:in `_perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/script/node.rb:40:in `perform'
+/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:298:in `visit_prop'
 /usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
 /usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
 /usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
@@ -17,16 +21,6 @@ Backtrace:
 /usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
 /usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
 /usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `map'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `block in visit'
-/usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:362:in `visit_media'
 /usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:37:in `visit'
 /usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/perform.rb:100:in `visit'
 /usr/local/lib/ruby/gems/1.9.1/gems/sass-3.2.9/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
@@ -69,4 +63,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'clearfix'.\A         on line 11 of /home/richard/public_html/cleanslate/wp/wp-content/themes/cleanslate-clean/sass/webonly.scss, in `clearfix'\A         from line 11 of /home/richard/public_html/cleanslate/wp/wp-content/themes/cleanslate-clean/sass/webonly.scss"; }
+  content: "Syntax error: Undefined variable: \"$base-color\".\A         on line 11 of /home/richard/public_html/cleanslate/wp/wp-content/themes/cleanslate-clean/sass/slider.scss"; }

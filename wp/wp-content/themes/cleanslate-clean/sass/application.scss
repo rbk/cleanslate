@@ -13,12 +13,17 @@ $font-size: 16px;
 $link-color: red;
 
 // Specific theme imports, might move to bottom.
-@import "top_nav";
+@import "header";
 @import "webonly";
 @import "mobileonly";
+@import "slider";
+@import "ie";
 
 // Must have
-* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+* { 
+	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba(255,255,255,.3) !important;
+}
 
 body {
 

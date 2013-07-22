@@ -9,13 +9,16 @@
 	 * OK, remove theme parents scripts and add ours
 	 *
 	*/
-	function RBK_enqueue_scripts(){
+	function gurustu_enqueue_scripts(){
 		if ( !is_admin() ) {
 			wp_deregister_script( 'jquery' );
 			wp_register_script( 'jquery', ( "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ), false);
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_style( 'main-theme-style', get_stylesheet_directory_uri() . '/css/application.css' );
+			
+			// Use a lighter version of modernizr for production
     		wp_enqueue_script('modernizr', get_template_directory_uri() . '/js/modernizr.custom.full.js' );
+    		wp_enqueue_script('plugins', get_template_directory_uri() . '/js/plugins.js' );
     		wp_enqueue_script('common-js', get_template_directory_uri() . '/js/common.js' );
 		}
         // wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js');
@@ -23,7 +26,7 @@
     	// wp_enqueue_script('json2', get_template_directory_uri() . '/js/json2.js' );
     	// wp_enqueue_style('fancybox-css', get_template_directory_uri() . '/js/fancybox/jquery.fancybox.css' );
 	}
-	add_action( 'wp_enqueue_scripts', 'RBK_enqueue_scripts' );
+	add_action( 'wp_enqueue_scripts', 'gurustu_enqueue_scripts' );
 	/*
 	 *
 	 * Options Framework (https://github.com/devinsays/options-framework-plugin)
@@ -532,9 +535,7 @@ function guru_get_slides(){
 			>
 			<?php while( $slides->have_posts() ) : $slides->the_post(); ?>
 					<div class="cycle-slide">
-					<?php if( ! wpmd_is_phone() ) : ?>
 						<?php the_post_thumbnail('full'); ?>
-					<?php endif; ?>
 						<div class="slide-content">
 							<h3><?php the_title();?></h3>
 							<?php the_excerpt();?>
