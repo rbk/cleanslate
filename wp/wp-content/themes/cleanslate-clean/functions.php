@@ -20,6 +20,8 @@
     		wp_enqueue_script('modernizr', get_template_directory_uri() . '/js/modernizr.custom.full.js' );
     		wp_enqueue_script('plugins', get_template_directory_uri() . '/js/plugins.js' );
     		wp_enqueue_script('common-js', get_template_directory_uri() . '/js/common.js' );
+    		wp_enqueue_script( 'google_maps_api_v3', 'https://maps.googleapis.com/maps/api/js?key=&sensor=true', array('jquery') );
+
 		}
         // wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js');
     	// wp_enqueue_script('fancybox', get_template_directory_uri() . '/js/fancybox/jquery.fancybox.pack.js', array('jquery') );
