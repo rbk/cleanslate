@@ -30,6 +30,19 @@
 	}
 	add_action( 'wp_enqueue_scripts', 'gurustu_enqueue_scripts' );
 	/*
+	*
+	*
+	* Add ajax url to frontend, just in case we need it
+	*
+	*/ 
+	function gurustu_add_ajax_url_to_frontend() {
+
+		wp_enqueue_script( 'gurustu_frontend_ajax_scripts', get_template_directory_uri() . 'js/custom_ajax.js', array('jquery') );
+		wp_localize_script( 'gurustu_frontend_ajax_scripts', 'guru_ajaxurl', array('ajaxurl' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'guru_nounce' ) ) );
+
+	}
+	add_action( 'wp_enqueue_scripts', 'gurustu_add_ajax_url_to_frontend' );
+	/*
 	 *
 	 * Options Framework (https://github.com/devinsays/options-framework-plugin)
 	 *
