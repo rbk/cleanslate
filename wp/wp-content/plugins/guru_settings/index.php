@@ -2,7 +2,7 @@
 /*
 Plugin Name: Guru Settings
 Plugin URI: http://www.gurustugroup.com/
-Description: Handles common settings and options
+Description: Handles common settings and options. Includes a Google maps plugin.
 Version: 0.1
 Author: GuRuStu Group
 Author URI: http://www.gurustugroup.com/
@@ -81,6 +81,10 @@ $arFields = array(
 			'type' => 'text',
 			'title' => 'Google Maps API Key'
 		),
+		'map_address' => array(
+			'type' => 'text',
+			'title' => 'Address'
+		),
 		'location_coordinates' => array(
 			'type' => 'text',
 			'title' => 'Coordinates'
@@ -100,16 +104,41 @@ $arFields = array(
 	)
 );
 
+/*
 
-function guru_settings_style(){
+ Ideas: 
+ 	-Register activation hook that creates a home page and contact page. Also the hook can set some basic wordpress settings.
+
+
+*/
+
+
+function guru_settings_styles_scripts(){
 
 	wp_enqueue_style('guru-styles', plugin_dir_url( __FILE__ ).'css/guru-settings.css');
+	wp_enqueue_script('guru-jquery-maps', plugin_dir_url( __FILE__ ).'js/map_plugin.js');
+	wp_enqueue_script('guru-scripts', plugin_dir_url( __FILE__ ).'js/general_scripts.js');
+	wp_enqueue_script( 'google_maps_api_v3', '//maps.googleapis.com/maps/api/js?&sensor=true', array('jquery') );
+
 }
-add_action( 'admin_enqueue_scripts', 'guru_settings_style' );
+add_action( 'admin_enqueue_scripts', 'guru_settings_styles_scripts' );
+
+function guru_settings_frontend_scripts(){
+
+	wp_enqueue_script('guru-jquery-maps', plugin_dir_url( __FILE__ ).'js/map_plugin.js',array('jquery'));
+	$map_api_key = get_option('guru_google_api_key');
+
+	if( empty($map_api_key) ){
+		wp_enqueue_script( 'google_maps_api_v3', '//maps.googleapis.com/maps/api/js?&sensor=true', array('jquery') );
+	} else {
+		wp_enqueue_script( 'google_maps_api_v3', '//maps.googleapis.com/maps/api/js?key=' . get_option('guru_google_api_key') . '&sensor=true', array('jquery') );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'guru_settings_frontend_scripts' );
+
 
 // create custom plugin settings menu
 add_action('admin_menu', 'guru_create_menu');
-
 function guru_create_menu() {
 
 	//create new top-level menu
@@ -147,12 +176,23 @@ jQuery().ready( function($){
 		
 	$("a", first).addClass("current");
 	$(current).fadeIn();
+
+	// Keep section
+	var current_section = localStorage.getItem('guru_settings_section');
+	if( current_section ){
+		$("form#guru_settings fieldset").hide();
+		$(".side-menu ul li a").removeClass("current");
+		$('.side-menu ul li a[href="' + current_section + '"]').addClass("current");
+		$("form#guru_settings fieldset" + current_section ).fadeIn();
+	}
 	
 	$(".side-menu ul li a").click( function(el){
 	
 	    el.preventDefault();
 	    
 	    var currentSection = $(this).attr("href");
+
+	    localStorage.setItem('guru_settings_section',currentSection);
 	    
 	    $(".side-menu ul li a").removeClass("current");
 	    $(this).addClass("current");
@@ -226,12 +266,22 @@ function guru_get_pages($arFields = null, $arPages = null){
 	              <table class="form-table">';
 	              
 	    foreach( $val as $iKey => $iVal){
-	    	
-	    	echo '
-	    	<tr valign="top">
-	    	  <th scope="row">'.$iVal['title'].'</th>
-	    	  <td><input type="'.$iVal['type'].'" name="guru_'.$iKey.'" value="'.get_option('guru_'.$iKey).'" /></td>
-	    	</tr>';			    	
+	    	// error_log( $iKey );
+	    	if( $iKey == 'map_address' ){
+		    	echo '
+		    	<tr valign="top">
+		    	  <th scope="row">'.$iVal['title'].'</th>
+		    	  <td><input type="'.$iVal['type'].'" name="guru_'.$iKey.'" id="guru_'.$iKey.'" value="'.get_option('guru_'.$iKey).'" />
+		    	  <input type="submit" id="geocode" value="Geocode Address"/><div id="map-preview"></div>
+		    	  </td>
+		    	</tr>';	
+	    	} else {
+		    	echo '
+		    	<tr valign="top">
+		    	  <th scope="row">'.$iVal['title'].'</th>
+		    	  <td><input type="'.$iVal['type'].'" name="guru_'.$iKey.'" id="guru_'.$iKey.'" value="'.get_option('guru_'.$iKey).'" /></td>
+		    	</tr>';			    	
+	    	}
 	    }
 	                  
 	    echo '	</table>
@@ -240,6 +290,12 @@ function guru_get_pages($arFields = null, $arPages = null){
 	
 	return $disp;
 }
+/*
+ *
+ * API - Add helpful functions here or just put them in the theme functions.php.
+ *
+ *
+*/
 // Modifiy this as needed
 function guru_get_social(){
 	
@@ -273,4 +329,44 @@ function guru_get_social(){
 	</ul>
 	<?php
 }
+
+function guru_map($atts, $content=null){ 
+
+	extract( shortcode_atts( array(
+		'coordinates' => '36.1562139,-95.98288109999999',
+		'id' => 'map_' . mt_rand(),
+		'height' => '200',
+		'zoom' => '4'
+	), $atts ) );
+	?>
+	<style type="text/css">
+		#<?php echo $atts["id"]; ?> {
+			max-height: <?php echo $atts['height'];?>px;
+			padding-top: 50%;
+		}
+		iframe {
+			max-width: 100% !important;
+		}
+	
+	</style>
+	<div id="<?php echo $atts['id']; ?>"></div>
+	<script>
+		jQuery(document).ready(function($){
+			$('#<?php echo $atts["id"]; ?>').googleMap({
+				'coordinates' : '<?php echo $atts["coordinates"];?>',
+				'zoom' : <?php echo $atts["zoom"];?>,
+				'infobox' : false
+			});
+		})
+	</script>
+<?php
+}
+add_shortcode( 'location', 'guru_map' );
+
+function guru_easy_admin() {
+
+
+
+}
+
 ?>

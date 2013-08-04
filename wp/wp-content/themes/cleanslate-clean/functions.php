@@ -21,7 +21,6 @@
     		wp_enqueue_script('plugins', get_template_directory_uri() . '/js/plugins.js' );
     		wp_enqueue_script('common-js', get_template_directory_uri() . '/js/common.js' );
     		wp_enqueue_script('jquery-masonry-1', get_template_directory_uri() . '/js/jquery.masonry.js' );
-    		wp_enqueue_script( 'google_maps_api_v3', '//maps.googleapis.com/maps/api/js?key=' . get_option('guru_google_api_key') . '&sensor=true', array('jquery') );
 
 		}
 		// if you need fancy box...

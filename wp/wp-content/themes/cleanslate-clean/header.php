@@ -99,7 +99,7 @@
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-	<div style="background-color: #fff;" class="clearfix">
+	<div style="background-color: #0077B9;" class="clearfix">
 		<div class="wrap">
 			<header id="header" role="header">
 				<h1 class="site-title">
@@ -107,7 +107,7 @@
 						<?php bloginfo( 'name' ); ?>
 					</a>
 				</h1>
-				<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
+				<h2 class="site-description"><?php //bloginfo( 'description' ); ?></h2>
 			</header>
 		</div>
 	</div>
