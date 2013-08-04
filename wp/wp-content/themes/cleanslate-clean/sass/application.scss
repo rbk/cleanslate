@@ -71,6 +71,12 @@ h1.site-title a, h2.site-title a {
 	max-width: $layout-width;
 	margin: 0 auto;
 	@include clearfix;
+	/*
+		Attention: There must be a better way to center our content and padding it at the same time.
+
+	*/
+	padding: 1em;
+
 }
 
 // This makes tables useful for two column layouts
@@ -113,6 +119,7 @@ body {-webkit-tap-highlight-color: transparent;}
 		}
 	}
 }
+
 
 article.third {
 	background-color: $base-color;

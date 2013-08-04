@@ -1,5 +1,8 @@
 jQuery(document).ready(function($){
 
+    if( pagenow == 'toplevel_page_guru_settings/index' ){
+       guru_show_map_preview();
+    }
     $('#geocode').on('click',function(e){
         e.preventDefault();
 
@@ -26,7 +29,7 @@ jQuery(document).ready(function($){
       });
     });
     // show map
-    guru_show_map_preview();
+   
     function guru_show_map_preview(){
       var coordinates = $('#guru_location_coordinates').val();
 
