@@ -18,6 +18,14 @@ $arPages = array(
 	'social' => array(
 		'title' => 'Social',
 		'description' => 'Manage Your Social Network Settings'
+	),
+	'map_options' => array(
+		'title' => 'Map Options',
+		'description' => 'Change Your Map Settings'
+	),
+	'more_options' => array(
+		'title' => 'More Options',
+		'description' => ''
 	)
 );
 
@@ -67,6 +75,28 @@ $arFields = array(
 			'type' => 'text',
 			'title' => 'Facebook'
 		)	
+	),
+	'map_options' => array(
+		'google_api_key' => array(
+			'type' => 'text',
+			'title' => 'Google Maps API Key'
+		),
+		'location_coordinates' => array(
+			'type' => 'text',
+			'title' => 'Coordinates'
+		)
+	),
+	'more_options' => array(
+		
+		'slide_speed' => array(
+			'type' => 'text',
+			'title' => 'Slider Speed'
+		),
+		'meta_google_analytics_code' => array(
+			'type' => 'text',
+			'title' => 'Google Analytics Code',
+			'std' => 'UA-xxxxxxxx-x'
+		)
 	)
 );
 

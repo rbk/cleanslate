@@ -1,0 +1,113 @@
+/**
+ *
+ *
+ * Sidebar
+
+	This is some base css for using wp_list_pages as your wordpress sidebar nav function.
+	You list all the pages but use css to show the subpages of the current page.
+	The side bar needs styling
+
+
+ *
+*/
+#sidebar {
+
+ ul {
+ 	list-style: none;
+ }
+
+ul.sidenav {
+	margin:0;
+	padding:0;
+	border:1px solid #FFF;
+	background-color: #eee;
+}
+ul.children {
+	padding: 0;
+}
+
+div.sidebar-subpages {
+	
+
+	a, h3 {
+
+		display: block;
+		padding: 14px 20px;
+
+		// border-bottom: 1px solid #FFF;
+		border:1px solid #FFF;
+		// border-right: 1px solid #FFF;
+
+		&:hover {
+			background-color: $base-color;
+			color: #FFF;
+		}
+
+	}
+	/* set margin to show hierarchy */
+	ul.sidenav > ul.children { 
+		margin-left: 1.8em; 
+	}
+
+	div.widget {
+		margin-bottom: 20px;
+	}
+	h3 {
+		margin-bottom:0px !important;
+	}
+
+	ul.sidenav > li { display: none;}
+
+	ul.sidenav >  li.current_page_ancestor { display: block;  }
+	ul.sidenav >  li.current_page_item { display: block;  }
+
+	ul.sidenav >  li.current_page_parent ul.children li { display: block; }
+	ul.sidenav >  li.current_page_item ul.children li { display: block; }
+
+	ul.sidenav >  li.current_page_item ul.children li ul.children li { display: none; }
+
+	ul.sidenav > li.current_page_ancestor ul.children li.page_item ul { display: none; }
+	ul.sidenav > li.current_page_parent ul.children li.current_page_item ul { display:block; }
+
+	ul.sidenav > li.current_page_ancestor ul.children li.current_page_ancestor ul { display:block; }
+
+	/* Style everthing as needed */
+	ul.sidenav li.current_page_item > a {  }
+
+
+	ul.sidenav > li.current_page_ancestor > a,
+	ul.sidenav > li.current_page_parent > a, 
+	ul.sidenav > li.current_page_item > a,
+	ul.sidenav h3
+	 {	
+	 	font-weight: normal;
+		 background-color: $base-color;
+		 color: #FFF;
+
+		 &:hover {
+		 	// background-color: lighten( #372946, 10% ) !important;
+		 }
+	}
+
+
+	ul.sidenav {
+
+		ul.children ul.children a {
+			padding-left: 30px !important;
+
+			&:before {
+				content: "- ";
+			}
+
+			&:hover {
+				background-color: #CCC;
+				color: #222;
+			}
+		}
+		ul.children ul.children li.current_page_item a {
+
+		}
+	}
+}
+
+}

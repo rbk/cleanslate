@@ -26,9 +26,6 @@
 
 	<meta name="title" content="<?php wp_title( '|', true, 'right' ); ?>">
 
-	<meta name="description" content="<?php bloginfo('description'); ?>" />
-	<!--Google will often use this as its description of your page/site. Make it good.-->
-
 	<?php if (true == of_get_option('meta_author')) echo '<meta name="author" content="'.of_get_option("meta_author").'" />'; ?>
 	
 	<?php if (true == of_get_option('meta_google')) echo '<meta name="google-site-verification" content="'.of_get_option("meta_google").'" />'; ?>
@@ -102,20 +99,26 @@
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-	<div class="wrap">
-	
-		<header id="header" role="header">
-
-			<h1 class="site-title">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<?php bloginfo( 'name' ); ?>
-				</a>
-			</h1>
-		
+	<div style="background-color: #fff;" class="clearfix">
+		<div class="wrap">
+			<header id="header" role="header">
+				<h1 class="site-title">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<?php bloginfo( 'name' ); ?>
+					</a>
+				</h1>
+				<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
+			</header>
+		</div>
+	</div>
+	<div class="clearfix base-color">
+		<div class="wrap">
 			<nav id="nav" class="access" role="navigation">
-
 				<?php wp_nav_menu( array('menu' => 'primary') ); ?>
-			
+				<div class="clearfix"></div>
 			</nav>
-		</header>
+		</div>
+	</div>
+	<div class="wrap">
+
 	

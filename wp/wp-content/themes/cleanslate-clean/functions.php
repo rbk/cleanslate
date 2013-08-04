@@ -1,8 +1,8 @@
 <?php
 	/**
 	 * @package WordPress
-	 * @subpackage Tabula Rasa
-	 * @since Tabula Rasa 1.0
+	 * @subpackage Gurustu
+	 * @since Gurustu
 	 */
 	/*
 	 *
@@ -20,12 +20,13 @@
     		wp_enqueue_script('modernizr', get_template_directory_uri() . '/js/modernizr.custom.full.js' );
     		wp_enqueue_script('plugins', get_template_directory_uri() . '/js/plugins.js' );
     		wp_enqueue_script('common-js', get_template_directory_uri() . '/js/common.js' );
-    		wp_enqueue_script( 'google_maps_api_v3', 'https://maps.googleapis.com/maps/api/js?key=&sensor=true', array('jquery') );
+    		wp_enqueue_script('jquery-masonry-1', get_template_directory_uri() . '/js/jquery.masonry.js' );
+    		wp_enqueue_script( 'google_maps_api_v3', '//maps.googleapis.com/maps/api/js?key=' . get_option('guru_google_api_key') . '&sensor=true', array('jquery') );
 
 		}
-        // wp_enqueue_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js');
-    	// wp_enqueue_script('fancybox', get_template_directory_uri() . '/js/fancybox/jquery.fancybox.pack.js', array('jquery') );
-    	// wp_enqueue_script('json2', get_template_directory_uri() . '/js/json2.js' );
+		// if you need fancy box...
+		// wp_enqueue_script('fancybox', get_template_directory_uri() . '/js/fancybox/jquery.fancybox.pack.js' );
+    	// wp_enqueue_script('fancybox-media', get_template_directory_uri() . '/js/fancybox/helpers/jquery.fancybox-media.js' );
     	// wp_enqueue_style('fancybox-css', get_template_directory_uri() . '/js/fancybox/jquery.fancybox.css' );
 	}
 	add_action( 'wp_enqueue_scripts', 'gurustu_enqueue_scripts' );
@@ -37,7 +38,7 @@
 	*/ 
 	function gurustu_add_ajax_url_to_frontend() {
 
-		wp_enqueue_script( 'gurustu_frontend_ajax_scripts', get_template_directory_uri() . 'js/custom_ajax.js', array('jquery') );
+		wp_enqueue_script( 'gurustu_frontend_ajax_scripts', get_template_directory_uri() . '/js/custom_ajax.js', array('jquery') );
 		wp_localize_script( 'gurustu_frontend_ajax_scripts', 'guru_ajaxurl', array('ajaxurl' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'guru_nounce' ) ) );
 
 	}
@@ -56,15 +57,15 @@
 	 * Theme Setup (based on twentythirteen: http://make.wordpress.org/core/tag/twentythirteen/)
 	 *
 	*/
-	function html5reset_setup() {
-		load_theme_textdomain( 'html5reset', get_template_directory() . '/languages' );
+	function gurustu_setup() {
+		load_theme_textdomain( 'gurustu', get_template_directory() . '/languages' );
 		add_theme_support( 'automatic-feed-links' );	
 		// add_theme_support( 'structured-post-formats', array( 'link', 'video' ) );
 		// add_theme_support( 'post-formats', array( 'aside', 'audio', 'chat', 'gallery', 'image', 'quote', 'status' ) );
-		register_nav_menu( 'primary', __( 'Navigation Menu', 'html5reset' ) );
+		register_nav_menu( 'primary', __( 'Navigation Menu', 'gurustu' ) );
 		add_theme_support( 'post-thumbnails' );
 	}
-	add_action( 'after_setup_theme', 'html5reset_setup' );
+	add_action( 'after_setup_theme', 'gurustu_setup' );
 	/*
 	 *
 	 * Not sure why we are removing these from the head.
@@ -81,39 +82,24 @@
 	 * Register Nav Menu
 	 *
 	*/
-	register_nav_menu( 'primary', __( 'Navigation Menu', 'html5reset' ) );
+	register_nav_menu( 'primary', __( 'Navigation Menu', 'gurustu' ) );
 
 	/*
 	 *
 	 * Widgets
 	 *
 	*/
-	function html5reset_widgets_init() {
+	function gurustu_widgets_init() {
 		register_sidebar( array(
-			'name'          => __( 'Sidebar Widgets', 'html5reset' ),
+			'name'          => __( 'Sidebar Widgets', 'gurustu' ),
 			'id'            => 'sidebar-primary',
 			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</aside>',
 			'before_title'  => '<h3 class="widget-title">',
 			'after_title'   => '</h3>',
 		) );
-	}
-	add_action( 'widgets_init', 'html5reset_widgets_init' );
-
-	function guru_widgets_init() {
 		register_sidebar(array(
-			'name'          => __( 'Front Article One', 'html5reset' ),
-			'id'            => 'front-widget-one',
-			'description'   => '',
-			'class'         => '',
-			'before_widget' => '<div class="third">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h2 class="widgettitle">',
-			'after_title'   => '</h2>'
-		));
-
-		register_sidebar(array(
-			'name'          => __( 'Footer', 'html5reset' ),
+			'name'          => __( 'Footer', 'gurustu' ),
 			'id'            => 'footer-widgets',
 			'description'   => '',
 			'class'         => '',
@@ -123,7 +109,7 @@
 			'after_title'   => '</h2>'
 		));
 	}
-	add_action( 'widgets_init', 'guru_widgets_init' );
+	add_action( 'widgets_init', 'gurustu_widgets_init' );
 
 	/*
 	 *
@@ -541,11 +527,14 @@ function guru_get_slides(){
 		<div class="main-slider">
 		    
 			<div class="cycle-slideshow"
-				data-cycle-fx="fade"
+				data-cycle-fx="scrollHorz"
 				data-cycle-pause-on-hover="false"
 				data-cycle-speed="2000"
 				data-cycle-swipe="true"
-				data-cycle-timeout="<?php echo get_option('guru_slide_speed'); ?>"
+				<?php
+					$slider_speed = get_option('guru_slide_speed');
+				?>
+				data-cycle-timeout="<?php echo ( $slider_speed ) ? $slider_speed : 3000; ?>"
 				data-cycle-slides=".cycle-slide"
 			>
 			<?php while( $slides->have_posts() ) : $slides->the_post(); ?>

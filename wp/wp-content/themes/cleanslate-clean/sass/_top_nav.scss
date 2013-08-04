@@ -1,0 +1,104 @@
+nav.access {
+
+	ul {
+		margin: 0;
+		padding: 0;
+		// overflow:hidden;
+	}
+	li {
+		
+		// float: left;
+		display: block;
+		position: relative;
+
+		&:last-child {
+			padding-right: 0px;
+
+			ul.sub-menu {
+				right: 0;
+			}
+		}
+		&.current-menu-item a {
+
+		}
+		
+		a {
+			display: block;
+			text-align: center;
+			color: #FFF;
+			text-transform: uppercase;
+			padding: 8px 15px 6px 15px;
+			background-color: $base-color;
+		}
+		a:hover { 
+			color: #FFF;
+			background-color: darken( $secondary-color, 10% );
+		 }
+
+		 ul.sub-menu {
+		 	display: none;
+		 	position: absolute;
+		 	z-index: 999;
+
+		 	li {
+		 		float: none;
+		 	}
+		 	a {
+		 		width: 180px;
+		 		text-align: left;
+		 	}
+		 }
+
+		 &:hover ul.sub-menu {
+		 	display: block;
+		 }
+	}
+
+}
+@media screen and (min-width: 768px) {
+	nav.access ul li {
+		float: left;
+	}
+
+
+}
+
+/*
+
+social
+
+*/
+ul.guru-social {
+	
+	list-style: none;
+
+	li {
+		float:left;
+		margin-right: 3px;
+		overflow:hidden;
+	}
+
+	li a {
+		display: block;
+		@include main-sprite(34px, 34px, 0px, -104px);
+	}
+	li a:hover {
+		@include opacity(.6);
+	}
+
+	li.email a {
+		background-position: -36px -104px;
+	}
+	li.linkedin a {
+		background-position: -145px -104px;
+	}
+	li.twitter a {
+		background-position: -108px -104px;
+	}
+	li.facebook a {
+		background-position: 1px -104px;
+	}
+	li.google a {
+		background-position: -72px -104px;
+	}
+}

@@ -1,0 +1,48 @@
+html.ie8, html.ie7 {
+  
+  .clearfix{
+    @include clearfix;
+  }
+  .alignleft{
+    @include float-left;
+    margin-right: 1em;
+  }
+  .alignright{
+    @include float-right;
+    margin-left: 1em;
+  }
+  .alignnone{}
+  .aligncenter{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  
+  .mobile-menu{
+    display: none;
+  }
+  header {
+    @include column(12);
+  }
+  article {
+    @include column(8);
+    
+    &.no-sidebar {
+      @include column(12);
+    }
+  }
+  aside {
+    @include column(4);
+  }
+  nav {
+    @include column(12);
+  }
+  article.third {
+    @include column(4);
+  }
+  nav.access ul li {
+    float: left;
+  }
+
+
+}

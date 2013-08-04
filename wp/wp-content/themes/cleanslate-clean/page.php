@@ -1,8 +1,8 @@
 <?php
 /**
  * @package WordPress
- * @subpackage HTML5-Reset-Wordpress-Theme
- * @since HTML5 Reset 2.0
+ * @subpackage Gurustu
+ * @since Gurustu
  */
  get_header(); ?>
 
@@ -12,8 +12,6 @@
 
 			<h2><?php the_title(); ?></h2>
 
-			<?php posted_on(); ?>
-
 			<div class="entry">
 
 				<?php the_content(); ?>
@@ -22,11 +20,10 @@
 
 			</div>
 
-			<?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
+			<?php edit_post_link('Edit this page.', '<p>', '</p>'); ?>
 
 		</article>
 
 		<?php endwhile; endif; ?>
-
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

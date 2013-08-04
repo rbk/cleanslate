@@ -5,22 +5,69 @@
  * @since HTML5 Reset 2.0
  */
 ?>
-
+<div class="clearfix"></div>
 </div> <!-- end wrap -->
+	<div class="wrap">
+	<div id="container" class="js-masonry" data-masonry-options='{"itemSelector": "article" }'>
+		<article class="third">Lorem ipsum dolor sit amet, conseceiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">Lorem ipsum dolor sit amet, conset labore et dolore magna aliqua. Ut eni</article>
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">
+			Lorem ipsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut eni
+		</article>
+		<article class="third">Ut eni</article>	
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">
+			Lorem ipsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut eni
+		</article>
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing consectetur adipisicing consectetur adipisicing elitmpor incididunt ut labore et dolore magna aliqua. Ut eni</article>
+	<article class="third">Lorem ipsum dolor sit amet, consectetur a, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">
+			Lorem ipsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut eni
+		</article>
+		<article class="third">Ut eni</article>	
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">
+			Lorem ipsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut enpsum dolor sit amet, consectetur adipisicinr incididunt ut labore 
+			et dolore magna aliqua. Ut eni
+		</article>
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni</article>	
+		<article class="third">Lorem ipsum dolor sit amet, consectetur adipisicing consectetur adipisicing consectetur adipisicing elitmpor incididunt ut labore et dolore magna aliqua. Ut eni</article>		
+		<div class="clearfix"></div>
+	</div>
+	</div>
 
-		
-
-		<footer id="footer" role="contentinfo" class="wrap">
-				<div class="container">
-					<?php
-						$fDate = '&copy; 2012';
-						if ( date('Y') != '2012' ) $fDate = $fDate.' - '.date('Y');
-					?>
-					<span class="foot-left"><span>Copyright <?php echo $fDate; ?></span><span class="hyph"> - </span><span><?php bloginfo('name'); ?>. </span><span>All Rights Reserved.</span></span>
-					<span class="foot-right">Site by <a href="http://www.gurustugroup.com" id="guruLink" title="GuRuStu. Branding, Marketing & Web Design." target="_blank">GuRuStu Group</a></span>
-					<div class="clearfix"></div>
-				</div>
-		</footer><!-- footer -->
+	<footer id="footer" role="contentinfo" class="wrap">
+			<div class="container">
+				<?php
+					$fDate = '&copy; 2012';
+					if ( date('Y') != '2012' ) $fDate = $fDate.' - '.date('Y');
+				?>
+				<span class="foot-left"><span>Copyright <?php echo $fDate; ?></span><span class="hyph"> - </span><span><?php bloginfo('name'); ?>. </span><span>All Rights Reserved.</span></span>
+				<span class="foot-right">Site by <a href="http://www.gurustugroup.com" id="guruLink" title="GuRuStu. Branding, Marketing & Web Design." target="_blank">GuRuStu Group</a></span>
+				<div class="clearfix"></div>
+			</div>
+	</footer><!-- footer -->
 		
 
 

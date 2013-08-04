@@ -1,22 +1,17 @@
 /*
  *
- * Add custom javascript.
+ * Custom javascript/jQuery.
  * Don't get too crazy and use comments.
- * 
- *
+ * Note: Websites should not rely to heavily on javascript. Javascript should intead enhance the users experience.
+ * and bring more functionality to the website.
 */
 jQuery(document).ready(function($){
 	
-	// equalWidthTopNavItems();
+
+
 
 });
 
-function equalWidthTopNavItems(){
-	// Have the top nav links resize to fit the screen all the time. 
-	var menu_items = $('nav.access li');
-	var menu_count = menu_items.length;
-	menu_items.css({'width': (100 / menu_count) + '%' });
-}
 
 
 

@@ -5,7 +5,6 @@
  * @since HTML5 Reset 2.0
  */
  get_header(); ?>
-
 		<?php if (have_posts()) : ?>
 
  			<?php $post = $posts[0]; // Hack. Set $post so that the_date() works. ?>

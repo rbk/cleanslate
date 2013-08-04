@@ -27,15 +27,15 @@ function isVector($arr){
 // --------------------------------------------------------
 // Base for creating new post types, logs new post types for icon support.
 //
-
-  
-if( is_admin() ){
-	// $plugin_dir_path = dirname(__FILE__);
-	wp_enqueue_script( 'npt-uploader' , plugins_url( 'newposttype/media-upload.js', 'media-upload' ), array('jquery') );
-
-
+function newposttype_load_scripts(){
+	if( is_admin() ){
+		// $plugin_dir_path = dirname(__FILE__);
+		wp_enqueue_script( 'npt-uploader' , plugins_url( 'newposttype/media-upload.js', 'media-upload' ), array('jquery') );
+	}
 
 }
+add_action( 'wp_enqueue_scripts', 'newposttype_load_scripts' );
+  
 class NewPostType{
 	
 
