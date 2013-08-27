@@ -1,8 +1,8 @@
 <?php
 /**
  * @package WordPress
- * @subpackage HTML5-Reset-Wordpress-Theme
- * @since HTML5 Reset 2.0
+ * @subpackage Gurustu
+ * @since Gurustu
  */
  get_header(); ?>
 		<?php if (have_posts()) : ?>

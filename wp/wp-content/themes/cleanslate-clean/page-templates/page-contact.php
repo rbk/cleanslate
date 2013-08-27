@@ -14,7 +14,6 @@
       <h2><?php the_title(); ?></h2>
 
       <div class="entry">
-       <p> Responsive map uses shortcode attributes. Check out the Contact page template.</p>
         <?php echo do_shortcode('[location coordinates="' . get_option('guru_location_coordinates') . '" id="test" height="200" zoom="18"]');?>
 
         <?php the_content(); ?>
@@ -28,5 +27,5 @@
     </article>
 
     <?php endwhile; endif; ?>
-<?php get_sidebar(); ?>
+<?php //get_sidebar(); ?>
 <?php get_footer(); ?>

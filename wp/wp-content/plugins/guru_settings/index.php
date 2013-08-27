@@ -363,6 +363,32 @@ function guru_map($atts, $content=null){
 }
 add_shortcode( 'location', 'guru_map' );
 
+// Function adds GA tracking code to footer
+function gurustu_google_analytics(){
+
+	$ga_tracking = get_option('guru_meta_google_analytics_code');
+	if( $ga_tracking ):
+
+	?>
+	<script>
+
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', '<?php echo $ga_tracking; ?>']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+	</script>
+
+	<?php
+	endif;
+	
+}
+
 function guru_easy_admin() {
 
 

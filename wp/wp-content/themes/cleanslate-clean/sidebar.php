@@ -1,7 +1,10 @@
+
 <?php
 /**
  *
- * Sidebar
+ * @package WordPress
+ * @subpackage Gurustu
+ * @since Gurustu
  *
  */
 ?>

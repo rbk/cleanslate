@@ -44,15 +44,6 @@
 	add_action( 'wp_enqueue_scripts', 'gurustu_add_ajax_url_to_frontend' );
 	/*
 	 *
-	 * Options Framework (https://github.com/devinsays/options-framework-plugin)
-	 *
-	*/
-	if ( !function_exists( 'optionsframework_init' ) ) {
-		define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/options/' );
-		require_once dirname( __FILE__ ) . '/options/options-framework.php';
-	}
-	/*
-	 *
 	 * Theme Setup (based on twentythirteen: http://make.wordpress.org/core/tag/twentythirteen/)
 	 *
 	*/
@@ -142,8 +133,8 @@
 	*/
 	if ( function_exists( 'add_image_size' ) ) { 
 		// add_image_size( 'category-thumb', 300, 9999 ); //300 pixels wide (and unlimited height)
-		add_image_size( 'sub-slide-thumb', 265, 162, true ); //(cropped)
-		add_image_size( 'sub-slide-main', 450, 300, true ); //(cropped)
+		// add_image_size( 'sub-slide-thumb', 265, 162, true ); //(cropped)
+		// add_image_size( 'sub-slide-main', 450, 300, true ); //(cropped)
 	}
 	/*
 	 *

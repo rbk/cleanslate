@@ -1,25 +1,17 @@
 // Our foundation
-@import "normalizev2";
-
-// Simple css grid
-// @import "flurid";
-
-//Sematic Grid
-@import "sematic_grid";
-
-@import "mixins";
+@import "base/normalizev2";
+@import "base/mixins";
 @import "compass/css3";
 @import "compass/utilities/general/float";
 
 // Define common variables
 $gurustu: #009AEA;
-$base-color: #009AEA;
-$secondary-color: #009AEA;
-$layout-width: 1220px;
+$base-color: $gurustu;
+$secondary-color: #444;
+$layout-width: 1024px;
 $font-color: #FFF;
-$font-size: 16px;
 $link-color: $base-color;
-$bg-color: #E1E1E1;
+$bg-color: #fff;
 
 // Specific theme imports, might move to bottom.
 @import "top_nav";
@@ -29,26 +21,20 @@ $bg-color: #E1E1E1;
 @import "slider";
 @import "ie";
 
-// Must have
+// Must have. Makes browsers use the same box model
 * { 
 	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-	-webkit-tap-highlight-color: rgba(255,255,255,.3) !important;
 }
 
 body {
-
 	font-size: 100%;
 	width: 100%;
 	overflow-y: scroll; /* keeps page from shifting on shorter pages */
 	@include clearfix;
-	background-color: $bg-color;
-
 }
-
 h1,h2,h3,h4,h5,h6 {
 	line-height: 1;
 }
-
 a {
 	color: $link-color;
 	text-decoration: none;
@@ -60,22 +46,16 @@ a {
 	}
 
 }
-
 h1.site-title a, h2.site-title a {
-	// Logo, use sprite mixin
+	// Use main sprite mixin for logos
 	display: block;
-	color: #EEE;
 }
-
+	
 .wrap {
 	max-width: $layout-width;
 	margin: 0 auto;
-	@include clearfix;
-	/*
-		Attention: There must be a better way to center our content and padding it at the same time.
-
-	*/
 	padding: 1em;
+	@include clearfix;
 
 }
 
@@ -84,6 +64,7 @@ table {
 	width: 100%;
 	table-layout:fixed;
 }
+
 /* Selection colours (easy to forget) */
 ::selection 	 	{background: $base-color;}
 ::-moz-selection 	{background: $base-color;}
@@ -92,45 +73,7 @@ img::-moz-selection	{background: transparent;}
 body {-webkit-tap-highlight-color: transparent;}
 
 
-@media screen and (min-width: 768px) {
-	header {
-		@include column(12);
-	}
-	article {
-		@include column(8);
-		
-		&.no-sidebar {
-			@include column(12);
-		}
-	}
-	#sidebar {
-		@include column(4);
-	}
-	nav {
-		@include column(12);
-	}
-	article.third {
-		@include column(4);
-	}
-	.postlist {
-		@include column(8);
-		article {
-			float:none;
-		}
-	}
-}
 
-
-article.third {
-	background-color: $base-color;
-	color: #FFF;
-	padding: 1em;
-	margin-top: 1%;
-}
-
-.base-color {
-	background-color: $base-color;
-}
 
 
 

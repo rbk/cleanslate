@@ -1,12 +1,12 @@
 <?php
 /**
  * @package WordPress
- * @subpackage HTML5-Reset-Wordpress-Theme
- * @since HTML5 Reset 2.0
+ * @subpackage Gurustu
+ * @since Gurustu
  */
  get_header(); ?>
 
-	<h2><?php _e('Error 404 - Page Not Found','html5reset'); ?></h2>
+	<h2><?php _e('Error 404 - Page Not Found','gurustu'); ?></h2>
 
 <?php get_sidebar(); ?>
 

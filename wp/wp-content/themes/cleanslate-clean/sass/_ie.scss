@@ -21,28 +21,28 @@ html.ie8, html.ie7 {
   .mobile-menu{
     display: none;
   }
-  header {
-    @include column(12);
-  }
-  article {
-    @include column(8);
+  // header {
+  //   @include column(12);
+  // }
+  // article {
+  //   @include column(8);
     
-    &.no-sidebar {
-      @include column(12);
-    }
-  }
-  aside {
-    @include column(4);
-  }
-  nav {
-    @include column(12);
-  }
-  article.third {
-    @include column(4);
-  }
-  nav.access ul li {
-    float: left;
-  }
+  //   &.no-sidebar {
+  //     @include column(12);
+  //   }
+  // }
+  // aside {
+  //   @include column(4);
+  // }
+  // nav {
+  //   @include column(12);
+  // }
+  // article.third {
+  //   @include column(4);
+  // }
+  // nav.access ul li {
+  //   float: left;
+  // }
 
 
 }

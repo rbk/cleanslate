@@ -3,6 +3,7 @@
  * @package WordPress
  * @subpackage Gurustu
  * @since Gurustu
+ * This template is used as the blog page by default. http://codex.wordpress.org/Template_Hierarchy
  */
  get_header(); ?>
  	<section class="postlist">
@@ -12,7 +13,7 @@
 
 				<h2><a href="<?php the_permalink() ?>"><?php the_title(); ?></a></h2>
 
-				<?php //posted_on(); ?>
+				<?php posted_on(); ?>
 
 				<div class="entry">
 					<?php the_excerpt(); ?>
