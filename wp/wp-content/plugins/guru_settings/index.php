@@ -350,6 +350,7 @@ function guru_map($atts, $content=null){
 	
 	</style>
 	<div id="<?php echo $atts['id']; ?>"></div>
+	<a target="_blank" href="http://maps.google.com/maps?daddr=<?php echo urlencode(get_option('guru_map_address'));?>">Get directions</a><br/>
 	<script>
 		jQuery(document).ready(function($){
 			$('#<?php echo $atts["id"]; ?>').googleMap({
