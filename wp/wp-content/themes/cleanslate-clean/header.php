@@ -22,8 +22,9 @@
 	<title><?php wp_title( '|', true, 'right' ); ?><?php echo bloginfo('title');?></title>
 	<meta name="title" content="<?php wp_title( '|', true, 'right' ); ?>">
 	<meta name="Copyright" content="Copyright &copy; <?php bloginfo('name'); ?> <?php echo date('Y'); ?>. All Rights Reserved.">
-
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/images/favicon.ico" />
+	
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
