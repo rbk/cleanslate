@@ -18,9 +18,9 @@
 			
 			// Use a lighter version of modernizr for production
     		wp_enqueue_script('modernizr', get_template_directory_uri() . '/js/modernizr.custom.full.js' );
-    		wp_enqueue_script('plugins', get_template_directory_uri() . '/js/plugins.js' );
-    		wp_enqueue_script('common-js', get_template_directory_uri() . '/js/common.js' );
-    		wp_enqueue_script('jquery-masonry-1', get_template_directory_uri() . '/js/jquery.masonry.js' );
+    		wp_enqueue_script('plugins', get_template_directory_uri() . '/js/plugins.js', '', array('jquery'), true );
+    		wp_enqueue_script('common-js', get_template_directory_uri() . '/js/common.js', '', array('jquery'), true );
+    		wp_enqueue_script('jquery-masonry-1', get_template_directory_uri() . '/js/jquery.masonry.js', '', array('jquery'), true );
 
 		}
 		// if you need fancy box...
@@ -48,14 +48,24 @@
 	 *
 	*/
 	function gurustu_setup() {
+		add_theme_support( 'menus' );
+		add_theme_support( 'post-thumbnails' );
 		load_theme_textdomain( 'gurustu', get_template_directory() . '/languages' );
 		add_theme_support( 'automatic-feed-links' );	
-		// add_theme_support( 'structured-post-formats', array( 'link', 'video' ) );
-		// add_theme_support( 'post-formats', array( 'aside', 'audio', 'chat', 'gallery', 'image', 'quote', 'status' ) );
 		register_nav_menu( 'primary', __( 'Navigation Menu', 'gurustu' ) );
-		add_theme_support( 'post-thumbnails' );
+		add_post_type_support( 'page', 'excerpt' );
 	}
 	add_action( 'after_setup_theme', 'gurustu_setup' );
+		/*
+	 *
+	 * Custom Image Sizes
+	 *
+	*/
+	if ( function_exists( 'add_image_size' ) ) { 
+		// add_image_size( 'category-thumb', 300, 9999 ); //300 pixels wide (and unlimited height)
+		// add_image_size( 'sub-slide-thumb', 265, 162, true ); //(cropped)
+		// add_image_size( 'sub-slide-main', 450, 300, true ); //(cropped)
+	}
 	/*
 	 *
 	 * Not sure why we are removing these from the head.
@@ -66,14 +76,6 @@
     	remove_action('wp_head', 'wlwmanifest_link');
     }
     add_action('init', 'removeHeadLinks');
-
-	/*
-	 *
-	 * Register Nav Menu
-	 *
-	*/
-	register_nav_menu( 'primary', __( 'Navigation Menu', 'gurustu' ) );
-
 	/*
 	 *
 	 * Widgets
@@ -126,16 +128,7 @@
 			esc_attr( get_the_author() )
 		);
 	}
-	/*
-	 *
-	 * Custom Image Sizes
-	 *
-	*/
-	if ( function_exists( 'add_image_size' ) ) { 
-		// add_image_size( 'category-thumb', 300, 9999 ); //300 pixels wide (and unlimited height)
-		// add_image_size( 'sub-slide-thumb', 265, 162, true ); //(cropped)
-		// add_image_size( 'sub-slide-main', 450, 300, true ); //(cropped)
-	}
+
 	/*
 	 *
 	 * Add editor style
@@ -147,93 +140,42 @@
 	add_action('pre_get_posts', 'guru_editor_style');
 	/*
 	 *
-	 * Custom function to replace youtube link with the embed code
-	 *
-	*/
-
-	function filter_sidebar_content_to_show_youtube( $content ){
-		// You tube regex
-		$yt_link = '@^\s*https?://(?:www\.)?(?:youtube.com/watch\?|youtu.be/)([^\s"]+)\s*$@im';
-
-		// Check to see if we have any youtube links
-		if( preg_match_all( $yt_link, $content ) ) {
-
-			preg_match_all( $yt_link, $content, $matches );
-
-			foreach( $matches[0] as $match ){
-				$code = str_replace( 'http://www.youtube.com/watch?v=', '', $match );
-				$embed_code = '<p style=""><iframe src="http://www.youtube.com/embed/' . trim($code) . '" frameborder="0" allowfullscreen></iframe></p>';
-				$content = str_replace( $match, $embed_code, $content );
-			}
-		}
-		return $content;
-	}
-	/*
-	 *
-	 * Function to retrieve content from our second editor
-	 *
-	*/
-	function custom_sidebar_content(){
-
-	    $sidecontent = get_post_custom( $post->ID );
-
-		if( ! empty( $sidecontent['_right_column'][0] ) ){
-			$content = $sidecontent['_right_column'][0];
-
-			/* Lets filter this content to support easy embedding of youtube videos */
-	    	$content = filter_sidebar_content_to_show_youtube( $sidecontent['_right_column'][0] );
-
-			
-			$content = wpautop( $content );
-       
-        	echo $content;
-		}
-	}
-	/*
-	 *
 	 * More functions, trying to figure out the best to organize these
 	 *
 	*/
+	function theme_excerpt_length( $length ) {
+	    return 80; // 80 words long
+	}
+	add_filter('excerpt_length', 'theme_excerpt_length');
 
-add_theme_support( 'menus' );
-register_nav_menus( array('primary' => 'primary', 'secondary' => 'secondary', 'footer' => 'footer') );
-
-add_theme_support( 'post-thumbnails' );
-add_post_type_support( 'page', 'excerpt' );
-
-function theme_excerpt_length( $length ) {
-    return 80; // 80 words long
-}
-add_filter('excerpt_length', 'theme_excerpt_length');
-
-function theme_excerpt_more( $more ) {
-    global $post;
-    return '&hellip; <p><a class="read-more" href="'. get_permalink($post->ID) . '">' . __('READ MORE') . '</a><p>';
-}
-add_filter('excerpt_more', 'theme_excerpt_more');
+	function theme_excerpt_more( $more ) {
+	    global $post;
+	    return '&hellip; <p><a class="read-more" href="'. get_permalink($post->ID) . '">' . __('READ MORE') . '</a><p>';
+	}
+	add_filter('excerpt_more', 'theme_excerpt_more');
 
 
-// remove gallery shortcode styling
-add_filter('gallery_style',
-    create_function(
-        '$css',
-        'return preg_replace("#<style type=\'text/css\'>(.*?)</style>#s", "", $css);'
-    )
-);
-// replace gallery shortcode
-remove_shortcode('gallery');
-add_shortcode('gallery', 'theme_gallery_shortcode');
+	// remove gallery shortcode styling
+	add_filter('gallery_style',
+	    create_function(
+	        '$css',
+	        'return preg_replace("#<style type=\'text/css\'>(.*?)</style>#s", "", $css);'
+	    )
+	);
+	// replace gallery shortcode
+	remove_shortcode('gallery');
+	add_shortcode('gallery', 'theme_gallery_shortcode');
 
-function theme_gallery_shortcode( $attr ) {
-    global $post, $wp_locale;
-    // create your own gallery output...
-}
+	function theme_gallery_shortcode( $attr ) {
+	    global $post, $wp_locale;
+	    // create your own gallery output...
+	}
 
-// remove version info from head and feeds
-function complete_version_removal() {
-	return '';
-}
-add_filter('the_generator', 'complete_version_removal');
+	// remove version info from head and feeds
+	function complete_version_removal() {
+		return '';
+	}
+	add_filter('the_generator', 'complete_version_removal');
 
 
 
@@ -356,44 +298,7 @@ if( class_exists( 'NewPostType' )){
   //        )
   //    ) 
   // ));
-
-  
-
-  if (class_exists('MultiPostThumbnails')) {
-        new MultiPostThumbnails(
-            array(
-                'label' => 'Thumbnail 265 X 158 (optional)',
-                'id' => 'slide-image-small',
-                'post_type' => 'guru_sub-slides'
-            )
-        );
-  }
-
-
 } // end if new post type exists
-
-
-//
-//  Meta Box (Class included in new post type plugin)
-//
-if( class_exists( 'MetaBoxTemplate' )){
-  $pageMeta = new MetaBoxTemplate(array(
-          'page' => 'page',
-          'id' => 'read-more-link',
-          'title' => 'Custom Read More Link',
-          'context' => 'normal',
-          'priority' => 'core',
-          'fields' => array(
-            array(
-              'name' => 'Read more text: ',
-              'id' => 'read',
-              'type' => 'text',
-              'std' => 'Read More'
-            )
-          )
-        ));
-        
-}
 
 
 function get_topmost_parent($post_id){
