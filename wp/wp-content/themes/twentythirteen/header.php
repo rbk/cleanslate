@@ -1,6 +1,6 @@
 <?php
 /**
- * The Header for our theme.
+ * The Header template for our theme
  *
  * Displays all of the <head> section and everything up till <div id="main">
  *
@@ -31,7 +31,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-	<div id="wrapper">
+	<div id="page" class="hfeed site">
 		<header id="masthead" class="site-header" role="banner">
 			<a class="home-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 				<h1 class="site-title"><?php bloginfo( 'name' ); ?></h1>
