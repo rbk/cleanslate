@@ -40,7 +40,7 @@ h1,h2,h3,h4,h5,h6 {
 a {
 	color: $link-color;
 	text-decoration: none;
-	@include single-transition( all, .1s, ease-in-out );
+	@include single-transition( all, .4s, ease-in-out );
 	-webkit-tap-highlight-color: rgba(255,255,255,.3) !important;
 
 	&:hover {
@@ -53,13 +53,13 @@ h1.site-title a, h2.site-title a {
 	display: block;
 }
 	
-.wrap {
-	max-width: $layout-width;
-	margin: 0 auto;
-	padding: 1em;
-	@include clearfix;
+// .wrap {
+// 	max-width: $layout-width;
+// 	margin: 0 auto;
+// 	padding: 1em;
+// 	@include clearfix;
 
-}
+// }
 
 // This makes tables useful for two column layouts
 table {
@@ -68,8 +68,8 @@ table {
 }
 
 /* Selection colours (easy to forget) */
-::selection 	 	{background: $base-color;}
-::-moz-selection 	{background: $base-color;}
+::selection 	 	{background: lighten( $base-color, 50% );}
+::-moz-selection 	{background: lighten( $base-color, 50% );}
 img::selection 		{background: transparent;}
 img::-moz-selection	{background: transparent;}
 body {-webkit-tap-highlight-color: transparent;}
