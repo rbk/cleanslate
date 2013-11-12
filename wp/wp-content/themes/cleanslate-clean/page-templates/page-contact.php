@@ -1,6 +1,6 @@
 <?php
 /**
- * Template name : Contact Page Template
+ * Template name: Contact Page Template
  * @package WordPress
  * @subpackage Gurustu
  * @since Gurustu

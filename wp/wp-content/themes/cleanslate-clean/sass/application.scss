@@ -1,8 +1,9 @@
 // Our foundation
-@import "base/normalizev2";
+@import "base/normalizev2"; 
+// @import "foundation";
+// @import "foundation/variables";
 @import "base/mixins";
-@import "compass/css3";
-@import "compass/utilities/general/float";
+@import "base/sprite";
 
 // Define common variables
 $gurustu: #009AEA;
@@ -13,17 +14,12 @@ $font-color: #FFF;
 $link-color: $base-color;
 $bg-color: #fff;
 
-@import "sprite";
-$sprites: sprite-map("sprites/*.png");
-$sprites-retina: sprite-map("sprites-retina/*.png");
-
 // Specific theme imports, might move to bottom.
 @import "top_nav";
 @import "sidebar";
-@import "webonly";
-@import "mobileonly";
+// @import "webonly";
+// @import "mobileonly";
 @import "slider";
-@import "ie";
 
 // Must have. Makes browsers use the same box model
 * { 
@@ -75,9 +71,3 @@ table {
 img::selection 		{background: transparent;}
 img::-moz-selection	{background: transparent;}
 body {-webkit-tap-highlight-color: transparent;}
-
-
-
-
-
-

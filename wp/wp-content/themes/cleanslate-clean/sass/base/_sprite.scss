@@ -1,7 +1,8 @@
 @import "compass/utilities/sprites";         // Include compass sprite helpers
 @import "compass/css3/background-size";      // Include helper to calc background size
 
-
+$sprites: sprite-map("sprites/sprites/*.png");
+$sprites2x: sprite-map("sprites/sprites2x/*.png");
 
 @mixin retina-sprite($name, $hover: false, $active: false) {
   @include _retina-sprite($name, $sprites, $sprites2x, $hover, $active);
