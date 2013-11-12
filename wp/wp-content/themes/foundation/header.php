@@ -29,18 +29,21 @@
 </head>
 <body <?php body_class(); ?>>
 	
-	<header id="header" role="header" class="wrap">
-		<h1 class="site-title">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-				<?php bloginfo( 'name' ); ?>
-			</a>
-		</h1>
-		<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
+	<header id="header" role="header" class="row">
+		<div class="columns large-12">
+			<h1 class="site-title">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<?php bloginfo( 'name' ); ?>
+				</a>
+			</h1>
+			<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
+		</div>
 	</header>
 
-	<nav id="nav" class="access wrap" role="navigation">
-		<?php wp_nav_menu( array('menu' => 'primary') ); ?>
-		<div class="clearfix"></div>
+	<nav id="nav" class="access row" role="navigation">
+		<div class="columns large-12">
+			<?php wp_nav_menu( array('menu' => 'primary') ); ?>
+		</div>
 	</nav>
 
-	<div id="main" class="site-main wrap">
+	<div id="main" class="site-main">
