@@ -135,7 +135,7 @@
 	 *
 	*/
 	function guru_editor_style() {
-		add_editor_style( 'editor-style.css' );
+		add_editor_style( get_template_directory_uri() . '/css/application.css' );
 	}
 	add_action('pre_get_posts', 'guru_editor_style');
 	/*
