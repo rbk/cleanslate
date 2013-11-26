@@ -17,9 +17,9 @@ $bg-color: #fff;
 // Specific theme imports, might move to bottom.
 @import "top_nav";
 @import "sidebar";
+@import "slider";
 // @import "webonly";
 // @import "mobileonly";
-@import "slider";
 
 // Must have. Makes browsers use the same box model
 * { 
@@ -32,7 +32,6 @@ body {
 	font-size: 100%;
 	width: 100%;
 	overflow-y: scroll; /* keeps page from shifting on shorter pages */
-	@include clearfix;
 }
 h1,h2,h3,h4,h5,h6 {
 	line-height: 1;
@@ -52,14 +51,6 @@ h1.site-title a, h2.site-title a {
 	// Use main sprite mixin for logos
 	display: block;
 }
-	
-// .wrap {
-// 	max-width: $layout-width;
-// 	margin: 0 auto;
-// 	padding: 1em;
-// 	@include clearfix;
-
-// }
 
 // This makes tables useful for two column layouts
 table {

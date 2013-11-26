@@ -20,7 +20,7 @@
 
 			<footer class="postmetadata">
 				<?php the_tags('Tags: ', ', ', '<br />'); ?>
-				<?php _e('Posted in','html5reset'); ?> <?php the_category(', ') ?> | 
+				<?php _e('Posted in','gurustu'); ?> <?php the_category(', ') ?> | 
 				<?php comments_popup_link('No Comments &#187;', '1 Comment &#187;', '% Comments &#187;'); ?>
 			</footer>
 
@@ -32,7 +32,7 @@
 
 	<?php else : ?>
 
-		<h2><?php _e('Nothing Found','html5reset'); ?></h2>
+		<h2><?php _e('Nothing Found','gurustu'); ?></h2>
 
 	<?php endif; ?>
 

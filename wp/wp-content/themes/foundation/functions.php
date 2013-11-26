@@ -7,6 +7,7 @@
 	/*
 	 *
 	 * OK, remove theme parents scripts and add ours
+	 * Scripts should be minified and put into single file as long as the file in less than 40kb
 	 *
 	*/
 	function gurustu_enqueue_scripts(){
@@ -41,7 +42,7 @@
 		wp_localize_script( 'gurustu_frontend_ajax_scripts', 'guru_ajaxurl', array('ajaxurl' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'guru_nounce' ) ) );
 
 	}
-	add_action( 'wp_enqueue_scripts', 'gurustu_add_ajax_url_to_frontend' );
+	// add_action( 'wp_enqueue_scripts', 'gurustu_add_ajax_url_to_frontend' );
 	/*
 	 *
 	 * Theme Setup (based on twentythirteen: http://make.wordpress.org/core/tag/twentythirteen/)
@@ -155,21 +156,28 @@
 	add_filter('excerpt_more', 'theme_excerpt_more');
 
 
-	// remove gallery shortcode styling
-	add_filter('gallery_style',
-	    create_function(
-	        '$css',
-	        'return preg_replace("#<style type=\'text/css\'>(.*?)</style>#s", "", $css);'
-	    )
-	);
+	/*
+	 *
+	 *
+		Uncomment to remove gallery shortcode styling
+	 *
+	 *
+	 */ 
+	// add_filter('gallery_style',
+	//     create_function(
+	//         '$css',
+	//         'return preg_replace("#<style type=\'text/css\'>(.*?)</style>#s", "", $css);'
+	//     )
+	// );
 	// replace gallery shortcode
-	remove_shortcode('gallery');
-	add_shortcode('gallery', 'theme_gallery_shortcode');
+	// remove_shortcode('gallery');
+	// add_shortcode('gallery', 'theme_gallery_shortcode');
 
-	function theme_gallery_shortcode( $attr ) {
-	    global $post, $wp_locale;
-	    // create your own gallery output...
-	}
+	// function theme_gallery_shortcode( $attr ) {
+	//     global $post, $wp_locale;
+	//     // create your own gallery output...
+	// }
+
 
 	// remove version info from head and feeds
 	function complete_version_removal() {
@@ -179,188 +187,66 @@
 
 
 
-  //WP Pages
-  function guru_pagination($pages = '', $range = 3){ 
-    $showitems = ($range * 2)+1;
-    global $paged;
-    echo '<h1 style="font-size:65px;">' . $numpages . 'test</h1>'; 
-    
-    if(empty($paged)) 
-      $paged = 1;
-    
-    if($pages == '') {
-      global $wp_query;
-      $pages = $wp_query->max_num_pages; 
-      if(!$pages){ 
-        $pages = 1; 
-      } 
-    }
-    if(1 != $pages){ 
-      echo "<div class=\"pagination\"><span class=\"text\">Page ".$paged." of ".$pages."</span>";
-      
-      if($paged > 2 && $paged > $range+1 && $showitems < $pages) 
-        echo "<a href='".get_pagenum_link(1)."' class=\"first\">&laquo; First</a>";
-   
-      if($paged > 1 && $showitems < $pages) 
-        echo "<a href='".get_pagenum_link($paged - 1)."' class=\"prev\">&lsaquo; Previous</a>";
-   
-      for ($i=1; $i <= $pages; $i++){ 
-        if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems )){ 
-          echo ($paged == $i) ? 
-            "<span class=\"current\">".$i."</span>":
-            "<a href='".get_pagenum_link($i)."' class=\"inactive\">".$i."</a>";
-        } 
-      } 
-      if ($paged < $pages && $showitems < $pages) 
-        echo "<a href=\"".get_pagenum_link($paged + 1)."\" class=\"next\">Next &rsaquo;</a>";
-   
-      if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) 
-        echo "<a href='".get_pagenum_link($pages)."' class=\"last\">Last &raquo;</a>";
-      
-      echo "</div>"; 
-    }
-    //always clearfix
-    echo '<div class="clearfix"></div>';
-  }
+	function get_topmost_parent($post_id){
+		$parent_id = get_post($post_id)->post_parent;
+		if($parent_id == 0){
+			return $post_id;
+		} else {
+			return get_topmost_parent($parent_id);
+		}
+	}
 
+	// Show thumbnail backend post list
+	add_filter('manage_posts_columns', 'posts_columns', 5);
+	add_action('manage_posts_custom_column', 'posts_custom_columns', 5, 2);
 
-  function pagination($pages = '', $range = 4)
-{  
-     $showitems = ($range * 2)+1;  
- 
-     global $paged;
-     if(empty($paged)) $paged = 1;
- 
-     if($pages == '')
-     {
-         global $wp_query;
-         $pages = $wp_query->max_num_pages;
-         if(!$pages)
-         {
-             $pages = 1;
-         }
-     }   
- 
-     if(1 != $pages)
-     {
-         echo "<div class=\"pagination\"><span>Page ".$paged." of ".$pages."</span>";
-         if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo "<a href='".get_pagenum_link(1)."'>&laquo; First</a>";
-         if($paged > 1 && $showitems < $pages) echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo; Previous</a>";
- 
-         for ($i=1; $i <= $pages; $i++)
-         {
-             if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems ))
-             {
-                 echo ($paged == $i)? "<span class=\"current\">".$i."</span>":"<a href='".get_pagenum_link($i)."' class=\"inactive\">".$i."</a>";
-             }
-         }
- 
-         if ($paged < $pages && $showitems < $pages) echo "<a href=\"".get_pagenum_link($paged + 1)."\">Next &rsaquo;</a>";  
-         if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($pages)."'>Last &raquo;</a>";
-         echo "</div>\n";
-     }
-}
+	function posts_columns($defaults){
+	    $defaults['riv_post_thumbs'] = __('Thumbs');
+	    return $defaults;
+	}
+	function posts_custom_columns($column_name, $id){
+	        if($column_name === 'riv_post_thumbs'){
+	        echo the_post_thumbnail( array(50,50) );
 
-// Register slides post type
-if( class_exists( 'NewPostType' )){
+	    }
+	}
 
-  $prefix = 'guru_';
-
-  NewPostType::instance()->add(array(
-    'post_type' => $prefix.'slides',
-    'post_type_name' => 'Slide',
-    'args' => array(
-		'rewrite' => array( 'slug' => 'slides' ),
-		'public' => true,
-		'supports' => array( 'title', 'editor', 'thumbnail', 'page-attributes' )
-    	)
-    ));
-
-  // NewPostType::instance()->add(array(
-  //   'post_type' => $prefix.'sub-slides',
-  //   'post_type_name' => 'Sub-slide',
-  //   'args' => array(
-  //         'rewrite' => array( 'slug' => 'sub-slides' ),
-  //         'public' => true,
-  //     'supports' => array( 'title', 'editor', 'thumbnail', 'page-attributes' )
-  //   )
-  //   ))->add_meta_box(array(
-  //    'id' => $prefix.'get_page_link',
-  //    'title' => 'SLIDE LINKS TO:',
-  //    'context' => 'normal',
-  //    'priority' => 'default',
-  //    'fields' => array(
-  //        array(
-  //            'name' => 'Link: ',
-  //            'id' => $prefix . 'page',
-  //            'type' => 'select',
-  //            'options' => get_page_and_post_list()
-  //        )
-  //    ) 
-  // ));
-} // end if new post type exists
-
-
-function get_topmost_parent($post_id){
-  $parent_id = get_post($post_id)->post_parent;
-  if($parent_id == 0){
-    return $post_id;
-  } else {
-    return get_topmost_parent($parent_id);
-  }
-}
-
-// Show thumbnail backend post list
-add_filter('manage_posts_columns', 'posts_columns', 5);
-add_action('manage_posts_custom_column', 'posts_custom_columns', 5, 2);
-
-function posts_columns($defaults){
-    $defaults['riv_post_thumbs'] = __('Thumbs');
-    return $defaults;
-}
-function posts_custom_columns($column_name, $id){
-        if($column_name === 'riv_post_thumbs'){
-        echo the_post_thumbnail( array(50,50) );
-
-    }
-}
-
-function guru_get_slides(){ 
-// this function is used with jQuery Cycle 2
-?>
-<?php $slides = new WP_Query(array('post_type'=>'guru_slides')); ?>
-	<?php if( $slides->found_posts > 0 ) : ?>
-		<div class="main-slider">
-		    
-			<div class="cycle-slideshow"
-				data-cycle-fx="scrollHorz"
-				data-cycle-pause-on-hover="false"
-				data-cycle-speed="2000"
-				data-cycle-swipe="true"
-				<?php
-					$slider_speed = get_option('guru_slide_speed');
-				?>
-				data-cycle-timeout="<?php echo ( $slider_speed ) ? $slider_speed : 3000; ?>"
-				data-cycle-slides=".cycle-slide"
-			>
-			<?php while( $slides->have_posts() ) : $slides->the_post(); ?>
-					<div class="cycle-slide">
-						<?php the_post_thumbnail('full'); ?>
-						<div class="slide-content">
-							<h3><?php the_title();?></h3>
-							<?php the_excerpt();?>
-							<a href="<?php the_permalink();?>" class="read-more">Read More</a>
+	function guru_get_slides(){ 
+	// this function is used with jQuery Cycle 2
+	?>
+	<?php $slides = new WP_Query(array('post_type'=>'guru_slides')); ?>
+		<?php if( $slides->found_posts > 0 ) : ?>
+			<div class="main-slider">
+			    
+				<div class="cycle-slideshow"
+					data-cycle-fx="scrollHorz"
+					data-cycle-pause-on-hover="false"
+					data-cycle-speed="2000"
+					data-cycle-swipe="true"
+					<?php
+						$slider_speed = get_option('guru_slide_speed');
+					?>
+					data-cycle-timeout="<?php echo ( $slider_speed ) ? $slider_speed : 3000; ?>"
+					data-cycle-slides=".cycle-slide"
+				>
+				<?php while( $slides->have_posts() ) : $slides->the_post(); ?>
+						<div class="cycle-slide">
+							<?php the_post_thumbnail('full'); ?>
+							<div class="slide-content">
+								<h3><?php the_title();?></h3>
+								<?php the_excerpt();?>
+								<a href="<?php the_permalink();?>" class="read-more">Read More</a>
+							</div>
 						</div>
-					</div>
-			<?php endwhile; wp_reset_postdata(); ?>
+				<?php endwhile; wp_reset_postdata(); ?>
 
-			<a href="#" class="cycle-prev">&lsaquo;</a>
-			<a href="#" class="cycle-next">&rsaquo;</a>
+				<a href="#" class="cycle-prev">&lsaquo;</a>
+				<a href="#" class="cycle-next">&rsaquo;</a>
 
+				</div>
 			</div>
-		</div>
-	<?php endif; ?>
-<?php } // End guru_get_slides
+		<?php endif; ?>
+	<?php } // End guru_get_slides
 
 
 /* Remember, no extra spaces at the end of functions.php! You will spend many hours wondering why something doesn't work... */
