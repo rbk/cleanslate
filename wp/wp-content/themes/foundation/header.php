@@ -31,11 +31,9 @@
 	
 	<header id="header" role="header" class="row">
 		<div class="columns large-12">
-			<h1 class="site-title">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<?php bloginfo( 'name' ); ?>
-				</a>
-			</h1>
+			<?php if (is_front_page()) { echo '<h1 class="site-title">'; } else { echo '<h2 class="site-title">'; } ?>
+				<a id="logo" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
+			<?php if (is_front_page()) { echo '</h1>'; } else { echo '</h2>'; } ?>
 			<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
 		</div>
 	</header>
