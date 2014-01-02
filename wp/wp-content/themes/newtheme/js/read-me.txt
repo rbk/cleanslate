@@ -1,0 +1,4 @@
+All scripts are loaded in the functions.php using wp_enqueue_script.
+
+- Minify jQuery plugins and put in plugins.js
+- Custom jQuery should go in the common.js file.

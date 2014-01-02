@@ -1,0 +1,171 @@
+@import "compass/css3";
+
+@mixin main-sprite($w:0,$h:0,$x:0,$y:0){
+  
+  display: block;
+  background-image:url("../images/sprite.png");
+  background-repeat: no-repeat;
+  width: $w;
+  height: $h;
+  background-position: $x $y;
+  text-indent: -9999px;
+}
+
+// keyframes mixin
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+/*
+    Example usage: 
+    @include animation(10s, 5s, changecolour)
+ */
+@mixin animation ($delay, $duration, $animation) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+ 
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+ 
+    -o-animation-delay: $delay;
+    -o-animation-duration: $duration;
+    -o-animation-name: $animation;
+    -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+ 
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: forwards; /* this prevents the animation from restarting! */
+}
+
+
+
+
+  @mixin rem($property, $px-values) {
+  // Convert the baseline into rems
+  $baseline-rem: $baseline-px / 1rem;
+  // Print the first line in pixel values
+  #{$property}: $px-values;
+  // If there is only one (numeric) value, return the property/value line for it.
+  @if type-of($px-values) == "number" {
+    #{$property}: $px-values / $baseline-rem; }
+  @else {
+    // Create an empty list that we can dump values into
+    $rem-values: unquote("");
+    @each $value in $px-values {
+      // If the value is zero, return 0
+      @if $value == 0 {
+        $rem-values: append($rem-values, $value); }
+      @else {
+        $rem-values: append($rem-values, $value / $baseline-rem); } }
+    // Return the property and its list of converted values
+    #{$property}: $rem-values; } 
+} // END REM
+
+@mixin clearfix {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+/* Calculate fluid ratio based on two dimensions (width/height) */
+@mixin fluid-ratio($large-size, $small-size) {
+  $width-large: nth($large-size, 1);
+  $width-small: nth($small-size, 1);
+  $height-large: nth($large-size, 2);
+  $height-small: nth($small-size, 2);
+  $slope: ($height-large - $height-small) / ($width-large - $width-small);
+  $height: $height-small - $width-small * $slope;
+
+  padding-top: $slope * 100%;
+  height: $height;
+
+  background-size: cover;
+  -moz-background-size: cover;  /* Firefox 3.6 */
+  background-position: center;  /* Internet Explorer 7/8 */
+}
+
+// @mixin main-sprite{
+//   background-image:url("../images/main-sprite-32.png");
+//   //background-image:url("../images/main-sprite-8.png");
+//   background-repeat: no-repeat;
+
+// }
+
+
+@-webkit-keyframes zoom-in-out {
+0%   { margin: 0 auto }
+33% { margin-right: 50px; }
+66% { margin-left: 50px; margin-right: 0px; }
+100%   { margin: 0 auto; }
+}
+// @-moz-keyframes zoom-in-out {
+//   0%   { opacity: 0; }
+//   100% { opacity: 1; }
+// }
+// @-o-keyframes zoom-in-out {
+//   0%   { opacity: 0; }
+//   100% { opacity: 1; }
+// }
+// @keyframes zoom-in-out {
+//   0%   { opacity: 0; }
+//   100% { opacity: 1; }
+// }
+@-webkit-keyframes fadein {
+  0% {opacity:.5}
+  20% { opacity: .5 }
+  100% { opacity: 1}
+}
+@-webkit-keyframes paddedHeader {
+  0% { padding-top: 25%; padding-bottom: 25%;}
+  20% { }
+  100% { padding-top: 7%; padding-bottom: 7%;}
+}
+
+@include keyframes(flip) {
+  0%    { @include transform( rotate(360deg) scale(1) skew(1deg) translate(0px) );}
+  // 25%  { @include transform (rotate(0deg) scale(1) skew(1deg) translate(0px) );}
+  // 50%  { @include transform (rotate(0deg) scale(1) skew(1deg) translate(0px) );}
+  // 50%  { @include transform (rotate(0deg) scale(1) skew(1deg) translate(0px) );}
+  100%    { @include transform(rotate(0deg) scale(1) skew(1deg) translate(0px) );}
+}
+
+@include keyframes(sizeit) {
+  0%    { @include transform( rotate(0deg) scale(1) skew(1deg) translate(0px) );}
+  // 25%  { @include transform (rotate(0deg) scale(1) skew(1deg) translate(0px) );}
+  // 50%  { @include transform (rotate(0deg) scale(1) skew(1deg) translate(0px) );}
+  // 50%  { @include transform (rotate(0deg) scale(1) skew(1deg) translate(0px) );}
+  100%    { @include transform(rotate(0deg) scale(1.5) skew(1deg) translate(1px) );}
+}
+
+@include keyframes(scroll){
+  0% {
+     background-position: 0px 0px;
+  }
+  100% {
+     background-position: 0px 1400px;
+  }
+}

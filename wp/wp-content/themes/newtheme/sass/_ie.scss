@@ -1,0 +1,27 @@
+html.ie8, html.ie7 {
+  
+  .clearfix{
+    @include clearfix;
+  }
+  .alignleft{
+    @include float-left;
+    margin-right: 1em;
+  }
+  .alignright{
+    @include float-right;
+    margin-left: 1em;
+  }
+  .alignnone{}
+  .aligncenter{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  
+  .mobile-menu{
+    display: none;
+  }
+
+
+
+}
