@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires at least: 3.2.1
 Tested up to: 3.8.1
-Stable tag: 2.7
+Stable tag: 2.7.4
 
 Saves submitted form data to the database and provides short codes to display it. Captures data from Contact Form 7 and Fast Secure Contact Form
 
@@ -86,6 +86,22 @@ You can always deactivate the plugin without loosing data.
 1. Admin Panel view of submitted form data
 
 == Changelog ==
+
+= 2.7.5 =
+* Simpler Google Live Data implementation
+* [cfdb-json] now supports "header" and "headers" options. Short code builder page now generates JSON export link.
+
+= 2.7.4 =
+* Fix: short code builder page for Google Live Data typo: was giving the spreadsheet function as "cfdbddata" instead of "cfdbdata"
+
+= 2.7.3 =
+* Fix for mysql_real_escape_string error
+
+= 2.7.2 =
+* Google Spreadsheet Live Data now fixed. But users need to regenerate Google script code
+* Google Spreadsheet Live Data function now supports all standard short code options (filter, show, hide, etc.)
+* Short Code Builder page now can build function call to be used in Google Spreadsheet
+* [cfdb-export-link], CSV exports and Excel export Links now support "headers" options
 
 = 2.7.1 =
 * Integration with wp-parsidate to shows Shamsi(Jalali) dates.

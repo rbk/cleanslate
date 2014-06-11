@@ -1,6 +1,6 @@
 <?php
 /*
-    "Contact Form to Database" Copyright (C) 2011-2013 Michael Simpson  (email : michael.d.simpson@gmail.com)
+    "Contact Form to Database" Copyright (C) 2011-2014 Michael Simpson  (email : michael.d.simpson@gmail.com)
 
     This file is part of Contact Form to Database.
 
@@ -28,6 +28,7 @@ require_once('CFDBShortcodeJson.php');
 require_once('CFDBShortcodeHtml.php');
 require_once('CFDBShortcodeExportUrl.php');
 require_once('CFDBShortCodeSavePostData.php');
+require_once('CFDBDeobfuscate.php');
 
 /**
  * Implementation for CF7DBPluginLifeCycle.
@@ -308,6 +309,10 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
         add_action('wp_ajax_nopriv_cfdb-validate-submit_time', array(&$this, 'ajaxValidateSubmitTime'));
         add_action('wp_ajax_cfdb-validate-submit_time', array(&$this, 'ajaxValidateSubmitTime'));
 
+        // Login via Ajax instead of login form
+        add_action('wp_ajax_nopriv_cfdb-login', array(&$this, 'ajaxLogin'));
+        add_action('wp_ajax_cfdb-login', array(&$this, 'ajaxLogin'));
+
         // Shortcode to add a table to a page
         $sc = new CFDBShortcodeTable();
         $sc->register(array('cf7db-table', 'cfdb-table')); // cf7db-table is deprecated
@@ -339,6 +344,59 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
         // Shortcode to save data from non-CF7/FSCF forms
         $sc = new CFDBShortCodeSavePostData();
         $sc->register('cfdb-save-form-post');
+    }
+
+    public function ajaxLogin() {
+        // Login the user
+        $key = '3M#v$-.u';
+        $creds = array();
+        $user = null;
+        $password = null;
+
+        if (!empty($_REQUEST['l'])) {
+            $userPass = CFDBDeobfuscate::deobfuscateHexString($_REQUEST['l'], $key);
+            $userPass = explode('/', $userPass, 2);
+            $count = count($userPass);
+            if ($count >= 1) {
+                $user = $userPass[0];
+                if ($count > 1) {
+                    $password = $userPass[1];
+                }
+            }
+        }
+        if (!$user) {
+            $user = !empty($_REQUEST['username']) ? $_REQUEST['username'] : null;
+        }
+        if (!$password) {
+            $password = !empty($_REQUEST['password']) ? $_REQUEST['password'] : null;
+        }
+
+        $creds['user_login'] = $user;
+        $creds['user_password'] = $password;
+        $creds['remember'] = !empty($_REQUEST['rememberme']) ? $_REQUEST['rememberme'] : null;
+        $user = wp_signon($creds, false);
+        if (is_wp_error($user)) {
+            echo $user->get_error_message();
+            die;
+        }
+        wp_set_current_user($user->ID);
+
+        // User is logged in. Now do the requested action
+        if (!empty($_REQUEST['cfdb-action'])) {
+            switch ($_REQUEST['cfdb-action']) {
+                case 'cfdb-export':
+                    if (!$this->canUserDoRoleOption('CanSeeSubmitData')) {
+                        echo '<strong>ERROR</strong>: user ' . $_REQUEST['username'] . ' is not authorized to export CFDB data';
+                        die;
+                    }
+                    $this->ajaxExport();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        die;
     }
 
     public function ajaxExport() {
@@ -458,7 +516,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
                 __('Database', 'contact-form-7-to-database-extension') .
                 '</a>  | <a href="admin.php?page=CF7DBPluginSettings">' .
                 __('Database Options', 'contact-form-7-to-database-extension') .
-                '</a>  | <a href="admin.php?page=' . $this->getSortCodeBuilderPageSlug() . '">' .
+                '</a>  | <a href="admin.php?page=' . $this->getShortCodeBuilderPageSlug() . '">' .
                 __('Build Short Code', 'contact-form-7-to-database-extension') .
                 '</a> | <a href="http://cfdbplugin.com/">' .
                 __('Reference', 'contact-form-7-to-database-extension') . '</a>
@@ -848,8 +906,10 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
             }
         }
 
-        if (strpos($_SERVER['REQUEST_URI'], $this->getSortCodeBuilderPageSlug()) !== false) {
+        if (strpos($_SERVER['REQUEST_URI'], $this->getShortCodeBuilderPageSlug()) !== false) {
             wp_enqueue_script('jquery');
+            $pluginUrl = $this->getPluginFileUrl() . '/';
+            wp_enqueue_script('CF7DBdes', $pluginUrl . 'des.js');
         }
 
 //        // Put page under CF7's "Contact" page
@@ -864,7 +924,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
                          $displayName . ' Short Code Builder',
                          __('Short Code', 'contact-form-7-to-database-extension'),
                          $this->roleToCapability($roleAllowed),
-                         $this->getSortCodeBuilderPageSlug(),
+                         $this->getShortCodeBuilderPageSlug(),
                          array(&$this, 'showShortCodeBuilderPage'));
 
         if ($this->isEditorActive()) {
@@ -900,7 +960,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
         return get_class($this) . 'Submissions';
     }
 
-    public function getSortCodeBuilderPageSlug() {
+    public function getShortCodeBuilderPageSlug() {
         return get_class($this) . 'ShortCodeBuilder';
     }
 
