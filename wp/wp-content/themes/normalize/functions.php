@@ -76,7 +76,6 @@ add_action( 'widgets_init', 'underscores_widgets_init' );
  * Enqueue scripts and styles.
  */
 function underscores_scripts() {
-	wp_enqueue_style('base-style', get_stylesheet_directory_uri() . '/css/app.css' );
 	wp_enqueue_script('underscores-plugins', get_template_directory_uri() . '/js/plugins.js', array(), '20120206', true );
 	wp_enqueue_script( 'underscores-common.js', get_template_directory_uri() . '/js/common.js', array(), '20120206', true );
 	wp_enqueue_script( 'underscores-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );

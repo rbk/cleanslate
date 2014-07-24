@@ -14,7 +14,13 @@
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-
+<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() . '/css/app.css'; ?>">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+	var guru = {
+		base_url: "<?php echo esc_url( home_url( '/' ) ); ?>"
+	}
+</script>
 <?php wp_head(); ?>
 </head>
 
