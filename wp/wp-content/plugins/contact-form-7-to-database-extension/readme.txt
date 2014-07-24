@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires at least: 3.2.1
 Tested up to: 3.9.1
-Stable tag: 2.7.5
+Stable tag: 2.8.4
 
 Saves submitted form data to the database and allow you to export the data to a file and use short codes to display it.
 
@@ -82,6 +82,25 @@ You can always deactivate the plugin without loosing data.
 1. Admin Panel view of submitted form data
 
 == Changelog ==
+
+= 2.8.5 =
+* Fix to error message introduced in 2.8.4
+
+= 2.8.4 =
+* New short code [cfdb-save-form-maker-post] can be used to capture data from Form Maker plugin.
+* Bug fix: (recently introduced in 2.8) Fixed handling of filter expressions with $_POST(field) where field is blank
+* Bug fix: Fix for rarely experienced bug where plugin is confused about needing to upgrade itself
+
+= 2.8.3 =
+* IMPORTANT: Addition fix to work properly with Contact Form 7 version 3.9
+
+= 2.8.2 =
+* IMPORTANT: Contact Form 7 users will need to update to this version when they update to Contact Form 7 version 3.9 otherwise data will no longer be saved in the database!
+* Bug fix: cases where blank version saved to DB was causing the plugin to keep trying to upgrade
+* Bug fix: data with blank column name was causing query to fail and data not to be displayed
+
+= 2.8.1 =
+* Bug fix: transform re-assigning the value of a column was creating a duplicate column
 
 = 2.8 =
 * Can put functions in short code filters. <a target="_cfdb_doc" href="http://cfdbplugin.com/?page_id=1073">See documentation</a>
