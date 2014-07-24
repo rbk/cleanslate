@@ -74,6 +74,14 @@ $arFields = array(
 		'facebook' => array(
 			'type' => 'text',
 			'title' => 'Facebook'
+		),
+		'youtube' => array(
+			'type' => 'text',
+			'title' => 'YouTube'
+		),	
+		'instagram' => array(
+			'type' => 'text',
+			'title' => 'Instagram'
 		)	
 	),
 	'map_options' => array(
@@ -388,12 +396,6 @@ function gurustu_google_analytics(){
 	<?php
 	endif;
 	
-}
-
-function guru_easy_admin() {
-
-
-
 }
 
 ?>
