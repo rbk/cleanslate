@@ -12,10 +12,8 @@
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="site-info">
-			<?php do_action( 'underscores_credits' ); ?>
-			<a href="http://wordpress.org/" rel="generator"><?php printf( __( 'Proudly powered by %s', 'underscores' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( __( 'Theme: %1$s by %2$s.', 'underscores' ), 'underscores', '<a href="http://underscores.me/" rel="designer">Underscores.me</a>' ); ?>
+			<span class="alignleft">Copyright <?php echo Date('Y'); ?>, <?php echo bloginfo('name'); ?></span>
+			<span id="gurustu" class="alignright">Web Design by <a target="_blank" href="http://gurustu.co" title="Best Website Design, Branding, Marketing, SEO, Videography, Animation, 3D Projection, Graphic Design, Social Media &amp; PR, Custom Website Design in Tulsa.">GuRuStu</a></span>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
