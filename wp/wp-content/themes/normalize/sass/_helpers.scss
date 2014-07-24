@@ -1,0 +1,26 @@
+/*
+*
+* Helper Classes
+*
+*/
+.alignright { float: right; margin-left: 1em; }
+.alignleft { float: left; margin-right: 1em; }
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+@media only screen and ( max-width: 768px ){
+	.desktop-only {
+		display: none;
+	}
+}
+@media only screen and ( min-width: 768px ){
+	.mobile-only {
+		display: none;
+	}
+}

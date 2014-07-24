@@ -47,7 +47,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
     public function getOptionMetaData() {
         return array(
             //'_version' => array('Installed Version'), // For testing upgrades
-            'Donated' => array(__('I have donated to this plugin', 'contact-form-7-to-database-extension'), 'false', 'true'),
+            //'Donated' => array(__('I have donated to this plugin', 'contact-form-7-to-database-extension'), 'false', 'true'),
             'IntegrateWithCF7' => array(__('Capture form submissions from Contact Form 7 Plugin', 'contact-form-7-to-database-extension'), 'true', 'false'),
             'IntegrateWithFSCF' => array(__('Capture form submissions from Fast Secure Contact Form Plugin', 'contact-form-7-to-database-extension'), 'true', 'false'),
             'IntegrateWithJetPackContactForm' => array(__('Capture form submissions from JetPack Contact Form', 'contact-form-7-to-database-extension'), 'true', 'false'),
@@ -58,6 +58,8 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
                                                     'Administrator', 'Editor', 'Author', 'Contributor', 'Subscriber', 'Anyone'),
             'CanChangeSubmitData' => array(__('Can Edit/Delete Submission data', 'contact-form-7-to-database-extension'),
                                            'Administrator', 'Editor', 'Author', 'Contributor', 'Subscriber', 'Anyone'),
+            'FunctionsInShortCodes' => array(__('Allow Any Function in Short Codes', 'contact-form-7-to-database-extension') .
+                    ' <a target="_blank" href="http://cfdbplugin.com/?page_id=1073">' . __('(Creates a security hole)', 'contact-form-7-to-database-extension') . '</a>', 'false', 'true'),
             'AllowRSS' => array(__('Allow RSS URLs', 'contact-form-7-to-database-extension') .
                     ' <a target="_blank" href="http://cfdbplugin.com/?p=918">' . __('(Creates a security hole)', 'contact-form-7-to-database-extension') . '</a>', 'false', 'true'),
             'Timezone' => array(__('Timezone to capture Submit Time. Blank will use WordPress Timezone setting. <a target="_blank" href="http://www.php.net/manual/en/timezones.php">Options</a>', 'contact-form-7-to-database-extension')),
@@ -530,14 +532,10 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
      * Also callback from Fast Secure Contact Form
      * @param $cf7 WPCF7_ContactForm|object the former when coming from CF7, the latter $fsctf_posted_data object variable
      * if coming from FSCF
-     * @return void
+     * @return bool
      */
     public function saveFormData($cf7) {
         try {
-            $title = stripslashes($cf7->title);
-            if ($this->fieldMatches($title, $this->getNoSaveForms())) {
-                return; // Don't save in DB
-            }
 
             $time = function_exists('microtime') ? microtime(true) : time();
             $ip = (isset($_SERVER['X_FORWARDED_FOR'])) ? $_SERVER['X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
@@ -560,9 +558,18 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
                     $user = $cf7->user;
                 }
                 else {
-                    error_log('CFDB Error: No or invalid value returned from "cfdb_form_data" filter: ' .
-                            print_r($newCf7, true));
+                    //error_log('CFDB Error: No or invalid value returned from "cfdb_form_data" filter: ' .
+                    //        print_r($newCf7, true));
+                    // Returning null from cfdb_form_data is a way to stop from saving the form
+                    return true;
                 }
+
+                // Get title after applying filter
+                $title = stripslashes($cf7->title);
+                if ($this->fieldMatches($title, $this->getNoSaveForms())) {
+                    return true; // Don't save in DB
+                }
+
             }
             catch (Exception $ex) {
                 error_log(sprintf('CFDB Error: %s:%s %s  %s', $ex->getFile(), $ex->getLine(), $ex->getMessage(), $ex->getTraceAsString()));
@@ -681,6 +688,9 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
         catch (Exception $ex) {
             error_log(sprintf('CFDB Error: %s:%s %s  %s', $ex->getFile(), $ex->getLine(), $ex->getMessage(), $ex->getTraceAsString()));
         }
+
+        // Indicate success to WordPress so it continues processing other unrelated hooks.
+        return true;
     }
 
     /**
@@ -708,6 +718,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
      * @param $post_id int
      * @param $all_values array
      * @param $extra_values array
+     * @return bool
      */
     public function saveJetPackContactFormData($post_id, $all_values, $extra_values) {
 
@@ -729,7 +740,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
             'title' => $title,
             'posted_data' => $all_values,
             'uploaded_files' => null);
-        $this->saveFormData($data);
+        return $this->saveFormData($data);
     }
 
     /**
@@ -738,6 +749,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
      * http://www.gravityhelp.com/documentation/page/Entry_Object
      * @param $form Form Object The current form
      * http://www.gravityhelp.com/documentation/page/Form_Object
+     * @return bool
      */
     public function saveGravityFormData($entry, $form) {
 
@@ -749,7 +761,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
 
         // Iterate through the field definitions and get their values
         if (! is_array($form['fields'])) {
-            return;
+            return true;
         }
         foreach ($form['fields'] as $field) {
             if (! is_array($field)) {
@@ -839,7 +851,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
             'title' => $form['title'],
             'posted_data' => $postedData,
             'uploaded_files' => $uploadFiles);
-        $this->saveFormData($data);
+        return $this->saveFormData($data);
     }
 
     /**
@@ -981,9 +993,16 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
      * @return void
      */
     public function whatsInTheDBPage() {
-        require_once('CFDBViewWhatsInDB.php');
-        $view = new CFDBViewWhatsInDB;
-        $view->display($this);
+        if (isset($_REQUEST['form_name']) && isset($_REQUEST['submit_time'])) {
+            require_once('ExportEntry.php');
+            $exp = new ExportEntry();
+            $exp->export($_REQUEST['form_name'], array('submit_time' => $_REQUEST['submit_time']));
+
+        } else {
+            require_once('CFDBViewWhatsInDB.php');
+            $view = new CFDBViewWhatsInDB;
+            $view->display($this);
+        }
     }
 
     static $checkForCustomDateFormat = true;
@@ -1220,7 +1239,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle {
         if (!$this->isEditorActive()) {
             return;
         }
-        $requiredEditorVersion = '1.2.2';
+        $requiredEditorVersion = '1.3.1';
         $editorData = $this->getEditorPluginData();
         if (isset($editorData['Version'])) {
             if (version_compare($editorData['Version'], $requiredEditorVersion) == -1) {

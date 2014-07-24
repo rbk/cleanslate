@@ -5,20 +5,24 @@ Tags: contact form,database,contact form database,save contact form,form databas
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires at least: 3.2.1
-Tested up to: 3.8.1
-Stable tag: 2.7.4
+Tested up to: 3.9.1
+Stable tag: 2.7.5
 
-Saves submitted form data to the database and provides short codes to display it. Captures data from Contact Form 7 and Fast Secure Contact Form
+Saves submitted form data to the database and allow you to export the data to a file and use short codes to display it.
 
 == Description ==
 
-This "CFDB" plugin saves contact form submissions to your WordPress database and provides short codes to retrieve and display the data.
+Find detailed information, including a video tutorial on the <a href="http://cfdbplugin.com/">CFDB Plugin Site</a>
+
+The "CFDB" plugin saves contact form submissions to your WordPress database and provides short codes to retrieve and display the data.
+See the CFDB Documentation Site
 
 By simply installing the plugin, it will automatically begin to capture submissions from:
 
 * JetPack Contact Form plugin
 * Contact Form 7 (CF7) plugin
 * Fast Secure Contact Form (FSCF) plugin
+* Gravity Forms plugin
 
 Other form submissions can be saved with the addition of the <a href="http://cfdbplugin.com/?page_id=508">[cfdb-save-form-post]</a> short code on the target submission page.
 
@@ -30,7 +34,7 @@ Looking at your data in the WP Admin Area
 This plugin provides three administration pages in the administration area under the "Contact form DB" submenu.
 
 * "Contact form DB" to view and export form submission data
-* "Database Short Code" page to generate short codes and export
+* "Database Short Code" page to generate short codes and exports
 * "Database Options" to change configuration parameters
 
 Displaying Saved Data in Posts and Pages
@@ -38,19 +42,15 @@ Displaying Saved Data in Posts and Pages
 Use short codes such as [cfdb-html], [cfdb-table], [cfdb-datatable], [cfdb-value] and [cfdb-json] to display the data on a non-admin page on your site.
 Use the short code builder page to set short code options.
 
-Disclaimer: I am not the maker of JetPack, Contact Form 7 nor Fast Secure Contact Form and am not associated with the development of those plugins.
-
 == Installation ==
 
 1. Your WordPress site must be running PHP5 or better. This plugin will fail to activate if your site is running PHP4.
-1. Be sure that any of Contact Form 7, Fast Secure Contact Form and/or JetPack is installed and activated (this is an extension to them)
-1. Fast Secure Contact Form should be at least version 2.9.7
-
-Notes:
-
-* Tested using PHP 5.2.13, MySQL 5.0 (Using 1and1 for hosting)
+1. Be sure that any of Contact Form 7, Fast Secure Contact Form, JetPack, and/or Gravity Forms is installed and activated
 
 == Frequently Asked Questions ==
+
+= Is there a tutorial? =
+See the <a href="https://www.youtube.com/watch?v=mcbIKJK6EJ0">Video Tutorial</a>
 
 = I installed the plugin but I don't see any of my forms listed in the administration page =
 Nothing will show until you have actual form submissions captured by this plugin. The plugin is not aware of your form definitions, it is only aware of form submissions.
@@ -61,9 +61,7 @@ Refer the <a href="http://cfdbplugin.com/">Plugin Site</a>
 
 = Where do I see the data? =
 
-* Contact Form 7 Users: In the admin page, under CF7's top level "Contact" admin menu. Look for "Contact" -> "Database"
-* Fast Secure Contact Form Users: In the admin page, Plugins -> FS Contact Form Option, There is a "Database" link at the top of the page
-* For a direct link, use http://&lt;your-wordpress-site&gt;/wp-admin/admin.php?page=CF7DBPluginSubmissions
+* In the admin page, "Contact Form DB"
 
 = Can I display form data on a non-admin web page or in a post? =
 
@@ -73,19 +71,27 @@ Yes, <a href="http://cfdbplugin.com/?page_id=89">documentation on shortcodes</a>
 
 `wp_cf7dbplugin_submits`
 Note: if you changed your WordPress MySql table prefix from the default `wp_` to something else, then this table will also have that prefix instead of `wp_` (`$wpdb->prefix`)
-Note: previous to version 2.0, the table was named "wp_CF7DBPlugin_SUBMITS" but was changed to all-lowercase as part of the 2.0 upgrade.
 
 = If I uninstall the plugin, what happens to its data in the database? =
 
 By default it remains in your database in its own table. There is an option to have the plugin delete all its data if you uninstall it that you can set if you like.
 You can always deactivate the plugin without loosing data.
 
-
 == Screenshots ==
 
 1. Admin Panel view of submitted form data
 
 == Changelog ==
+
+= 2.8 =
+* Can put functions in short code filters. <a target="_cfdb_doc" href="http://cfdbplugin.com/?page_id=1073">See documentation</a>
+* Can transform data coming into short codes by assigning functions or classes in the new "trans" short code attribute. <a target="_cfdb_doc" href="http://cfdbplugin.com/?page_id=1076">See documentation</a>
+* All short code options can be set to $_POST(value), $_GET(value), $_COOKIE(value)
+* Most short codes now allows for an optional "before" and "after" section
+* Admin page view now has links on each row to bring up a window with just that entry's data. Easier to read and print (and edit if Editor extension is installed)
+* Support for MySqli which should fix some character encoding issues
+* Returning null from cfdb_form_data filter now stops the form from saving
+* Bug fix: hook to save form data was not returning "true" an causing subsequent hooks for other plugins to not be called.
 
 = 2.7.5 =
 * Simpler Google Live Data implementation

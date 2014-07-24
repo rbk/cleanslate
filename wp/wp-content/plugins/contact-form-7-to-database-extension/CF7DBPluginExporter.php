@@ -28,6 +28,10 @@ class CF7DBPluginExporter {
         // Consolidate GET and POST parameters. Allow GET to override POST.
         $params = array_merge($_POST, $_GET);
 
+        if (array_key_exists('content', $params)) {
+            $params['content'] = stripslashes($params['content']);
+        }
+
         //print_r($params);
 
         // Assumes coming from CF7DBPlugin::whatsInTheDBPage()
@@ -145,6 +149,11 @@ class CF7DBPluginExporter {
             case 'RSS':
                 require_once('ExportToRSS.php');
                 $exporter = new ExportToRSS();
+                $exporter->export($formName, $options);
+                break;
+            case 'ENTRY':
+                require_once('ExportEntry.php');
+                $exporter = new ExportEntry();
                 $exporter->export($formName, $options);
                 break;
             case 'CSVUTF8':

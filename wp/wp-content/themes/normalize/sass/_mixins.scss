@@ -1,0 +1,9 @@
+@mixin main-sprite($w:0,$h:0,$x:0,$y:0){
+  display: block;
+  background-image:url("../images/sprite.png");
+  background-repeat: no-repeat;
+  width: $w;
+  height: $h;
+  background-position: $x $y;
+  text-indent: -9999px;
+}
