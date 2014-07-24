@@ -1,3 +1,3 @@
-jQuery(document).ready(function($){
+$(function(){
 	console.log('console ready');
 });

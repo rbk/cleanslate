@@ -76,16 +76,34 @@ add_action( 'widgets_init', 'underscores_widgets_init' );
  * Enqueue scripts and styles.
  */
 function underscores_scripts() {
+	if ( !is_admin() ) {
+		// LETS LOAD JQUERY FROM GOOGLE IN THE HEADER
+		wp_deregister_script('jquery');
+		// wp_register_script('jquery', ("//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"), false);
+		// wp_enqueue_script('jquery');
+	}
+	
 	wp_enqueue_script('underscores-plugins', get_template_directory_uri() . '/js/plugins.js', array(), '20120206', true );
 	wp_enqueue_script( 'underscores-common.js', get_template_directory_uri() . '/js/common.js', array(), '20120206', true );
 	wp_enqueue_script( 'underscores-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 	wp_enqueue_script( 'underscores-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 
+
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
+		// uncomment if you need comments
+		// wp_enqueue_script( 'comment-reply' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'underscores_scripts' );
+
+// Sample custom post type
+// Source: https://github.com/mboynes/super-cpt
+if( class_exists( 'Super_Custom_Post_Type' ) ){
+	$movies = new Super_Custom_Post_Type( 'movie' );
+	$movies->set_icon( 'film' );
+}
+
 
 /**
  * Implement the Custom Header feature.

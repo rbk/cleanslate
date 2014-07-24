@@ -19,12 +19,12 @@ $arPages = array(
 		'title' => 'Social',
 		'description' => 'Manage Your Social Network Settings'
 	),
-	'map_options' => array(
-		'title' => 'Map Options',
-		'description' => 'Change Your Map Settings'
-	),
+	// 'map_options' => array(
+	// 	'title' => 'Map Options',
+	// 	'description' => 'Change Your Map Settings'
+	// ),
 	'more_options' => array(
-		'title' => 'More Options',
+		'title' => 'Other Options',
 		'description' => ''
 	)
 );
@@ -137,9 +137,9 @@ function guru_settings_frontend_scripts(){
 	$map_api_key = get_option('guru_google_api_key');
 
 	if( empty($map_api_key) ){
-		wp_enqueue_script( 'google_maps_api_v3', '//maps.googleapis.com/maps/api/js?&sensor=true', array('jquery') );
+		// wp_enqueue_script( 'google_maps_api_v3', '//maps.googleapis.com/maps/api/js?&sensor=true', array('jquery') );
 	} else {
-		wp_enqueue_script( 'google_maps_api_v3', '//maps.googleapis.com/maps/api/js?key=' . get_option('guru_google_api_key') . '&sensor=true', array('jquery') );
+		// wp_enqueue_script( 'google_maps_api_v3', '//maps.googleapis.com/maps/api/js?key=' . get_option('guru_google_api_key') . '&sensor=true', array('jquery') );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'guru_settings_frontend_scripts' );
