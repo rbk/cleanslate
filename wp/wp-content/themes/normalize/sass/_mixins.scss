@@ -7,3 +7,10 @@
   background-position: $x $y;
   text-indent: -9999px;
 }
+@mixin opacity($number: .5){
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=" $number*100 ")";
+    filter: alpha(opacity= $number*100 );
+    -moz-opacity: $number;
+    -khtml-opacity: $number;
+    opacity: $number;
+}
