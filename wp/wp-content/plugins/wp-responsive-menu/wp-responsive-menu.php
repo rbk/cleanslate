@@ -2,8 +2,8 @@
 /*
 Plugin Name: WP Responsive Menu
 Plugin URI: http://magnigenie.com/wp-responsive-menu-mobile-menu-plugin-wordpress/
-Description: WP Responsive Menu adds a cool sliding responsive menu to your site.
-Version: 1.0
+Description: WP Responsive menu is a mobile menu plugin which comes with 1 click installation and has lots of admin option to customize the plugin as per your needs.
+Version: 2.0.5
 Author: Nirmal Ram
 Author URI: http://magnigenie.com
 License: GPLv2 or later
@@ -22,35 +22,35 @@ load_plugin_textdomain('wprmenu', false, basename( dirname( __FILE__ ) ) . '/lan
  * Add admin settings
  *
  */
-if( is_admin() ) require dirname(__FILE__).'/admin.php';
+define( 'WPR_OPTIONS_FRAMEWORK_DIRECTORY',  plugins_url( '/inc/', __FILE__ ) );
+define( 'WPR_OPTIONS_FRAMEWORK_PATH',   dirname( __FILE__ ) . '/inc/' );
+require_once dirname( __FILE__ ) . '/inc/options-framework.php';
 
-add_action( 'wp_enqueue_scripts', 'wprmenu_enqueue_scripts' ); // add required js/css files
+// add required js/css files
+add_action( 'wp_enqueue_scripts', 'wprmenu_enqueue_scripts' );
 
 function wprmenu_enqueue_scripts() {
+	$options = get_option('wprmenu_options');
+	wp_enqueue_style( 'wprmenu.css' , plugins_url('css/wprmenu.css', __FILE__) );
+	wp_enqueue_style( 'wprmenu-font' , '//fonts.googleapis.com/css?family=Open+Sans:400,300,600' );
 	wp_enqueue_script('jquery.transit', plugins_url( '/js/jquery.transit.min.js', __FILE__ ), array( 'jquery' ));
 	wp_enqueue_script('sidr', plugins_url( '/js/jquery.sidr.js', __FILE__ ), array( 'jquery' ));
 	wp_enqueue_script('wprmenu.js', plugins_url( '/js/wprmenu.js', __FILE__ ), array( 'jquery' ));
-
-	wp_enqueue_style( 'wprmenu.css' , plugins_url('css/wprmenu.css', __FILE__) );
+	$wpr_options = array( 'zooming' => $options['zooming'],'from_width' => $options['from_width'],'swipe' => $options['swipe'] );
+	wp_localize_script( 'wprmenu.js', 'wprmenu', $wpr_options );
 }
 
-
-add_action( 'admin_enqueue_scripts', 'wprmenu_admin_scripts' );
-function wprmenu_admin_scripts() {
-	wp_enqueue_style( 'wp-color-picker' );
-	wp_enqueue_script( 'wprmenu-admin-js', plugins_url('js/wprmenu-admin.js', __FILE__ ), array( 'jquery', 'wp-color-picker' ), false, true );
+function wpr_search_form() {
+	return '<form role="search" method="get" class="wpr-search-form" action="' . site_url() . '"><label><input type="search" class="wpr-search-field" placeholder="Search ..." value="" name="s" title="Search for:"></label></form>';
 }
-
-$options = get_option('wprmenu_options');
 
 add_action('wp_footer', 'wprmenu_menu', 100);
-
 function wprmenu_menu() {
 	$options = get_option('wprmenu_options');
 	if($options['enabled']) :
 		?>
-		<div id="wprmenu_bar" class="wprmenu_bar" data-from_width="<?php echo $options['from_width'] ?>">
-			<div class="wprmenu_ic">
+		<div id="wprmenu_bar" class="wprmenu_bar">
+			<div class="wprmenu_icon">
 				<span class="wprmenu_ic_1"></span>
 				<span class="wprmenu_ic_2"></span>
 				<span class="wprmenu_ic_3"></span>
@@ -61,7 +61,12 @@ function wprmenu_menu() {
 			</div>
 		</div>
 
-		<div id="wprmenu_menu" class="wprmenu_levels <?php echo $options['position'] ?> <?php if($options["nesting_icon"] != '') echo 'wprmenu_custom_icons'  ?>" data-custom_icon="<?php echo $options["nesting_icon"]  ?>" data-custom_icon_open="<?php echo $options["nesting_icon_open"]  ?>" data-zooming="<?php echo $options["zooming"] ?>" >
+		<div id="wprmenu_menu" class="wprmenu_levels <?php echo $options['position'] ?> wprmenu_custom_icons">
+			<?php if( $options['search_box'] == 'above_menu' ) { ?> 
+			<div class="wpr_search">
+				<?php echo wpr_search_form(); ?>
+			</div>
+			<?php } ?>
 			<ul id="wprmenu_menu_ul">
 				<?php
 				$menus = get_terms('nav_menu',array('hide_empty'=>false));
@@ -73,6 +78,11 @@ function wprmenu_menu() {
 				endif;
 				?>
 			</ul>
+			<?php if( $options['search_box'] == 'below_menu' ) { ?> 
+			<div class="wpr_search">
+				<?php echo wpr_search_form(); ?>
+			</div>
+			<?php } ?>
 		</div>
 		<?php
 	endif;
@@ -87,9 +97,6 @@ function wprmenu_header_styles() {
 			/* apply appearance settings */
 			#wprmenu_bar {
 				background: <?php echo $options["bar_bgd"] ?>;
-				<?php if (is_admin_bar_showing()) : ?>
-					top:28px;
-				<?php endif; ?>
 			}
 			#wprmenu_bar .menu_title, #wprmenu_bar .wprmenu_icon_menu {
 				color: <?php echo $options["bar_color"] ?>;
@@ -119,7 +126,7 @@ function wprmenu_header_styles() {
 			#wprmenu_menu.wprmenu_levels ul li ul {
 				border-top:1px solid <?php echo $options["menu_border_bottom"] ?>;
 			}
-			#wprmenu_bar .wprmenu_ic span {
+			#wprmenu_bar .wprmenu_icon span {
 				background: <?php echo $options["menu_icon_color"] ?>;
 			}
 			<?php
@@ -144,11 +151,6 @@ function wprmenu_header_styles() {
 				left: -<?php echo $options["how_wide"] ?>%;
 			    right: auto;
 			}
-			<?php if (is_admin_bar_showing()) : ?>
-				#wprmenu_menu.left ul#wprmenu_menu_ul, #wprmenu_menu.right ul#wprmenu_menu_ul {
-					padding-top: 70px; /* 42 + 28 */
-				}
-			<?php endif; ?>
 			#wprmenu_menu.right {
 				width:<?php echo $options["how_wide"] ?>%;
 			    right: -<?php echo $options["how_wide"] ?>%;
@@ -163,7 +165,7 @@ function wprmenu_header_styles() {
 			<?php endif; ?>
 
 			<?php if($options["menu_symbol_pos"] == 'right') : ?>
-				#wprmenu_bar .wprmenu_ic {
+				#wprmenu_bar .wprmenu_icon {
 					float: <?php echo $options["menu_symbol_pos"] ?>!important;
 					margin-right:0px!important;
 				}
@@ -171,23 +173,18 @@ function wprmenu_header_styles() {
 					pading-left: 0px;
 				}
 			<?php endif; ?>
-
-
 			/* show the bar and hide othere navigation elements */
 			@media only screen and (max-width: <?php echo $options["from_width"] ?>px) {
 				html { padding-top: 42px!important; }
 				#wprmenu_bar { display: block!important; }
+				div#wpadminbar { position: fixed; }
 				<?php
-				if(count($options['hide']) > 0) {
-					echo implode(', ', $options['hide']);
+				if( $options['hide'] != '' ) {
+					echo $options['hide'];
 					echo ' { display:none!important; }';
 				}
 				?>
 			}
-			/* hide the bar & the menu */
-			@media only screen and (min-width: <?php echo (int)$options["from_width"]+1 ?>px) {
-			}
-
 		</style>
 		<?php
 	endif;

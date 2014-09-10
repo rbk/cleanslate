@@ -1,8 +1,4 @@
 /*
-Basic font for the plugin
- */
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
-/*
 Icons from icon font  - setup
  */
 @font-face {
@@ -51,9 +47,6 @@ Icons from icon font  - setup
     margin: -1px 0 0 !important;
     width: 1px !important;
 }
-
-
-
 /*
 The top Bar that shows/hides the menu
  */
@@ -66,7 +59,7 @@ The top Bar that shows/hides the menu
 	width:100%;
 	display: none;
 	cursor: pointer;
-	z-index: 99998;
+	z-index: 98;
 	overflow: hidden;
 	height:42px;
 	display: none;
@@ -87,22 +80,32 @@ The top Bar that shows/hides the menu
   width:auto;
   height: 25px;
 }
+/* Search Box */
+.wpr_search {
+	padding: 10px !important;
+}
+.wpr_search .wpr-search-field {
+	padding: 5px !important;
+	border: 1px solid #ccc;
+	max-width: 100%;
+	width: 100%;
+}
 /* font icon */
 #wprmenu_bar .wprmenu_icon_menu {
 	color:#f2f2f2;
 	margin-right:5px;
 }
 /* html icon */
-#wprmenu_bar .wprmenu_ic {
+#wprmenu_bar .wprmenu_icon {
 	width: 20px;
 	height: 22px;
 	overflow: hidden;
 	float: left;
 	margin-right: 16px;
 	padding-top: 2px;
-  position: relative;
+	position: relative;
 }
-#wprmenu_bar .wprmenu_ic span {
+#wprmenu_bar .wprmenu_icon span {
   -webkit-transition: all .01s ease-in-out;
   -moz-transition: all .01s ease-in-out;
   -o-transition: all .01s ease-in-out;
@@ -159,6 +162,7 @@ body { position: relative!important; }
 	width:100%;
 	display: none;
 	position: relative;
+	z-index: 9999;
 }
 #wprmenu_menu.left, #wprmenu_menu.right {
     display: none;
@@ -166,24 +170,32 @@ body { position: relative!important; }
     position: fixed;
     top: 0px;
     height: 100%;
-    z-index: 99997;
+    z-index: 97;
     overflow-x: none;
     overflow-y: auto;
     background: #2E2E2E;
+	top: 42px;
+	padding-bottom: 43px;
 }
-#wprmenu_menu.left ul#wprmenu_menu_ul, #wprmenu_menu.right ul#wprmenu_menu_ul {
-	padding-top: 42px;
+body.admin-bar #wprmenu_bar {
+	top:32px;
+	padding-bottom: 33px;
 }
-
-
-
-
-
-
-
-
-
-
+body.admin-bar #wprmenu_menu.left, 
+body.admin-bar #wprmenu_menu.right {
+	top: 74px;
+	padding-bottom: 75px;
+}
+@media only screen and (max-width: 782px) {
+	body.admin-bar #wprmenu_menu.left, 
+	body.admin-bar #wprmenu_menu.right {
+		top: 86px;
+		padding-bottom: 87px;
+	}
+	body.admin-bar #wprmenu_bar {
+		top:46px;
+	}
+}
 /*1st level*/
 #wprmenu_menu ul {
 	margin:0px;
@@ -222,7 +234,7 @@ body { position: relative!important; }
 #wprmenu_menu.wprmenu_levels ul li a{
 	float: left;
 	border: none;
-
+	width: 100%;
 }
 #wprmenu_menu.wprmenu_levels a.wprmenu_parent_item {
 	border-left:1px solid #474747;

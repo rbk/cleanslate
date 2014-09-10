@@ -1,9 +1,9 @@
 === WP Responsive Menu ===
-Contributors: sagarseth9
-Tags: Responsive Menu, Mobile Menu, Responsive Menu Plugin, WP Responsive Menu, Wordpress mobile menu
-Requires at least: 3.0
-Tested up to: 3.9
-Stable tag: 1.0
+Contributors: sagarseth9,magnigenie
+Tags: Wordpress Responsive Menu, Genesis responsive menu, Genesis Mobile Menu, Thesis Mobile Menu, Thesis Responsive Menu,  Mobile Menu, Responsive Menu Plugin, WP Responsive Menu, Wordpress mobile menu
+Requires at least: 3.4
+Tested up to: 4.0
+Stable tag: 2.0.5
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=sagar.seth9@gmail.com&item_name=WP%20Responsive%20Menu&return=http://magnigenie.com
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,10 +12,9 @@ WP Responsive Menu turns your WordPress menu to a highy customizable sliding res
 
 == Description ==
 
-Using WP Responsive Menu plugin you can easily get highly customizable mobile menu plugin for your wordpress site. This plugin can easily convert your wordpress 3.0+ menu to a great looking sliding menu for mobile devices. 
+WordPress Responsive Menu plugin will help you to get a cool, highly customizable mobile menu plugin. Using this plugin you can easily convert your wordpress menu to a great, elegant looking sliding menu for all mobile devices.
 
 = Features: =
-
 * Fully responsive and works on all type of mobile devices. 
 * Easily integrates with wordpress menu system.
 * Easy to use admin interface. 
@@ -27,11 +26,18 @@ Using WP Responsive Menu plugin you can easily get highly customizable mobile me
 * Supports swipe gestures.
 * Enable/Disable pinch to zoom feature.
 * Works perfectly on all devices/platforms.
+* Add a custom search bar to your menu.
+
+This plugin works out of box with any theme frameworks like genesis or thesis and it also works fine with multisite setups.
 
 = Important Notes =
+If you are looking for more options then [check out the pro version](http://magnigenie.com/wp-responsive-menu-pro/) of the plugin.
+
 This plugin is based on  [sidr jquery menu plugin](https://github.com/artberri/sidr).
 
-If you have any  suggestions for a new plugin, feel free to email me at sagarseth9@gmail.com.
+For Quick support please check WP Responsive menu [Support forum](http://magnigenie.com/support/queries/wp-responsive-menu/).
+
+If you have any  suggestions for a new plugin, feel free to email me at sagar@magnigenie.com.
 
 Check out [the demo](http://magnigenie.com/wp-responsive-menu-mobile-menu-plugin-wordpress/)
 
@@ -46,7 +52,38 @@ Check out [the demo](http://magnigenie.com/wp-responsive-menu-mobile-menu-plugin
 == Screenshots ==
 
 1. Check out [the demo](http://magnigenie.com/wp-responsive-menu-mobile-menu-plugin-wordpress/)
+
 == ChangeLog ==
+
+= Version 2.0.5 =
+
+* Updated google font loading method so that it would adapt to the protocol of the website.
+
+= Version 2.0.4 =
+
+* Fixed browser javascript issue for lower versions of IE.
+
+= Version 2.0.3 =
+
+* Fixed the submenu icon not showing error.
+* Fixed menu spacing issue.
+
+= Version 2.0.2 =
+
+* Fixed jquery sidr issue for the top menu.
+* Fixed menu scroll issue when there is more items inside menu.
+* Fixed top menu z-index issue.
+
+= Version 2.0.1 =
+
+* Fixed plugin conflict with the themes already using options framework for their theme configuration.
+
+= Version 2.0 =
+
+* Completely removed plugin settings page and used options framework for admin settings of the plugin.
+* Fixed admin bar issue when user is logged in.
+* Add option to disable swipe.
+* Added admin option to add search box to menu.
 
 = Version 1.0 =
 
@@ -54,6 +91,6 @@ Check out [the demo](http://magnigenie.com/wp-responsive-menu-mobile-menu-plugin
 
 == Upgrade Notice ==
 
-= Version 1.0 =
+= Version 2.0.5 =
 
-* Initial public release.
+* As I have updated the plugin options panel so there might be few settings problems. If you are having any such problem try to check the plugin settings and configure it accordingly.
