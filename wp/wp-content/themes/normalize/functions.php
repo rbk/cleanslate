@@ -53,6 +53,8 @@ function underscores_setup() {
 		'default-color' => 'ffffff',
 		'default-image' => '',
 	) ) );
+
+	add_editor_style( get_template_directory_uri() . '/css/app.css' );
 }
 endif; // underscores_setup
 add_action( 'after_setup_theme', 'underscores_setup' );
