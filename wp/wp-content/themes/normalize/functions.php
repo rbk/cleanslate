@@ -90,6 +90,14 @@ function underscores_scripts() {
 	wp_enqueue_script( 'underscores-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 	wp_enqueue_script( 'underscores-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 
+	// Live Reload
+	$host = $_SERVER['HTTP_HOST'];
+	if( $host == 'gurustudev.com' ){
+		wp_enqueue_script( 'livereload', 'http://gurustudev.com:35729/livereload.js', array(), '20130115', false );
+	} else if( $host == 'localhost' ) {
+		wp_enqueue_script( 'livereload', 'localhost:35729/livereload.js', array(), '20130115', false );
+	}
+
 
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

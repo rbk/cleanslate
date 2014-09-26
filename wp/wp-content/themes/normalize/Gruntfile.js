@@ -13,9 +13,16 @@ module.exports = function(grunt) {
             css: {
                 files: '**/*.scss',
                 tasks: ['sass']
+            },
+            livereload: {
+                files: ['*.html', '*.php', 'js/**/*.{js,json}', 'css/*.css','img/**/*.{png,jpg,jpeg,gif,webp,svg}'],
+                options: {
+                    livereload: true
+                }
             }
         }
     });
+    grunt.loadNpmTasks('grunt-livereload');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.registerTask('default', [ 'watch' ]);
