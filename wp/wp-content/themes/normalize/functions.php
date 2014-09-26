@@ -106,6 +106,8 @@ if( class_exists( 'Super_Custom_Post_Type' ) ){
 	$movies->set_icon( 'film' );
 }
 
+// Show SEO box last
+add_filter( 'wpseo_metabox_prio', function() { return 'low';});
 
 /**
  * Implement the Custom Header feature.
